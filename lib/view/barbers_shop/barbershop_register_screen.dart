@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:barberzlink/widgets/custom_button.dart';
+import 'package:barberzlink/widgets/dotted_container.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../widgets/custom_textfield.dart';
 
@@ -59,17 +64,27 @@ class _BarberShopRegistrationScreenState
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickMainImage() async {
-    final picked = await _picker.pickImage(source: ImageSource.gallery);
-    if (picked != null) setState(() => _mainImage = File(picked.path));
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      final picked = await _picker.pickImage(source: ImageSource.gallery);
+      if (picked != null) setState(() => _mainImage = File(picked.path));
+    } else {
+      openAppSettings();
+    }
   }
 
   Future<void> _pickGalleryImages() async {
-    final picked = await _picker.pickMultiImage();
-    if (picked.isNotEmpty) {
-      setState(() {
-        _galleryImages.clear();
-        _galleryImages.addAll(picked.take(5).map((e) => File(e.path)));
-      });
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      final picked = await _picker.pickMultiImage();
+      if (picked.isNotEmpty) {
+        setState(() {
+          _galleryImages.clear();
+          _galleryImages.addAll(picked.take(5).map((e) => File(e.path)));
+        });
+      }
+    } else {
+      openAppSettings();
     }
   }
 
@@ -92,423 +107,407 @@ class _BarberShopRegistrationScreenState
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(80.h),
-            child: CustomAppBar(
-              title: "BarberShop Registration",
-              isBack: true,
-            )),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                // Logo
-                Image.asset(
-                  'assets/images/barberz_logo.png',
-                  height: 100,
-                ),
-                const SizedBox(height: 16),
-                Text(
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text(
                   'BarberShop Registration',
-                  style: GoogleFonts.poppins(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+                  style: AppTextStyle.semiBold(),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'Join Barberz Link and grow your visibility online!',
-                  style: GoogleFonts.poppins(
-                    color: Colors.black54,
-                    fontSize: 14,
-                  ),
+                centerTitle: true,
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'BarberShop Registration',
+                  isBack: true,
+                )),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Logo
+              Image.asset(
+                AppStrings.barbershopImage,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'BarberShop Registration',
+                style: GoogleFonts.poppins(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                 ),
-                const SizedBox(height: 30),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Join Barberz Link and grow your visibility online!',
+                style: GoogleFonts.poppins(
+                  color: Colors.black54,
+                  fontSize: 14,
+                ),
+              ),
 
-                // User Info
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'First Name',
-                  label: 'First Name',
-                  icon: Icons.person,
-                  controller: _firstName,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Last Name',
-                  label: 'Last Name',
-                  icon: Icons.person_outline,
-                  controller: _lastName,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'User Email',
-                  label: 'User Email',
-                  icon: Icons.email_outlined,
-                  controller: _email,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Username',
-                  label: 'Username',
-                  icon: Icons.account_circle_outlined,
-                  controller: _username,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Password',
-                  label: 'Password',
-                  icon: Icons.lock_outline,
-                  controller: _password,
-                  obscure: true,
-                ),
-                const SizedBox(height: 18),
-
-                // Shop Info
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Barbershop Name',
-                  label: 'Barbershop Name',
-                  icon: Icons.storefront_outlined,
-                  controller: _shopName,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Barbershop Full Address',
-                  label: 'Barbershop Full Address',
-                  icon: Icons.location_on_outlined,
-                  controller: _fullAddress,
-                ),
-                const SizedBox(height: 8),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'So we can improve your Google Listing',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'City',
-                  label: 'City',
-                  icon: Icons.location_city,
-                  controller: _city,
-                ),
-                const SizedBox(height: 18),
-
-                // State Dropdown
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF8F8F8),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 12.w),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      isExpanded: true,
-                      value: _selectedState,
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.grey.shade600,
+              const SizedBox(height: 30),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      // User Info
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'First Name',
+                        label: 'First Name',
+                        icon: Icons.person,
+                        controller: _firstName,
                       ),
-                      dropdownColor: Colors.white,
-                      items: Injections.instance.states
-                          .map(
-                            (s) => DropdownMenuItem(
-                              value: s,
-                              child: Text(
-                                s,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() => _selectedState = value!);
-                      },
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 18),
-
-                // About Field
-
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'About',
-                  label: 'About',
-                  controller: _about,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 5,
-                ),
-                const SizedBox(height: 18),
-
-                // Contact Info
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Phone',
-                  label: 'Phone',
-                  icon: Icons.phone,
-                  controller: _phone,
-                  keyboardType: TextInputType.phone,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Website',
-                  label: 'Website',
-                  icon: Icons.language,
-                  controller: _website,
-                  keyboardType: TextInputType.url,
-                ),
-                const SizedBox(height: 18),
-                CustomTextField(
-                  isTitle: true,
-                  titleName: 'Instagram',
-                  label: 'Instagram',
-                  icon: Icons.camera_alt_outlined,
-                  controller: _instagram,
-                ),
-                const SizedBox(height: 30),
-
-                // Popular Services
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Popular Services:',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                CheckboxListTile(
-                  title: Text('Select All', style: AppTextStyle.medium()),
-                  value: _selectAll,
-                  activeColor: Colors.amber[800],
-                  onChanged: _toggleSelectAll,
-                ),
-                ..._services.map((service) {
-                  return CheckboxListTile(
-                    title: Text(service, style: AppTextStyle.medium()),
-                    value: _selectedServices[service],
-                    activeColor: Colors.amber[800],
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedServices[service] = value!;
-                        _selectAll = _selectedServices.values
-                            .every((selected) => selected);
-                      });
-                    },
-                  );
-                }),
-                const SizedBox(height: 30),
-
-                // Main Image
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Shop Main Image',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                GestureDetector(
-                  onTap: _pickMainImage,
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F8F8),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.black26,
-                        width: 1.2,
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Last Name',
+                        label: 'Last Name',
+                        icon: Icons.person_outline,
+                        controller: _lastName,
                       ),
-                    ),
-                    child: _mainImage == null
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.cloud_upload_outlined,
-                                    color: Colors.black54, size: 30),
-                                SizedBox(height: 8),
-                                Text('Drop your file here or click to upload'),
-                              ],
-                            ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.file(_mainImage!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: double.infinity),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'User Email',
+                        label: 'User Email',
+                        icon: Icons.email_outlined,
+                        controller: _email,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Username',
+                        label: 'Username',
+                        icon: Icons.account_circle_outlined,
+                        controller: _username,
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Password',
+                        label: 'Password',
+                        icon: Icons.lock_outline,
+                        controller: _password,
+                        isPasswordField: true,
+                      ),
+                      const SizedBox(height: 18),
+
+                      // Shop Info
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Barbershop Name',
+                        label: 'Barbershop Name',
+                        icon: Icons.storefront_outlined,
+                        controller: _shopName,
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Barbershop Full Address',
+                        label: 'Barbershop Full Address',
+                        icon: Icons.location_on_outlined,
+                        controller: _fullAddress,
+                      ),
+                      const SizedBox(height: 8),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'So we can improve your Google Listing',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black54,
                           ),
-                  ),
-                ),
-                const SizedBox(height: 30),
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'City',
+                        label: 'City',
+                        icon: Icons.location_city,
+                        controller: _city,
+                      ),
+                      const SizedBox(height: 18),
 
-                // Gallery Images
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Shop Images (Up to 5)',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                GestureDetector(
-                  onTap: _pickGalleryImages,
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F8F8),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black26, width: 1.2),
-                    ),
-                    child: _galleryImages.isEmpty
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.photo_library_outlined,
-                                    color: Colors.black54, size: 30),
-                                SizedBox(height: 8),
-                                Text('Drop your files here or click to upload'),
-                              ],
+                      // State Dropdown
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF8F8F8),
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: Colors.black26),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: _selectedState,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.grey.shade600,
                             ),
-                          )
-                        : Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: _galleryImages
-                                .map((file) => ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.file(file,
-                                          width: 90,
-                                          height: 90,
-                                          fit: BoxFit.cover),
-                                    ))
+                            dropdownColor: Colors.white,
+                            items: Injections.instance.states
+                                .map(
+                                  (s) => DropdownMenuItem(
+                                    value: s,
+                                    child: Text(
+                                      s,
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ),
+                                )
                                 .toList(),
+                            onChanged: (value) {
+                              setState(() => _selectedState = value!);
+                            },
                           ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-
-                // Multiple locations
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Do you have multiple locations?',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: Text(
-                          'Yes',
-                          style: AppTextStyle.medium(),
                         ),
-                        value: 'Yes',
-                        groupValue: _multiLocation,
-                        activeColor: Colors.amber[800],
-                        onChanged: (value) {
-                          setState(() => _multiLocation = value);
-                        },
                       ),
-                    ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: Text(
-                          'No',
-                          style: AppTextStyle.medium(),
-                        ),
-                        value: 'No',
-                        groupValue: _multiLocation,
-                        activeColor: Colors.amber[800],
-                        onChanged: (value) {
-                          setState(() => _multiLocation = value);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
 
-                // Submit Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber[800],
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      const SizedBox(height: 18),
+
+                      // About Field
+
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'About',
+                        label: 'About',
+                        controller: _about,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
                       ),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content:
-                                Text('BarberShop Registered Successfully!'),
-                            backgroundColor: Colors.green,
+                      const SizedBox(height: 18),
+
+                      // Contact Info
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Phone',
+                        label: 'Phone',
+                        icon: Icons.phone,
+                        controller: _phone,
+                        keyboardType: TextInputType.phone,
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Website',
+                        label: 'Website',
+                        icon: Icons.language,
+                        controller: _website,
+                        keyboardType: TextInputType.url,
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Instagram',
+                        label: 'Instagram',
+                        icon: Icons.camera_alt_outlined,
+                        controller: _instagram,
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Popular Services
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Popular Services:',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black87,
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      CheckboxListTile(
+                        title: Text('Select All', style: AppTextStyle.medium()),
+                        value: _selectAll,
+                        activeColor: Colors.amber[800],
+                        onChanged: _toggleSelectAll,
+                      ),
+                      ..._services.map((service) {
+                        return CheckboxListTile(
+                          title: Text(service, style: AppTextStyle.medium()),
+                          value: _selectedServices[service],
+                          activeColor: Colors.amber[800],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedServices[service] = value!;
+                              _selectAll = _selectedServices.values
+                                  .every((selected) => selected);
+                            });
+                          },
                         );
-                      }
-                    },
-                    child: const Text(
-                      'Submit',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
+                      }),
+                      const SizedBox(height: 30),
+
+                      // Main Image
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Shop Main Image',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: _pickMainImage,
+                        child: _mainImage == null
+                            ? DottedBorderContainer(
+                                text:
+                                    "Drop your file here or click here to upload\nYou can upload up to 1 file",
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.file(_mainImage!,
+                                    fit: BoxFit.cover, height: 150, width: 150),
+                              ),
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Gallery Images
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Shop Images (Up to 5)',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: _pickGalleryImages,
+                        child: _galleryImages.isEmpty
+                            ? DottedBorderContainer(
+                                text:
+                                    "Drop your file here or click here to upload\nYou can upload up to 5 files",
+                              )
+                            : Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: _galleryImages
+                                    .map((file) => ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.file(file,
+                                              width: 90,
+                                              height: 90,
+                                              fit: BoxFit.cover),
+                                        ))
+                                    .toList(),
+                              ),
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Multiple locations
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Do you have multiple locations?',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text(
+                                'Yes',
+                                style: AppTextStyle.medium(),
+                              ),
+                              value: 'Yes',
+                              groupValue: _multiLocation,
+                              activeColor: Colors.amber[800],
+                              onChanged: (value) {
+                                setState(() => _multiLocation = value);
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text(
+                                'No',
+                                style: AppTextStyle.medium(),
+                              ),
+                              value: 'No',
+                              groupValue: _multiLocation,
+                              activeColor: Colors.amber[800],
+                              onChanged: (value) {
+                                setState(() => _multiLocation = value);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+
+                      // Submit Button
+                      CustomButton(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'BarberShop Registered Successfully!'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            }
+                          },
+                          buttonText: "Submit"),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _firstName.dispose();
+    _lastName.dispose();
+    _email.dispose();
+    _username.dispose();
+    _password.dispose();
+    _shopName.dispose();
+    _fullAddress.dispose();
+    _city.dispose();
+    _about.dispose();
+    _phone.dispose();
+    _website.dispose();
+    _instagram.dispose();
+    super.dispose();
   }
 }

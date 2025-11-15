@@ -1,12 +1,15 @@
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/injections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Uncomment later when Firebase is integrated:
-  // await Firebase.initializeApp();
+
+  // ✅ Initialize all dependencies and data
+  await Injections.instance.initialize();
+
   runApp(const MyApp());
 }
 

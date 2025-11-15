@@ -46,6 +46,7 @@ class CustomSearchBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: Colors.black26),
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: DropdownButtonHideUnderline(

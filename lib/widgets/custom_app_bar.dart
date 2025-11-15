@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,7 @@ class CustomAppBar extends StatelessWidget {
             )
           else
             Image.asset(
-              'assets/images/barberz_logo.png',
+              AppStrings.appLogo,
               fit: BoxFit.cover,
             ),
 

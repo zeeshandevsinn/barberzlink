@@ -1,6 +1,10 @@
+import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../widgets/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
-  bool _isPasswordVisible = false;
   bool _rememberMe = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -38,48 +41,6 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
   }
 
-  Widget _buildTextField({
-    required String label,
-    required IconData icon,
-    required bool obscure,
-  }) {
-    return TextFormField(
-      obscureText: obscure && !_isPasswordVisible,
-      style: const TextStyle(color: Colors.black87),
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.amber[800]),
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.black54),
-        filled: true,
-        fillColor: const Color(0xFFF8F8F8),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.black12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide:
-              BorderSide(color: Colors.amber[800] ?? Colors.amber, width: 1.5),
-        ),
-        suffixIcon: obscure
-            ? IconButton(
-                icon: Icon(
-                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.amber[800],
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
-                  });
-                },
-              )
-            : null,
-      ),
-      validator: (value) =>
-          value == null || value.isEmpty ? 'Please enter $label' : null,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,13 +56,13 @@ class _LoginScreenState extends State<LoginScreen>
                 children: [
                   // Logo
                   Image.asset(
-                    'assets/images/barberz_logo.png', // Replace with your Barberz Link logo
+                    AppStrings.appLogo,
                     height: 250,
                     fit: BoxFit.cover,
                   ),
 
                   Text(
-                    'Welcome to BarberzLink',
+                    AppStrings.welcomeMessage,
                     style: GoogleFonts.poppins(
                       color: Colors.black87,
                       fontSize: 24,
@@ -123,22 +84,25 @@ class _LoginScreenState extends State<LoginScreen>
                     key: _formKey,
                     child: Column(
                       children: [
-                        _buildTextField(
+                        CustomTextField(
                           label: 'Username or Email',
                           icon: Icons.person_outline,
-                          obscure: false,
+                          isTitle: true,
+                          titleName: 'Username or Email',
                         ),
                         const SizedBox(height: 18),
-                        _buildTextField(
+                        CustomTextField(
                           label: 'Password',
                           icon: Icons.lock_outline,
-                          obscure: true,
+                          isPasswordField: true,
+                          isTitle: true,
+                          titleName: 'Password',
                         ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
                             Checkbox(
-                              activeColor: Colors.amber[800],
+                              activeColor: Colors.black,
                               checkColor: Colors.white,
                               value: _rememberMe,
                               onChanged: (value) {
@@ -154,39 +118,48 @@ class _LoginScreenState extends State<LoginScreen>
                               onPressed: () {},
                               child: Text(
                                 'Forgot Password?',
-                                style: TextStyle(color: Colors.amber[800]),
+                                style: TextStyle(color: Colors.black),
                               ),
                             )
                           ],
                         ),
                         const SizedBox(height: 25),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber[800],
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              elevation: 2,
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                // TODO: Implement login logic
-                                AppRoutes.goToReplace(context, AppRoutes.home);
-                              }
-                            },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
+                        CustomButton(
+                          buttonText: 'Login',
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              AppRoutes.goToReplace(context, AppRoutes.home);
+                            }
+                          },
                         ),
+                        // SizedBox(
+                        //   width: double.infinity,
+                        //   height: 50,
+                        //   child: ElevatedButton(
+                        //     style: ElevatedButton.styleFrom(
+                        //       backgroundColor: Colors.black,
+                        //       foregroundColor: Colors.white,
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(12),
+                        //       ),
+                        //       elevation: 2,
+                        //     ),
+                        //     onPressed: () {
+                        //       if (_formKey.currentState!.validate()) {
+                        //         // TODO: Implement login logic
+                        //         AppRoutes.goToReplace(context, AppRoutes.home);
+                        //       }
+                        //     },
+                        //     child: const Text(
+                        //       'Login',
+                        //       style: TextStyle(
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.w600,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
                         const SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -200,12 +173,12 @@ class _LoginScreenState extends State<LoginScreen>
                                 // TODO: Navigate to register page
 
                                 Navigator.pushNamed(
-                                    context, AppRoutes.register_selection);
+                                    context, AppRoutes.registration);
                               },
                               child: Text(
                                 'Register now',
                                 style: TextStyle(
-                                  color: Colors.amber[800],
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

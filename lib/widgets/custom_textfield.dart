@@ -1,9 +1,10 @@
+import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final IconData? icon;
-  final bool obscure;
+  final bool isPasswordField;
   final int maxLines;
   final TextEditingController? controller;
   final TextInputType keyboardType;
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.label,
     this.icon,
-    this.obscure = false,
+    this.isPasswordField = false,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.validator,
@@ -29,13 +30,30 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool _obscureText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.isPasswordField;
+  }
+
+  void _toggleVisibility() {
+    setState(() => _obscureText = !_obscureText);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (isTitle && titleName != null) ...[
+        if (widget.isTitle && widget.titleName != null) ...[
           Text(
-            titleName!,
+            widget.titleName!,
             style: const TextStyle(
               color: Colors.black87,
               fontWeight: FontWeight.w600,
@@ -45,36 +63,59 @@ class CustomTextField extends StatelessWidget {
           const SizedBox(height: 6),
         ],
         TextFormField(
-          maxLines: maxLines,
-          controller: controller,
-          obscureText: obscure,
-          readOnly: readOnly,
-          onTap: onTap,
-          keyboardType: keyboardType,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black87,
+          maxLines: widget.maxLines,
+          controller: widget.controller,
+          obscureText: widget.isPasswordField ? _obscureText : false,
+          readOnly: widget.readOnly,
+          onTap: widget.onTap,
+          keyboardType: widget.keyboardType,
           style: const TextStyle(color: Colors.black87),
           decoration: InputDecoration(
-            prefixIcon:
-                icon == null ? null : Icon(icon, color: Colors.amber[800]),
-            labelText: label,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                // color: AppColors.primaryColor,
+                width: 1.5,
+              ),
+            ),
+            prefixIcon: widget.icon == null
+                ? null
+                : Icon(widget.icon, color: Colors.black),
+            suffixIcon: widget.isPasswordField
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.black,
+                    ),
+                    onPressed: _toggleVisibility,
+                  )
+                : null,
+            labelText: widget.label,
             alignLabelWithHint: true,
             labelStyle: const TextStyle(color: Colors.black54),
             filled: true,
             fillColor: const Color(0xFFF8F8F8),
-            enabledBorder: OutlineInputBorder(
+            errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.black12),
+              borderSide: const BorderSide(
+                color: Colors.red,
+                width: 1.5,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: Colors.amber[800] ?? Colors.amber,
+                color: Colors.black,
                 width: 1.5,
               ),
             ),
           ),
-          validator: validator ??
-              (value) =>
-                  value == null || value.isEmpty ? 'Please enter $label' : null,
+          validator: widget.validator ??
+              (value) => value == null || value.isEmpty
+                  ? 'Please enter ${widget.label}'
+                  : null,
         ),
       ],
     );

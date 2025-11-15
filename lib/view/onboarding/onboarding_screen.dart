@@ -45,7 +45,7 @@ class OnboardingScreen extends StatelessWidget {
                   SizedBox(height: 80.h),
                   const Spacer(),
                   Text(
-                    'Connect. Create. Cut.',
+                    'Connect, Hire, Grow.',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: Colors.white,
@@ -68,8 +68,7 @@ class OnboardingScreen extends StatelessWidget {
                     color: Colors.white,
                     textColor: Colors.black,
                     onTap: () {
-                      AppRoutes.goToReplace(
-                          context, AppRoutes.register_selection);
+                      AppRoutes.goTo(context, AppRoutes.registration);
                     },
                   ),
                   SizedBox(height: 15.h),
@@ -79,7 +78,7 @@ class OnboardingScreen extends StatelessWidget {
                     textColor: Colors.white,
                     border: true,
                     onTap: () {
-                      AppRoutes.goToReplace(context, AppRoutes.login);
+                      AppRoutes.goTo(context, AppRoutes.login);
                     },
                   ),
                   SizedBox(height: 40.h),
