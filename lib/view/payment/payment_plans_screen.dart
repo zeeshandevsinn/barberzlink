@@ -58,88 +58,66 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
 
             // Plan Cards
             _buildPlanCard(
-              planId: 'free',
-              title: 'Free Access',
-              subtitle: 'Basic Plan',
-              description: 'Perfect for getting started.',
+              planId: 'barbers',
+              title: 'Barbers Register',
+              subtitle: 'Limited or Full Access',
+              description: 'Start building your professional presence.',
               features: [
-                'Create a basic profile (Barber, BarberShop, or School)',
-                'Upload profile photo & short bio',
-                'View limited job posts',
-                'Search local listings (City, State, Zip)',
-                'Message up to 3 new connections per month',
+                'Limited access: create profile & browse public listings',
+                'Full access: unlock unlimited search, messaging & reviews',
+                'Switch between tiers anytime',
               ],
-              price: 'Free',
-              isPopular: false,
+              price: 'Free / \$9.99',
+              priceSubtext: 'Limited access (free) or full access (\$9.99/month)',
+              isPopular: widget.userType == 'barber',
             ),
             SizedBox(height: 16.h),
 
             _buildPlanCard(
-              planId: 'premium',
-              title: 'Premium Access',
-              subtitle: 'Monthly Plan',
-              description: 'Unlock full visibility and connections.',
+              planId: 'barbershops',
+              title: 'BarberShops Register',
+              subtitle: 'Limited or Full Access',
+              description: 'Showcase your shop and connect with talent.',
               features: [
-                'Full profile customization (photos, portfolio, videos)',
-                'Unlimited job searches & applications',
-                'Direct message any user or shop',
-                'Appear in top search results',
-                'Get access to Shop Reviews & Ratings',
+                'Limited access: list your shop & receive basic inquiries',
+                'Full access: post roles, message barbers & track applicants',
+                'Promote openings across the BarberzLink network',
               ],
-              price: widget.userType == 'barbershop'
-                  ? '\$19.99/month'
-                  : '\$9.99/month',
-              priceSubtext: widget.userType == 'barbershop'
-                  ? 'For Barbershops'
-                  : 'For Barbers',
-              isPopular: true,
+              price: 'Free / \$9.99',
+              priceSubtext: 'Limited access (free) or full access (\$9.99/month)',
+              isPopular: widget.userType == 'barbershop',
             ),
             SizedBox(height: 16.h),
 
             _buildPlanCard(
-              planId: 'spotlight',
-              title: 'Spotlight Access',
-              subtitle: 'Promote & Play',
-              description: 'Designed for serious professionals and shops.',
+              planId: 'events',
+              title: 'Events Register',
+              subtitle: 'One-Time Listing',
+              description: 'Spotlight shows, product drops, or competitions.',
               features: [
-                'Everything in Premium, plus:',
-                'Feature your profile or shop on the homepage',
-                'Display banner ads in the "Featured Barbers" or "Hot Shops" section',
-                'Get early access to new job listings & events',
-                'Access analytics (views, messages, and engagement stats)',
-              ],
-              price: '\$29.99/month',
-              isPopular: false,
-            ),
-            SizedBox(height: 16.h),
-
-            _buildPlanCard(
-              planId: 'event',
-              title: 'Event & Product Listings',
-              subtitle: 'One-Time Fee',
-              description: 'Promote your brand or event directly to the BarberzLink network.',
-              features: [
-                'Post trade shows, competitions, training events, or product launches',
-                'Includes a custom event flyer on the homepage',
+                'Submit event or product details with media',
+                'Highlighted placement in the BarberzLink calendar',
+                'Shareable landing page for attendees',
               ],
               price: '\$150',
-              priceSubtext: 'one-time listing',
-              isPopular: false,
+              priceSubtext: 'one-time payment',
+              isPopular: widget.userType == 'event',
             ),
             SizedBox(height: 16.h),
 
             _buildPlanCard(
-              planId: 'school',
-              title: 'School & Training Partnerships',
-              subtitle: 'Monthly Plan',
-              description: 'Grow your student network.',
+              planId: 'schools',
+              title: 'Schools Register',
+              subtitle: 'Full Access Subscription',
+              description: 'Grow enrollment and place graduates faster.',
               features: [
-                'Create verified training school profiles',
-                'Post internship or job placement opportunities',
-                'Connect with barbershops seeking trainees',
+                'Create verified school profile & program catalog',
+                'Promote enrollment events & open houses',
+                'Message barbershops for apprenticeship pipelines',
               ],
-              price: '\$19.99/month',
-              isPopular: false,
+              price: '\$50.99/month',
+              priceSubtext: 'full access subscription',
+              isPopular: widget.userType == 'school',
             ),
             SizedBox(height: 32.h),
 
@@ -268,16 +246,14 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
 
   String _getPlanName(String planId) {
     switch (planId) {
-      case 'free':
-        return 'Free Access';
-      case 'premium':
-        return 'Premium Access';
-      case 'spotlight':
-        return 'Spotlight Access';
-      case 'event':
-        return 'Event & Product Listings';
-      case 'school':
-        return 'School & Training Partnerships';
+      case 'barbers':
+        return 'Barbers Register';
+      case 'barbershops':
+        return 'BarberShops Register';
+      case 'events':
+        return 'Events Register';
+      case 'schools':
+        return 'Schools Register';
       default:
         return 'Plan';
     }
