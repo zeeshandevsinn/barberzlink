@@ -15,6 +15,7 @@ import '../../view/barbers/barbers_registration_screen.dart';
 import '../../view/barbers/barbers_search_screen.dart';
 import '../../view/barbers_shop/barbershop_register_screen.dart';
 import '../../view/barbers_shop/barbershop_search_screen.dart';
+import '../../view/payment/payment_plans_screen.dart';
 
 class AppRoutes {
   // Route names
@@ -30,6 +31,7 @@ class AppRoutes {
   static const String school_registration = '/school/registration';
   static const String school_search = '/school/search';
   static const String event_search = '/event/search';
+  static const String payment_plans = '/payment/plans';
 
   static const String home = '/home';
 
@@ -48,6 +50,12 @@ class AppRoutes {
     school_registration: (context) => const SchoolRegistrationScreen(),
     event_search: (context) => const EventSearchScreen(),
     school_search: (context) => const SchoolSearchScreen(),
+    payment_plans: (context) {
+      // Get user type from arguments if provided
+      final args = ModalRoute.of(context)?.settings.arguments;
+      final userType = args is String ? args : null;
+      return PaymentPlansScreen(userType: userType);
+    },
   };
 
   // Navigate helper
@@ -57,5 +65,13 @@ class AppRoutes {
 
   static void goToReplace(BuildContext context, String routeName) {
     Navigator.pushReplacementNamed(context, routeName);
+  }
+
+  static void goToPaymentPlans(BuildContext context, {String? userType}) {
+    Navigator.pushNamed(
+      context,
+      payment_plans,
+      arguments: userType,
+    );
   }
 }

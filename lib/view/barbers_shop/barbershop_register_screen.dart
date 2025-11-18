@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
@@ -472,15 +473,16 @@ class _BarberShopRegistrationScreenState
                       // Submit Button
                       CustomButton(
                           onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'BarberShop Registered Successfully!'),
-                                  backgroundColor: Colors.green,
-                                ),
-                              );
-                            }
+                            Navigator.pushNamed(context, AppRoutes.payment_plans, arguments: 'barber');
+                            // if (_formKey.currentState!.validate()) {
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //       content: Text(
+                            //           'BarberShop Registered Successfully!'),
+                            //       backgroundColor: Colors.green,
+                            //     ),
+                            //   );
+                            // }
                           },
                           buttonText: "Submit"),
                     ],
