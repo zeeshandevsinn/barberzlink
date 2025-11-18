@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
@@ -232,13 +233,7 @@ class _EventRegisterScreenState extends State<EventRegisterScreen> {
                             return;
                           }
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Event Registered Successfully!'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-
+                          AppRoutes.goTo(context, AppRoutes.event_payment);
                           // TODO: Add backend logic to save event data
                         }
                       },

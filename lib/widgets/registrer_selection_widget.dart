@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
+import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -80,7 +81,7 @@ class RegisterSelection extends StatelessWidget {
                     ),
                     Container(
                       width: 160,
-                      height: 48,
+                      height: 35,
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.w,
                         vertical: 8.h,

@@ -87,7 +87,7 @@ class _BarbersSearchScreenState extends State<BarbersSearchScreen> {
                                     color: Colors.white,
                                     size: 20.sp,
                                   ),
-                                  SizedBox(width: 6.w),
+                                  SizedBox(width: 5.w),
                                   Text(
                                     "Find the best barbers near you",
                                     textAlign: TextAlign.center,

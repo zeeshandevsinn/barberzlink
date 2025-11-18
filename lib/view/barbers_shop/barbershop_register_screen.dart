@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
@@ -339,14 +340,15 @@ class _BarberShopRegistrationScreenState
                       CheckboxListTile(
                         title: Text('Select All', style: AppTextStyle.medium()),
                         value: _selectAll,
-                        activeColor: Colors.amber[800],
+                        activeColor: AppColors.black,
+                        checkColor: AppColors.white,
                         onChanged: _toggleSelectAll,
                       ),
                       ..._services.map((service) {
                         return CheckboxListTile(
                           title: Text(service, style: AppTextStyle.medium()),
                           value: _selectedServices[service],
-                          activeColor: Colors.amber[800],
+                          activeColor: AppColors.black,
                           onChanged: (value) {
                             setState(() {
                               _selectedServices[service] = value!;
@@ -473,7 +475,8 @@ class _BarberShopRegistrationScreenState
                       // Submit Button
                       CustomButton(
                           onTap: () {
-                            Navigator.pushNamed(context, AppRoutes.payment_plans, arguments: 'barber');
+                            AppRoutes.goTo(
+                                context, AppRoutes.barberShop_payment);
                             // if (_formKey.currentState!.validate()) {
                             //   ScaffoldMessenger.of(context).showSnackBar(
                             //     const SnackBar(

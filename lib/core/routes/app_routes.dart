@@ -6,6 +6,7 @@ import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
 import 'package:barberzlink/view/main/main_page.dart';
 import 'package:barberzlink/view/onboarding/onboarding_screen.dart';
+import 'package:barberzlink/view/payment/barbers/barber_payment_plan_screen.dart';
 import 'package:barberzlink/view/schools/school_registration_screen.dart';
 import 'package:barberzlink/view/schools/school_search_screen.dart';
 import 'package:barberzlink/view/splash/splash_screen.dart';
@@ -15,7 +16,10 @@ import '../../view/barbers/barbers_registration_screen.dart';
 import '../../view/barbers/barbers_search_screen.dart';
 import '../../view/barbers_shop/barbershop_register_screen.dart';
 import '../../view/barbers_shop/barbershop_search_screen.dart';
+import '../../view/payment/barbershop/barbershop_payment_plan_screen.dart';
+import '../../view/payment/events/event_payment_plan_screen.dart';
 import '../../view/payment/payment_plans_screen.dart';
+import '../../view/payment/schools/school_payment_plan_screen.dart';
 
 class AppRoutes {
   // Route names
@@ -32,6 +36,10 @@ class AppRoutes {
   static const String school_search = '/school/search';
   static const String event_search = '/event/search';
   static const String payment_plans = '/payment/plans';
+  static const String barber_payment = '/payment/barber';
+  static const String event_payment = '/payment/event';
+  static const String school_payment = '/payment/school';
+  static const String barberShop_payment = '/payment/barberShop';
 
   static const String home = '/home';
 
@@ -56,6 +64,10 @@ class AppRoutes {
       final userType = args is String ? args : null;
       return PaymentPlansScreen(userType: userType);
     },
+    barber_payment: (context) => const BarberPaymentPlanScreen(),
+    event_payment: (context) => const EventPaymentPlanScreen(),
+    school_payment: (context) => const SchoolPaymentPlanScreen(),
+    barberShop_payment: (context) => const BarberShopPaymentPlanScreen(),
   };
 
   // Navigate helper

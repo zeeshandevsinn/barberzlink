@@ -6,6 +6,7 @@ import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_barbershop_card.dart';
 import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -101,9 +102,15 @@ class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(80),
-            child: CustomAppBar(title: 'Barbers Shop Search', isBack: true)),
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text("Barbers Shop Search"),
+                centerTitle: true,
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child:
+                    CustomAppBar(title: 'Barbers Shop Search', isBack: true)),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
           child: Column(

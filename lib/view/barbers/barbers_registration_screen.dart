@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -281,6 +282,8 @@ class _BarberRegistrationScreenState extends State<BarberRegistrationScreen> {
                         CustomButton(
                           onTap: () {
                             // Handle form submission
+
+                            AppRoutes.goTo(context, AppRoutes.barber_payment);
                           },
                           buttonText: "Register",
                         ),
