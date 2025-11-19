@@ -1,4 +1,3 @@
-import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:barberzlink/core/routes/app_routes.dart';
-import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -81,31 +80,36 @@ class RegisterSelection extends StatelessWidget {
                     ),
                     Container(
                       width: 160,
-                      height: 35,
+                      height: 60,
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.w,
                         vertical: 8.h,
                       ),
-                      decoration: BoxDecoration(
-                        color: AppColors.black,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: InkWell(
+
+                      child: CustomButton(
+                        buttonText: 'SEARCH',
+                        fontSize: 14,
                         onTap: () {
-                          log("Search for ${option['title']}");
+                          log("Learn more about ${option['title']}");
                           AppRoutes.goTo(context, option['route_search']!);
                         },
-                        child: Center(
-                          child: Text(
-                            'SEARCH',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
                       ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     log("Search for ${option['title']}");
+                      //     AppRoutes.goTo(context, option['route_search']!);
+                      //   },
+                      //   child: Center(
+                      //     child: Text(
+                      //       'SEARCH',
+                      //       style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 13.sp,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     )
                   ],
                 ),

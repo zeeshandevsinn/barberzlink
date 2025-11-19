@@ -54,6 +54,7 @@ class CustomListCard extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: Colors.black87,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
 
@@ -79,7 +80,7 @@ class CustomListCard extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: CustomButton(
-                onTap: () {},
+                onTap: onPressed,
                 buttonText: "LEARN MORE",
                 fontSize: 13,
               )),

@@ -219,4 +219,36 @@ class Injections {
           "An exclusive event celebrating creativity, artistry, and innovation in modern barbering.",
     },
   ];
+
+  final products = [
+    {
+      "image": AppStrings.newProductImage,
+      "name": "Hair Wax",
+      "type": "Styling Product",
+    },
+    {
+      "image": AppStrings.newProductImage,
+      "name": "Beard Oil",
+      "type": "Grooming",
+    },
+    {
+      "image": AppStrings.newProductImage,
+      "name": "Shampoo",
+      "type": "Hair Care",
+    },
+  ];
+  final List<Map<String, dynamic>> featuredProducts = [
+    {
+      "image": AppStrings.newProductImage,
+      "title": "Register a New Product",
+      "subtitle": "Submit your product to appear in the list",
+      "route": AppRoutes.productDetails,
+    },
+    {
+      "image": AppStrings.newProductImage,
+      "title": "Product Promotion",
+      "subtitle": "Run promotions & highlight your product",
+      "route": AppRoutes.productDetails,
+    },
+  ];
 }

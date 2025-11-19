@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../core/theme/app_colors.dart';
+
 class CustomButton extends StatefulWidget {
   final VoidCallback onTap;
   final String buttonText;
+  final Color btnColor;
   final int fontSize;
 
   const CustomButton(
       {super.key,
       required this.onTap,
       required this.buttonText,
+      this.btnColor = AppColors.black,
       this.fontSize = 16});
 
   @override
@@ -25,7 +29,7 @@ class _CustomButtonState extends State<CustomButton> {
       height: 48.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
+          backgroundColor: widget.btnColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),

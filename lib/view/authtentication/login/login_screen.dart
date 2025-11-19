@@ -128,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen>
                           buttonText: 'Login',
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              AppRoutes.goToReplace(context, AppRoutes.home);
+                              AppRoutes.goToReplace(
+                                  context, AppRoutes.dashboard);
                             }
                           },
                         ),
@@ -147,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen>
                         //     onPressed: () {
                         //       if (_formKey.currentState!.validate()) {
                         //         // TODO: Implement login logic
-                        //         AppRoutes.goToReplace(context, AppRoutes.home);
+                        //         AppRoutes.goToReplace(context, AppRoutes.dashboard);
                         //       }
                         //     },
                         //     child: const Text(

@@ -40,7 +40,11 @@ class _MainPageState extends State<MainPage> {
       "image": AppStrings.schoolImage,
       "route": AppRoutes.school_search
     },
-    {"title": "New Products", "image": AppStrings.newProductImage, "route": ""},
+    {
+      "title": "New Products",
+      "image": AppStrings.newProductImage,
+      "route": AppRoutes.newProductSearch
+    },
   ];
 
   @override
@@ -66,7 +70,7 @@ class _MainPageState extends State<MainPage> {
           onTap: (index) => setState(() => _selectedIndex = index),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
+              icon: Icon(Icons.dashboard_outlined),
               label: 'Home',
             ),
             BottomNavigationBarItem(

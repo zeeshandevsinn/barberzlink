@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
@@ -8,18 +9,19 @@ import 'package:barberzlink/widgets/custom_textfield.dart';
 import 'package:barberzlink/widgets/dotted_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
 
-class ProductPromotionScreen extends StatefulWidget {
-  const ProductPromotionScreen({super.key});
+class NewProductRegistration extends StatefulWidget {
+  const NewProductRegistration({super.key});
 
   @override
-  State<ProductPromotionScreen> createState() => _ProductPromotionScreenState();
+  State<NewProductRegistration> createState() => _NewProductRegistrationState();
 }
 
-class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
+class _NewProductRegistrationState extends State<NewProductRegistration> {
   // Form controllers
   final TextEditingController _companyController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
@@ -53,7 +55,7 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 20,
               ),
             ),
             if (isRequired)
@@ -100,7 +102,7 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
         appBar: kIsWeb
             ? AppBar(
                 title: Text(
-                  'Product Promotion',
+                  'Product Registration',
                   style: AppTextStyle.semiBold(),
                 ),
                 centerTitle: true,
@@ -108,7 +110,7 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
             : PreferredSize(
                 preferredSize: Size.fromHeight(80),
                 child: CustomAppBar(
-                  title: 'Product Promotion',
+                  title: 'Product Registration',
                   isBack: true,
                 ),
               ),
@@ -117,15 +119,31 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
             children: [
               // Optional header image
               Container(
-                height: 180,
-                width: double.infinity,
                 color: Colors.grey.shade200,
                 child: Image.asset(
                   AppStrings.newProductImage,
                   fit: BoxFit.cover,
                 ),
               ),
+
               const SizedBox(height: 16),
+              Text(
+                'Product Registration',
+                style: GoogleFonts.poppins(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Join Barberz Link and grow your visibility online!',
+                style: GoogleFonts.poppins(
+                  color: Colors.black54,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Container(
@@ -146,64 +164,82 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
 
                         // Company Info
                         _buildLabel("Company Info", true),
-                        CustomTextField(
-                          controller: _companyController,
-                          label: "Company Name",
-                          isTitle: true,
-                          titleName: "Company Name",
+
+                        const SizedBox(height: 30),
+                        Column(
+                          spacing: 15,
+                          children: [
+                            CustomTextField(
+                              controller: _companyController,
+                              label: "Company Name",
+                              isTitle: true,
+                              titleName: "Company Name",
+                            ),
+                            CustomTextField(
+                              controller: _contactController,
+                              label: "Contact Person",
+                              isTitle: true,
+                              titleName: "Contact Person",
+                            ),
+                            CustomTextField(
+                              controller: _emailPhoneController,
+                              label: "Email / Phone",
+                              isTitle: true,
+                              titleName: "Email / Phone",
+                            ),
+                            CustomTextField(
+                              controller: _websiteController,
+                              label: "Website / Social Media",
+                              isTitle: true,
+                              titleName: "Website / Social Media",
+                            ),
+                          ],
                         ),
-                        CustomTextField(
-                          controller: _contactController,
-                          label: "Contact Person",
-                          isTitle: true,
-                          titleName: "Contact Person",
-                        ),
-                        CustomTextField(
-                          controller: _emailPhoneController,
-                          label: "Email / Phone",
-                          isTitle: true,
-                          titleName: "Email / Phone",
-                        ),
-                        CustomTextField(
-                          controller: _websiteController,
-                          label: "Website / Social Media",
-                          isTitle: true,
-                          titleName: "Website / Social Media",
-                        ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 30),
 
                         // Product Details
                         _buildLabel("Product Details", true),
-                        CustomTextField(
-                          controller: _productNameController,
-                          label: "Product Name",
-                          isTitle: true,
-                          titleName: "Product Name",
+
+                        const SizedBox(height: 30),
+
+                        Column(
+                          spacing: 15,
+                          children: [
+                            CustomTextField(
+                              controller: _productNameController,
+                              label: "Product Name",
+                              isTitle: true,
+                              titleName: "Product Name",
+                            ),
+                            CustomTextField(
+                              controller: _productTypeController,
+                              label: "Product Type",
+                              isTitle: true,
+                              titleName: "Product Type",
+                            ),
+                            CustomTextField(
+                              controller: _shortDescController,
+                              label: "Short Description",
+                              isTitle: true,
+                              titleName: "Short Description",
+                              maxLines: 3,
+                            ),
+                            CustomTextField(
+                              controller: _standoutController,
+                              label: "What makes your product stand out?",
+                              isTitle: true,
+                              titleName: "Product Standout",
+                              maxLines: 3,
+                            ),
+                          ],
                         ),
-                        CustomTextField(
-                          controller: _productTypeController,
-                          label: "Product Type",
-                          isTitle: true,
-                          titleName: "Product Type",
-                        ),
-                        CustomTextField(
-                          controller: _shortDescController,
-                          label: "Short Description",
-                          isTitle: true,
-                          titleName: "Short Description",
-                          maxLines: 3,
-                        ),
-                        CustomTextField(
-                          controller: _standoutController,
-                          label: "What makes your product stand out?",
-                          isTitle: true,
-                          titleName: "Product Standout",
-                          maxLines: 3,
-                        ),
-                        const SizedBox(height: 16),
+
+                        const SizedBox(height: 30),
 
                         // Media Upload
                         _buildLabel("Upload Photo/Video", true),
+
+                        const SizedBox(height: 30),
                         _mediaFile != null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
@@ -219,41 +255,60 @@ class _ProductPromotionScreenState extends State<ProductPromotionScreen> {
                                       "Drop your file here or click here to upload\nYou can upload 1 file",
                                 ),
                               ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 20),
                         CustomTextField(
                           controller: _promoLinkController,
                           label: "Link to Promo Material (Optional)",
                           isTitle: true,
                           titleName: "Promo Link",
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 30),
 
                         // Promotion Options
                         _buildLabel("Promotion Options", true),
+
+                        const SizedBox(height: 30),
                         Row(
                           children: [
                             Checkbox(
+                                checkColor: AppColors.white,
+                                activeColor: AppColors.black,
                                 value: _appFeature,
                                 onChanged: (v) =>
                                     setState(() => _appFeature = v!)),
                             const Text("App Feature"),
                             const SizedBox(width: 20),
                             Checkbox(
+                                checkColor: AppColors.white,
+                                activeColor: AppColors.black,
                                 value: _socialMediaPost,
                                 onChanged: (v) =>
                                     setState(() => _socialMediaPost = v!)),
                             const Text("Social Media Post"),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 20),
                         Row(
                           children: [
                             const Text("Preferred Start Date: "),
-                            TextButton(
-                              onPressed: _pickDate,
-                              child: Text(_startDate == null
-                                  ? "Select Date"
-                                  : DateFormat.yMMMd().format(_startDate!)),
+                            Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Center(
+                                child: TextButton(
+                                  onPressed: _pickDate,
+                                  child: Text(
+                                    _startDate == null
+                                        ? "Select Date"
+                                        : DateFormat.yMMMd()
+                                            .format(_startDate!),
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),

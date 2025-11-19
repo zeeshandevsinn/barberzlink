@@ -5,6 +5,9 @@ import 'package:barberzlink/view/authtentication/register/register_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
 import 'package:barberzlink/view/main/main_page.dart';
+import 'package:barberzlink/view/new_product/new_product_registration.dart';
+import 'package:barberzlink/view/new_product/new_product_search_screen.dart';
+import 'package:barberzlink/view/new_product/product_details.dart';
 import 'package:barberzlink/view/onboarding/onboarding_screen.dart';
 import 'package:barberzlink/view/payment/barbers/barber_payment_plan_screen.dart';
 import 'package:barberzlink/view/schools/school_registration_screen.dart';
@@ -40,15 +43,18 @@ class AppRoutes {
   static const String event_payment = '/payment/event';
   static const String school_payment = '/payment/school';
   static const String barberShop_payment = '/payment/barberShop';
+  static const String newProductRegister = '/new_product/register';
+  static const String newProductSearch = '/new_product/search';
+  static const String productDetails = '/product/details';
 
-  static const String home = '/home';
+  static const String dashboard = '/dashboard';
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
     splash: (context) => const SplashScreen(),
     onboarding: (context) => const OnboardingScreen(),
     login: (context) => const LoginScreen(),
-    home: (context) => const MainPage(),
+    dashboard: (context) => const MainPage(),
     registration: (context) => const RegistrationScreen(),
     event_registration: (context) => const EventRegisterScreen(),
     barberShop_registration: (context) => const BarberShopRegistrationScreen(),
@@ -68,6 +74,9 @@ class AppRoutes {
     event_payment: (context) => const EventPaymentPlanScreen(),
     school_payment: (context) => const SchoolPaymentPlanScreen(),
     barberShop_payment: (context) => const BarberShopPaymentPlanScreen(),
+    newProductRegister: (context) => const NewProductRegistration(),
+    newProductSearch: (context) => const NewProductSearchScreen(),
+    productDetails: (context) => const ProductDetailsPage(),
   };
 
   // Navigate helper
