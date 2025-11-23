@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
@@ -21,81 +22,6 @@ class BarbershopSearchScreen extends StatefulWidget {
 class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
   final TextEditingController keywordController = TextEditingController();
   String selectedState = 'All States';
-
-  final List<Map<String, dynamic>> barberShopsData = [
-    {
-      "name": "The Fade Factory",
-      "owner": "Marcus Fadez",
-      "location": "Downtown Los Angeles, CA",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.8,
-      "description":
-          "Modern fades, beard trims, and premium grooming in a luxury studio setting.",
-    },
-    {
-      "name": "Sharp Cuts Barbershop",
-      "owner": "Tony Sharp",
-      "location": "Brooklyn, New York, NY",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.9,
-      "description":
-          "Classic New York barbershop offering expert fades and lineups.",
-    },
-    {
-      "name": "Blend Masters",
-      "owner": "Chris The Clipper",
-      "location": "Houston, TX",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.7,
-      "description":
-          "Top-notch barbers known for precision blends and detailed beard shaping.",
-    },
-    {
-      "name": "Fresh Look Studio",
-      "owner": "Luis Blendz",
-      "location": "San Diego, CA",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.8,
-      "description":
-          "Stylish studio offering modern cuts and grooming with a chill vibe.",
-    },
-    {
-      "name": "Legends Grooming Lounge",
-      "owner": "Dre The Barber",
-      "location": "Atlanta, GA",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.9,
-      "description":
-          "Luxury men’s grooming experience with beard and hair care treatments.",
-    },
-    {
-      "name": "Urban Fades",
-      "owner": "J.R. Jean",
-      "location": "Fort Lauderdale / Miami, FL",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.6,
-      "description":
-          "Popular spot for clean fades, sharp edge-ups, and smooth atmosphere.",
-    },
-    {
-      "name": "King’s Chair Barbershop",
-      "owner": "Nate Fresh",
-      "location": "Orlando, FL",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.9,
-      "description":
-          "Barbering excellence meets comfort — where every client feels royal.",
-    },
-    {
-      "name": "Modern Man Studio",
-      "owner": "Fade Master Jay",
-      "location": "Chicago, IL",
-      "image": AppStrings.barbershopImage,
-      "rating": 4.8,
-      "description":
-          "Modern grooming lounge specializing in fades, tapers, and facial styling.",
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -206,9 +132,9 @@ class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
               ListView.builder(
                 shrinkWrap: true, // ✅ tells Flutter to size based on children
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: barberShopsData.length,
+                itemCount: Injections.instance.barberShopsData.length,
                 itemBuilder: (context, index) {
-                  final barber = barberShopsData[index];
+                  final barber = Injections.instance.barberShopsData[index];
                   final imagePath =
                       barber['image'] ?? AppStrings.barbershopImage;
                   final name = barber['name'] ?? 'Unknown Barber';
@@ -219,7 +145,7 @@ class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
                   final description = barber['description'] ?? '';
 
                   void onPressed() {
-                    print('Tapped on $name');
+                    AppRoutes.goTo(context, AppRoutes.barberShop_detail);
                   }
 
                   return Padding(

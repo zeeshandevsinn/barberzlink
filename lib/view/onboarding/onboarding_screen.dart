@@ -42,6 +42,15 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    'BarberzLink',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   SizedBox(height: 80.h),
                   const Spacer(),
                   Text(

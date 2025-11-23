@@ -1,4 +1,5 @@
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_event_card.dart';
@@ -123,6 +124,7 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
                       jobDetails: event['jobDetails'],
                       onPressed: () {
                         print("View Details for ${event['title']}");
+                        AppRoutes.goTo(context, AppRoutes.event_detail);
                       },
                     ),
                   );

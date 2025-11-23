@@ -6,6 +6,8 @@ import 'package:barberzlink/widgets/keyword_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/routes/app_routes.dart';
+
 class SchoolSearchScreen extends StatefulWidget {
   const SchoolSearchScreen({super.key});
 
@@ -119,7 +121,9 @@ List job placements, workshops, and enrollment opportunities
                       imagePath: AppStrings.schoolImage,
                       name: "American Barber Institute",
                       location: "48 West 39th Street New York, NY 10018",
-                      onPressed: () {},
+                      onPressed: () {
+                        AppRoutes.goTo(context, AppRoutes.school_detail);
+                      },
                     ),
                   );
                 },

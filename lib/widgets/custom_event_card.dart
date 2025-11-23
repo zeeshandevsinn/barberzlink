@@ -118,7 +118,7 @@ class CustomEventCard extends StatelessWidget {
 
                     /// 🔹 View Details Button
                     CustomButton(
-                      onTap: () {},
+                      onTap: onPressed,
                       buttonText: "View Details",
                       fontSize: 14,
                     ),

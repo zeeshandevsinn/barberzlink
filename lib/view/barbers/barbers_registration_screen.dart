@@ -31,6 +31,9 @@ class _BarberRegistrationScreenState extends State<BarberRegistrationScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _fullAddress = TextEditingController();
+  final TextEditingController _instagramUserNameController =
+      TextEditingController();
+  final TextEditingController _websiteController = TextEditingController();
 
   Widget _buildLabel(String label, bool isRequired) {
     return Padding(
@@ -206,6 +209,18 @@ class _BarberRegistrationScreenState extends State<BarberRegistrationScreen> {
                           label: "Full Address",
                           isTitle: true,
                           titleName: "Full Address",
+                        ),
+                        CustomTextField(
+                          controller: _websiteController,
+                          label: "Website Link",
+                          isTitle: true,
+                          titleName: "Website Link",
+                        ),
+                        CustomTextField(
+                          controller: _instagramUserNameController,
+                          label: "Instagram Username",
+                          isTitle: true,
+                          titleName: "Instagram Username",
                         ),
 
                         // const SizedBox(height: 20),

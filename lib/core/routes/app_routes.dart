@@ -1,5 +1,7 @@
 // lib/routes/app_routes.dart
 
+import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
@@ -10,19 +12,25 @@ import 'package:barberzlink/view/new_product/new_product_search_screen.dart';
 import 'package:barberzlink/view/new_product/product_details.dart';
 import 'package:barberzlink/view/onboarding/onboarding_screen.dart';
 import 'package:barberzlink/view/payment/barbers/barber_payment_plan_screen.dart';
+import 'package:barberzlink/view/schools/school_detailed_page.dart';
 import 'package:barberzlink/view/schools/school_registration_screen.dart';
 import 'package:barberzlink/view/schools/school_search_screen.dart';
 import 'package:barberzlink/view/splash/splash_screen.dart';
+import 'package:barberzlink/view/state_by_state/state_detail_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../view/barbers/barber_detailed_page.dart';
 import '../../view/barbers/barbers_registration_screen.dart';
 import '../../view/barbers/barbers_search_screen.dart';
+import '../../view/barbers_shop/barbershop_detail.dart';
 import '../../view/barbers_shop/barbershop_register_screen.dart';
 import '../../view/barbers_shop/barbershop_search_screen.dart';
+import '../../view/events/event_detail_page.dart';
 import '../../view/payment/barbershop/barbershop_payment_plan_screen.dart';
 import '../../view/payment/events/event_payment_plan_screen.dart';
 import '../../view/payment/payment_plans_screen.dart';
 import '../../view/payment/schools/school_payment_plan_screen.dart';
+import '../../view/main/search_explore/search_explore_screen.dart';
 
 class AppRoutes {
   // Route names
@@ -46,8 +54,13 @@ class AppRoutes {
   static const String newProductRegister = '/new_product/register';
   static const String newProductSearch = '/new_product/search';
   static const String productDetails = '/product/details';
-
   static const String dashboard = '/dashboard';
+  static const String barber_detail = '/barber/detail';
+  static const String barberShop_detail = '/barberShop/detail';
+  static const String school_detail = '/school/detail';
+  static const String event_detail = '/event/detail';
+  static const String search_explore = '/search/explore';
+  static const String state_by_state_details = "/state/details";
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
@@ -77,6 +90,69 @@ class AppRoutes {
     newProductRegister: (context) => const NewProductRegistration(),
     newProductSearch: (context) => const NewProductSearchScreen(),
     productDetails: (context) => const ProductDetailsPage(),
+    barber_detail: (context) => const BarberDetailPage(),
+    barberShop_detail: (context) => const BarberShopDetailScreen(
+          shopName: "Red Blade Barbershop",
+          about:
+              "At Red Blade Barbershop, we bring precision, style, and grooming excellence. "
+              "With professional barbers and premium tools, our aim is to deliver a clean, modern, "
+              "and sharp haircut experience that fits every personality.",
+          address:
+              "123 Main Street, Near Central Mall, West Avenue, Downtown Area, Lahore, Pakistan",
+          city: "Lahore",
+          state: "Punjab",
+          phone: "+92 300 1234567",
+          website: "www.redblade.com",
+          instagram: "@redbladebarbers",
+          services: [
+            "Fade Cut",
+            "Beard Trim",
+            "Shave",
+            "Hair Color",
+            "Kids Cut",
+            "Hot Towel",
+          ],
+          mainImage: AppStrings.barbershopImage, // dummy
+          galleryImages: [
+            AppStrings.barbershopImage,
+            AppStrings.barbershopImage,
+            AppStrings.barbershopImage,
+            AppStrings.barbershopImage,
+            AppStrings.barbershopImage,
+            AppStrings.barbershopImage,
+          ],
+        ),
+    event_detail: (context) => EventDetailScreen(
+          eventName: "Flutter Dev Meetup",
+          hostName: "Muhammad Zeeshan",
+          startDate: DateTime(2025, 12, 25),
+          endDate: DateTime(2025, 12, 25),
+          startTime: const TimeOfDay(hour: 10, minute: 30),
+          endTime: const TimeOfDay(hour: 15, minute: 0),
+          imageUrl: AppStrings.eventImage, // sample image
+        ),
+    school_detail: (context) => const SchoolDetailScreen(
+          firstName: "John",
+          lastName: "Doe",
+          email: "contact@barberacademy.com",
+          username: "john_doe123",
+          schoolName: "Barber Academy USA",
+          fullAddress: "1234 Main Street, Suite 101",
+          city: "Los Angeles, CA",
+          about:
+              "Barber Academy USA is a premier institution for professional barber training, offering courses in hair cutting, styling, and grooming. Our certified instructors provide hands-on experience to ensure students excel in the barber industry.",
+          phone: "+1 310-555-1234",
+          website: "https://www.barberacademyusa.com",
+          mainImage: AppStrings.schoolImage, // local asset path
+          galleryImages: [
+            AppStrings.schoolImage,
+            AppStrings.schoolImage,
+            AppStrings.schoolImage,
+          ],
+        ),
+    search_explore: (context) => const SearchExploreScreen(),
+    state_by_state_details: (context) =>
+        StateDetailScreen(state: Injections.instance.statesData.first)
   };
 
   // Navigate helper

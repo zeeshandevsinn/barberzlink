@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
@@ -135,6 +136,7 @@ class _BarbersSearchScreenState extends State<BarbersSearchScreen> {
                   final location = barber['location']!;
                   void onPressed() {
                     print('Tapped on $name');
+                    AppRoutes.goTo(context, AppRoutes.barber_detail);
                   }
 
                   return Padding(

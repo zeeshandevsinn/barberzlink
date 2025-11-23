@@ -1,40 +1,95 @@
+// widgets/shimmer_effect.dart
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ShimmerEffect extends StatefulWidget {
-  const ShimmerEffect({super.key});
+  final double width;
+  final double height;
+  final BoxShape shape;
+  final BorderRadiusGeometry? borderRadius;
+
+  const ShimmerEffect({
+    Key? key,
+    required this.width,
+    required this.height,
+    this.shape = BoxShape.rectangle,
+    this.borderRadius,
+  }) : super(key: key);
+
+  static Widget rectangular({
+    required double width,
+    required double height,
+    BorderRadiusGeometry? borderRadius,
+  }) {
+    return ShimmerEffect(
+      width: width,
+      height: height,
+      shape: BoxShape.rectangle,
+      borderRadius: borderRadius ?? BorderRadius.circular(4),
+    );
+  }
+
+  static Widget circular({
+    required double width,
+    required double height,
+  }) {
+    return ShimmerEffect(
+      width: width,
+      height: height,
+      shape: BoxShape.circle,
+    );
+  }
 
   @override
   State<ShimmerEffect> createState() => _ShimmerEffectState();
 }
 
-class _ShimmerEffectState extends State<ShimmerEffect> {
+class _ShimmerEffectState extends State<ShimmerEffect>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: GridView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: 6,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisExtent: 180,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-          ),
-          itemBuilder: (context, index) => Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Container(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+            shape: widget.shape,
+            borderRadius: widget.borderRadius,
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.grey[300]!,
+                Colors.grey[100]!,
+                Colors.grey[300]!,
+              ],
+              stops: [
+                _controller.value - 0.5,
+                _controller.value,
+                _controller.value + 0.5,
+              ].map((stop) => stop.clamp(0.0, 1.0)).toList(),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

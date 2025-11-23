@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final bool isTitle;
   final String? titleName;
+  final String? hintText;
 
   const CustomTextField({
     super.key,
@@ -26,6 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.isTitle = false,
     this.titleName,
     this.maxLines = 1,
+    this.hintText,
   });
 
   @override
@@ -79,6 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 width: 1.5,
               ),
             ),
+            hintText: widget.hintText == null ? '' : widget.hintText,
             prefixIcon: widget.icon == null
                 ? null
                 : Icon(widget.icon, color: Colors.black),
