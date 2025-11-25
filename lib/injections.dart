@@ -1,5 +1,6 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/models/job_model.dart';
 import 'package:barberzlink/models/state_profile_model.dart';
 
 class Injections {
@@ -611,5 +612,240 @@ class Injections {
       "description":
           "Modern grooming lounge specializing in fades, tapers, and facial styling.",
     },
+  ];
+
+  final List<JobModel> jobsFeed = [
+    JobModel(
+      id: 'job_01',
+      title: 'Lead Master Barber & Mentor',
+      companyName: 'Legends Grooming Lounge',
+      companyTagline: 'Luxury grooming collective scaling across the south.',
+      location: 'Atlanta, GA · Hybrid',
+      logo: AppStrings.barbershopImage,
+      isRemoteFriendly: true,
+      employmentType: 'Full-time',
+      experienceLevel: 'Senior',
+      salaryRange: '\$82k - \$98k + tips',
+      postedOn: DateTime.now().subtract(const Duration(hours: 12)),
+      applicants: 48,
+      description:
+          'Legends is searching for a culture driver who can lead our advanced team, mentor junior barbers, and help shape signature experiences for our VIP clientele.',
+      aboutCompany:
+          'Legends Grooming Lounge is a multi-location premium experience serving athletes, entertainers, and tech executives. We blend hospitality with grooming to make every seat legendary.',
+      responsibilities: [
+        'Mentor and coach an 8-person barber roster with weekly skill labs.',
+        'Own premium guest experiences from consult through finish.',
+        'Collaborate with creative director on content & live events.',
+        'Drive product attachment and loyalty memberships.'
+      ],
+      mustHaves: [
+        '7+ years behind the chair with a high-end book',
+        'Licensed in GA (or ability to transfer quickly)',
+        'Track record of education or workshop hosting',
+        'Comfortable on camera/social'
+      ],
+      goodToHaves: [
+        'Brand partnership experience',
+        'Prior shop leadership or ownership'
+      ],
+      perks: [
+        'Quarterly profit share',
+        'Unlimited education stipend',
+        'Wellness membership',
+        'Content studio access'
+      ],
+      cultureHighlights: [
+        'Bi-weekly creative labs',
+        'Equity pathways after year 2'
+      ],
+      tags: ['Mentorship', 'Premium clientele', 'Leadership'],
+      isPromoted: true,
+      isSaved: true,
+      isApplied: false,
+      isOwnerPosting: false,
+      isEasyApply: true,
+    ),
+    JobModel(
+      id: 'job_02',
+      title: 'Studio Barber · Creator Partnerships',
+      companyName: 'Blend Masters Media House',
+      companyTagline: 'Content-first shop powering national brand deals.',
+      location: 'Los Angeles, CA · On-site',
+      logo: AppStrings.barberImage,
+      isRemoteFriendly: false,
+      employmentType: 'Contract to hire',
+      experienceLevel: 'Mid-Senior',
+      salaryRange: '\$45/hr studio rate + residuals',
+      postedOn: DateTime.now().subtract(const Duration(days: 2, hours: 3)),
+      applicants: 112,
+      description:
+          'Join the Blend Masters studio team capturing live campaigns with streaming partners, consumer brands, and athlete collabs. Half creative lab, half private studio.',
+      aboutCompany:
+          'We are a production-ready barbershop with full creative services. Brands work with us to stage new launches, while talent rely on us for consistent on-camera looks.',
+      responsibilities: [
+        'Partner with production to storyboard grooming looks.',
+        'Travel to on-location shoots across SoCal.',
+        'Keep inventory of wardrobe/grooming kit for each client.',
+        'Document before-after content for publishing cadence.'
+      ],
+      mustHaves: [
+        'California license in good standing',
+        'Comfortable working on-set under tight timelines',
+        'Portfolio of fade + beard work on diverse textures'
+      ],
+      goodToHaves: [
+        'Prior agency or brand experience',
+        'Social following / creator background'
+      ],
+      perks: [
+        'On-site glam support',
+        'Travel stipend',
+        'Creative royalties on select campaigns'
+      ],
+      cultureHighlights: ['Creator-first mindset', 'Weekly drop-in workshops'],
+      tags: ['On-set', 'Creator economy', 'Travel'],
+      isPromoted: false,
+      isSaved: false,
+      isApplied: false,
+      isOwnerPosting: false,
+      isEasyApply: true,
+    ),
+    JobModel(
+      id: 'job_03',
+      title: 'Education Director · National Academy',
+      companyName: 'Modern Man Studio Network',
+      companyTagline:
+          'Building the next wave of elite barbers across 9 states.',
+      location: 'Chicago, IL · Remote friendly',
+      logo: AppStrings.schoolImage,
+      isRemoteFriendly: true,
+      employmentType: 'Full-time',
+      experienceLevel: 'Director',
+      salaryRange: '\$105k - \$130k + bonus',
+      postedOn: DateTime.now().subtract(const Duration(days: 5, hours: 6)),
+      applicants: 64,
+      description:
+          'Own curriculum, educator coaching, and live touring events for our accredited national academy. Partner directly with state boards and brand sponsors.',
+      aboutCompany:
+          'Modern Man Studio Network operates academies, touring education, and digital learning. We place 300+ graduates into seats every quarter.',
+      responsibilities: [
+        'Build annual education roadmap with executive sponsors.',
+        'Host quarterly certification labs + livestreams.',
+        'Coach a bench of 12 educators across the US.',
+        'Shepherd new state approval packages.'
+      ],
+      mustHaves: [
+        'Licensed instructor credential',
+        'Experience scaling education programs',
+        'Public speaking / hosting background'
+      ],
+      goodToHaves: [
+        'Brand education partnership experience',
+        'Multi-state compliance familiarity'
+      ],
+      perks: [
+        '401k match',
+        'Unlimited PTO',
+        'Sabbatical program',
+        'Executive coaching'
+      ],
+      cultureHighlights: [
+        'Remote-first team',
+        'Annual creative residency in Tulum'
+      ],
+      tags: ['Education', 'Leadership', 'Remote'],
+      isPromoted: true,
+      isSaved: false,
+      isApplied: true,
+      isOwnerPosting: false,
+      isEasyApply: false,
+    ),
+    JobModel(
+      id: 'job_04',
+      title: 'Shop Manager & Talent Partner',
+      companyName: 'Urban Fades Collective',
+      companyTagline: 'Community-first hub expanding across South Florida.',
+      location: 'Miami, FL · On-site',
+      logo: AppStrings.barberImage,
+      isRemoteFriendly: false,
+      employmentType: 'Full-time',
+      experienceLevel: 'Mid-level',
+      salaryRange: '\$68k base + placement bonus',
+      postedOn: DateTime.now().subtract(const Duration(days: 1, hours: 2)),
+      applicants: 23,
+      description:
+          'Blend operations, recruiting, and brand partnerships while leading a flagship location. Perfect for a barber ready to step into ops leadership.',
+      aboutCompany:
+          'Urban Fades runs three high-volume shops and a mobile studio. We elevate local talent with residencies, pop-ups, and paid content pushes.',
+      responsibilities: [
+        'Run day-to-day operations, scheduling, and KPI tracking.',
+        'Host weekly community activations + IG Live drops.',
+        'Recruit & onboard barbers via Barberz Link job tools.',
+        'Own vendor relationships + monthly merch drops.'
+      ],
+      mustHaves: [
+        '3+ years managing a shop or team',
+        'Comfortable with POS / SaaS tools',
+        'Proven relationship builder'
+      ],
+      goodToHaves: ['Dual English/Spanish fluency', 'Event production chops'],
+      perks: [
+        'Performance bonus',
+        'Relocation support',
+        'Wellness & therapy stipend'
+      ],
+      cultureHighlights: ['Community service days', 'In-house content squad'],
+      tags: ['Operations', 'People leadership', 'Community'],
+      isPromoted: false,
+      isSaved: false,
+      isApplied: false,
+      isOwnerPosting: true,
+      isEasyApply: false,
+    ),
+    JobModel(
+      id: 'job_05',
+      title: 'Mobile Grooming Specialist',
+      companyName: 'Sharp Cuts Concierge',
+      companyTagline: 'On-demand grooming for hotels, arenas & private clubs.',
+      location: 'New York, NY · Mobile',
+      logo: AppStrings.newProductImage,
+      isRemoteFriendly: true,
+      employmentType: 'Freelance Collective',
+      experienceLevel: 'Mid-level',
+      salaryRange: '\$120 per appointment + gratuity',
+      postedOn: DateTime.now().subtract(const Duration(hours: 30)),
+      applicants: 89,
+      description:
+          'We are building a bench of elite mobile barbers who can drop into luxury properties within 90 minutes. Expect concierge-level service standards.',
+      aboutCompany:
+          'Sharp Cuts partners with 5-star hotels, pro teams, and luxury residences. We power seamless grooming wherever clients land.',
+      responsibilities: [
+        'Travel with mobile kit across Manhattan/Brooklyn.',
+        'Deliver elevated hospitality and consultation.',
+        'Capture quick social content per appointment.',
+        'Track product usage + client preferences.'
+      ],
+      mustHaves: [
+        'NY license + mobile insurance',
+        'Own vehicle or reliable transportation',
+        'Comfortable with VIP clientele'
+      ],
+      goodToHaves: [
+        'Experience with mobile booking platforms',
+        'Multiple language ability'
+      ],
+      perks: [
+        'Priority booking routes',
+        'Concierge dispatch support',
+        'Monthly wellness tune-ups'
+      ],
+      cultureHighlights: ['Flexible routes', 'High-touch hospitality'],
+      tags: ['Mobile', 'Premium', 'High tip'],
+      isPromoted: false,
+      isSaved: true,
+      isApplied: false,
+      isOwnerPosting: false,
+      isEasyApply: true,
+    ),
   ];
 }

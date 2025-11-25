@@ -41,7 +41,11 @@ class PlanCard extends StatelessWidget {
                 : isPopular
                     ? Colors.amber.shade400
                     : Colors.grey.shade300,
-            width: isSelected ? 2.5 : isPopular ? 2 : 1,
+            width: isSelected
+                ? 2.5
+                : isPopular
+                    ? 2
+                    : 1,
           ),
           boxShadow: [
             BoxShadow(
@@ -62,7 +66,8 @@ class PlanCard extends StatelessWidget {
                 if (isPopular)
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                     decoration: BoxDecoration(
                       color: Colors.amber.shade50,
                       borderRadius: BorderRadius.only(
@@ -227,4 +232,3 @@ class PlanCard extends StatelessWidget {
     );
   }
 }
-

@@ -2,11 +2,15 @@
 
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/injections.dart';
+import 'package:barberzlink/models/job_model.dart';
 import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
 import 'package:barberzlink/view/main/main_page.dart';
+import 'package:barberzlink/view/jobs/job_board_screen.dart';
+import 'package:barberzlink/view/jobs/job_detail_screen.dart';
+import 'package:barberzlink/view/jobs/job_post_screen.dart';
 import 'package:barberzlink/view/new_product/new_product_registration.dart';
 import 'package:barberzlink/view/new_product/new_product_search_screen.dart';
 import 'package:barberzlink/view/new_product/product_details.dart';
@@ -55,6 +59,9 @@ class AppRoutes {
   static const String newProductSearch = '/new_product/search';
   static const String productDetails = '/product/details';
   static const String dashboard = '/dashboard';
+  static const String job_board = '/jobs/board';
+  static const String job_detail = '/jobs/detail';
+  static const String job_post = '/jobs/post';
   static const String barber_detail = '/barber/detail';
   static const String barberShop_detail = '/barberShop/detail';
   static const String school_detail = '/school/detail';
@@ -90,6 +97,14 @@ class AppRoutes {
     newProductRegister: (context) => const NewProductRegistration(),
     newProductSearch: (context) => const NewProductSearchScreen(),
     productDetails: (context) => const ProductDetailsPage(),
+    job_board: (context) => const JobBoardScreen(),
+    job_post: (context) => const JobPostScreen(),
+    job_detail: (context) {
+      final job = ModalRoute.of(context)?.settings.arguments as JobModel?;
+      return JobDetailsScreen(
+        job: job ?? Injections.instance.jobsFeed.first,
+      );
+    },
     barber_detail: (context) => const BarberDetailPage(),
     barberShop_detail: (context) => const BarberShopDetailScreen(
           shopName: "Red Blade Barbershop",
@@ -156,12 +171,14 @@ class AppRoutes {
   };
 
   // Navigate helper
-  static void goTo(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  static void goTo(BuildContext context, String routeName,
+      {Object? arguments}) {
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
-  static void goToReplace(BuildContext context, String routeName) {
-    Navigator.pushReplacementNamed(context, routeName);
+  static void goToReplace(BuildContext context, String routeName,
+      {Object? arguments}) {
+    Navigator.pushReplacementNamed(context, routeName, arguments: arguments);
   }
 
   static void goToPaymentPlans(BuildContext context, {String? userType}) {

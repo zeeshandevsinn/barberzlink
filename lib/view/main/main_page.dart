@@ -1,6 +1,7 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
+import 'package:barberzlink/view/jobs/job_board_screen.dart';
 import 'package:barberzlink/view/main/home/home_screen.dart';
 import 'package:barberzlink/view/main/profile/profile_screen.dart';
 import 'package:barberzlink/view/main/search_explore/search_explore_screen.dart';
@@ -54,11 +55,7 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.background,
-        body: _selectedIndex == 0
-            ? HomeScreen(categories: _categories)
-            : _selectedIndex == 1
-                ? SearchExploreScreen()
-                : AccountProfileScreen(),
+        body: _buildBody(),
         // Custom Bottom Navigation Bar
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
@@ -75,7 +72,7 @@ class _MainPageState extends State<MainPage> {
             unselectedItemColor: Colors.grey,
             currentIndex: _selectedIndex,
             onTap: (index) => setState(() => _selectedIndex = index),
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.dashboard_outlined),
                 label: 'Home',
@@ -83,6 +80,10 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.work),
+                label: 'Jobs',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
@@ -93,5 +94,19 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildBody() {
+    switch (_selectedIndex) {
+      case 0:
+        return HomeScreen(categories: _categories);
+      case 1:
+        return const SearchExploreScreen();
+      case 2:
+        return const JobBoardScreen();
+      case 3:
+      default:
+        return const AccountProfileScreen();
+    }
   }
 }

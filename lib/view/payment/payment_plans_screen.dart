@@ -68,7 +68,8 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
                 'Switch between tiers anytime',
               ],
               price: 'Free / \$9.99',
-              priceSubtext: 'Limited access (free) or full access (\$9.99/month)',
+              priceSubtext:
+                  'Limited access (free) or full access (\$9.99/month)',
               isPopular: widget.userType == 'barber',
             ),
             SizedBox(height: 16.h),
@@ -84,7 +85,8 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
                 'Promote openings across the BarberzLink network',
               ],
               price: 'Free / \$9.99',
-              priceSubtext: 'Limited access (free) or full access (\$9.99/month)',
+              priceSubtext:
+                  'Limited access (free) or full access (\$9.99/month)',
               isPopular: widget.userType == 'barbershop',
             ),
             SizedBox(height: 16.h),
@@ -302,7 +304,8 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Payment processing for ${_getPlanName(_selectedPlan!)}'),
+                  content: Text(
+                      'Payment processing for ${_getPlanName(_selectedPlan!)}'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -320,4 +323,3 @@ class _PaymentPlansScreenState extends State<PaymentPlansScreen> {
     );
   }
 }
-
