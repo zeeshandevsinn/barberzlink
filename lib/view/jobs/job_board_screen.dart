@@ -260,7 +260,7 @@ class _JobBoardScreenState extends State<JobBoardScreen> {
 
   Widget _buildTabs() {
     return SizedBox(
-      height: 48.h,
+      height: 59.h,
       child: ListView.separated(
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
         scrollDirection: Axis.horizontal,

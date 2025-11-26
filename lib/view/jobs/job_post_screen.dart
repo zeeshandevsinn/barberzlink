@@ -200,7 +200,7 @@ class _JobPostScreenState extends State<JobPostScreen> {
               SizedBox(height: 20.h),
               _buildSectionTitle('Must haves'),
               SizedBox(height: 8.h),
-              _buildChipList(_mustHaveSkills, Colors.black87, () {
+              _buildChipList(_mustHaveSkills, Colors.white, () {
                 setState(() {});
               }),
               _buildComposer(
