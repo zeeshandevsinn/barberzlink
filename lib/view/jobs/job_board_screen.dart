@@ -134,8 +134,11 @@ class _JobBoardScreenState extends State<JobBoardScreen> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.black,
         onPressed: () => AppRoutes.goTo(context, AppRoutes.job_post),
-        icon: const Icon(Icons.add),
-        label: const Text('Post a job'),
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        label: const Text('Post a job', style: TextStyle(color: Colors.white)),
       ),
     );
   }
@@ -235,6 +238,7 @@ class _JobBoardScreenState extends State<JobBoardScreen> {
           border: Border.all(color: Colors.grey.shade200),
         ),
         child: TextField(
+          cursorColor: Colors.black,
           controller: _searchController,
           onChanged: (_) => setState(() {}),
           decoration: InputDecoration(

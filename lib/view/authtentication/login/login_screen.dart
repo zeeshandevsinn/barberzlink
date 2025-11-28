@@ -43,10 +43,10 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: FadeTransition(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: FadeTransition(
           opacity: _fadeAnimation,
           child: Center(
             child: SingleChildScrollView(

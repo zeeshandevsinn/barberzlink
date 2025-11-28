@@ -7,6 +7,7 @@ import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
+import 'package:barberzlink/view/jobs/job_board_barber_screen.dart';
 import 'package:barberzlink/view/main/main_page.dart';
 import 'package:barberzlink/view/jobs/job_board_screen.dart';
 import 'package:barberzlink/view/jobs/job_detail_screen.dart';
@@ -99,7 +100,7 @@ class AppRoutes {
     newProductRegister: (context) => const NewProductRegistration(),
     newProductSearch: (context) => const NewProductSearchScreen(),
     productDetails: (context) => const ProductDetailsPage(),
-    job_board: (context) => const JobBoardScreen(),
+    job_board: (context) => const JobBoardBarberScreen(),
     job_post: (context) => const JobPostScreen(),
     edit_profile: (context) => const EditProfileScreen(),
     job_detail: (context) {
