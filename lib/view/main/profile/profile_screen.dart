@@ -153,6 +153,9 @@ class _AccountProfileScreenState extends State<AccountProfileScreen>
               position: _tilesSlide,
               child: Column(
                 children: [
+                  _buildTile(Icons.edit, "Edit Profile", () {
+                    AppRoutes.goTo(context, AppRoutes.edit_profile);
+                  }),
                   _buildTile(Icons.settings, "Settings", () {}),
                   _buildTile(Icons.privacy_tip, "Privacy Policy", () {}),
                   _buildTile(Icons.help_center, "Help Center", () {}),

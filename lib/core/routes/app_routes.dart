@@ -35,6 +35,7 @@ import '../../view/payment/events/event_payment_plan_screen.dart';
 import '../../view/payment/payment_plans_screen.dart';
 import '../../view/payment/schools/school_payment_plan_screen.dart';
 import '../../view/main/search_explore/search_explore_screen.dart';
+import 'package:barberzlink/view/main/profile/edit_profile_screen.dart';
 
 class AppRoutes {
   // Route names
@@ -58,6 +59,7 @@ class AppRoutes {
   static const String newProductRegister = '/new_product/register';
   static const String newProductSearch = '/new_product/search';
   static const String productDetails = '/product/details';
+  static const String edit_profile = '/profile/edit';
   static const String dashboard = '/dashboard';
   static const String job_board = '/jobs/board';
   static const String job_detail = '/jobs/detail';
@@ -99,6 +101,7 @@ class AppRoutes {
     productDetails: (context) => const ProductDetailsPage(),
     job_board: (context) => const JobBoardScreen(),
     job_post: (context) => const JobPostScreen(),
+    edit_profile: (context) => const EditProfileScreen(),
     job_detail: (context) {
       final job = ModalRoute.of(context)?.settings.arguments as JobModel?;
       return JobDetailsScreen(
