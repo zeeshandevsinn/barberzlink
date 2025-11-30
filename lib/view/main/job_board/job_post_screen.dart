@@ -61,15 +61,22 @@ class _JobPostScreenState extends State<JobPostScreen> {
     'Multi-state license transfers',
   ];
 
-  final List<String> _perkOptions = const [
-    'Profit share',
-    'Education stipend',
-    'Wellness fund',
-    'Content studio access',
-    'Equity path',
+  final List<String> _perkOptions = [
+    "Competitive Pay Structure",
+    "Flexible Scheduling",
+    "High Walk-In Traffic",
+    "Marketing & Promotive",
+    "Provided Supplies & Amenities",
+    "Comfortable & Updated Workspace",
+    "Education & Career Growth",
+    "Business Support",
+    "Stability & Safety",
+    "Community & Team Advantages",
+    "Client Growth Opportunities",
+    "Hiring Flyers",
   ];
 
-  final Set<String> _selectedPerks = {'Profit share', 'Education stipend'};
+  final Set<String> _selectedPerks = {};
   int _currentStep = 0;
 
   @override

@@ -1,5 +1,7 @@
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/models/job_model.dart';
+import 'package:barberzlink/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,11 +14,13 @@ class JobBoardBarberScreen extends StatefulWidget {
 
 class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _keywordController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _zipCodeController = TextEditingController();
   final List<String> _tabs = const [
     'All Jobs',
     'Nearby',
     'Saved',
-    'Applications'
   ];
   final List<String> _filters = const [
     'Remote',
@@ -266,51 +270,23 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
     );
   }
 
+  String selectedStates = 'All States';
+
   Widget _buildSearchField() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 16.h),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 20,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: TextField(
-          controller: _searchController,
-          cursorColor: Colors.black,
-          onChanged: (_) => setState(() {}),
-          decoration: InputDecoration(
-            hintText: 'Search jobs, barbershops, or locations...',
-            border: InputBorder.none,
-            prefixIcon: Icon(Icons.search, color: Colors.grey.shade600),
-            suffixIcon: _searchController.text.isEmpty
-                ? IconButton(
-                    icon: Icon(Icons.tune, color: Colors.grey.shade600),
-                    onPressed: () {
-                      setState(() {
-                        showFilters = !showFilters;
-                      });
-                    },
-                  )
-                : IconButton(
-                    icon: Icon(Icons.close, color: Colors.grey.shade600),
-                    onPressed: () {
-                      _searchController.clear();
-                      setState(() {});
-                    },
-                  ),
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-          ),
-        ),
-      ),
-    );
+        padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 16.h),
+        child: CustomSearchBar(
+            keywordController: _keywordController,
+            cityController: _cityController,
+            zipController: _zipCodeController,
+            selectedState: selectedStates,
+            states: Injections.instance.states,
+            onStateChanged: (e) {
+              setState(() {
+                selectedStates = e ?? '';
+              });
+            },
+            onSearch: () {}));
   }
 
   Widget _buildTabs() {

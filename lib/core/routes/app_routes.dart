@@ -7,16 +7,17 @@ import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
-import 'package:barberzlink/view/jobs/job_board_barber_screen.dart';
+import 'package:barberzlink/view/main/job_board/job_board_barber_screen.dart';
 import 'package:barberzlink/view/main/main_page.dart';
-import 'package:barberzlink/view/jobs/job_board_screen.dart';
-import 'package:barberzlink/view/jobs/job_detail_screen.dart';
-import 'package:barberzlink/view/jobs/job_post_screen.dart';
+import 'package:barberzlink/view/main/job_board/job_detail_screen.dart';
+import 'package:barberzlink/view/main/job_board/job_post_screen.dart';
 import 'package:barberzlink/view/new_product/new_product_registration.dart';
 import 'package:barberzlink/view/new_product/new_product_search_screen.dart';
 import 'package:barberzlink/view/new_product/product_details.dart';
 import 'package:barberzlink/view/onboarding/onboarding_screen.dart';
 import 'package:barberzlink/view/payment/barbers/barber_payment_plan_screen.dart';
+import 'package:barberzlink/view/security/privacy_policy_page.dart';
+import 'package:barberzlink/view/security/term_condition_page.dart';
 import 'package:barberzlink/view/schools/school_detailed_page.dart';
 import 'package:barberzlink/view/schools/school_registration_screen.dart';
 import 'package:barberzlink/view/schools/school_search_screen.dart';
@@ -31,6 +32,7 @@ import '../../view/barbers_shop/barbershop_detail.dart';
 import '../../view/barbers_shop/barbershop_register_screen.dart';
 import '../../view/barbers_shop/barbershop_search_screen.dart';
 import '../../view/events/event_detail_page.dart';
+import '../../view/faq/faq_page.dart';
 import '../../view/payment/barbershop/barbershop_payment_plan_screen.dart';
 import '../../view/payment/events/event_payment_plan_screen.dart';
 import '../../view/payment/payment_plans_screen.dart';
@@ -71,6 +73,9 @@ class AppRoutes {
   static const String event_detail = '/event/detail';
   static const String search_explore = '/search/explore';
   static const String state_by_state_details = "/state/details";
+  static const String terms_and_conditions = "/terms_and_conditions";
+  static const String privacy_policy = "/privacy_policy";
+  static const String faq_page = "/faq";
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
@@ -171,7 +176,10 @@ class AppRoutes {
         ),
     search_explore: (context) => const SearchExploreScreen(),
     state_by_state_details: (context) =>
-        StateDetailScreen(state: Injections.instance.statesData.first)
+        StateDetailScreen(state: Injections.instance.statesData.first),
+    terms_and_conditions: (context) => const TermsAndConditionPage(),
+    privacy_policy: (context) => const PrivacyPolicyPage(),
+    faq_page: (context) => const FAQPage(),
   };
 
   // Navigate helper

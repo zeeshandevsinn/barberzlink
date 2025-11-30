@@ -4,8 +4,6 @@ import 'package:barberzlink/widgets/dotted_container.dart';
 import 'package:barberzlink/view/main/profile/widgets/profile_form_section.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 
-import 'package:image_picker/image_picker.dart';
-
 class BarberProfileForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final Map<String, TextEditingController> controllers;

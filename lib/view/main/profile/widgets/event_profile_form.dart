@@ -3,7 +3,6 @@ import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/view/main/profile/widgets/Profile_form_section.dart';
 import 'package:barberzlink/view/main/profile/widgets/custom_image_picker.dart';
-import 'package:barberzlink/widgets/dotted_container.dart';
 import 'package:flutter/material.dart';
 
 class EventProfileForm extends StatelessWidget {

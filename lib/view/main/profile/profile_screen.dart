@@ -1,4 +1,5 @@
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/helper/functions.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -157,9 +158,22 @@ class _AccountProfileScreenState extends State<AccountProfileScreen>
                     AppRoutes.goTo(context, AppRoutes.edit_profile);
                   }),
                   _buildTile(Icons.settings, "Settings", () {}),
-                  _buildTile(Icons.privacy_tip, "Privacy Policy", () {}),
-                  _buildTile(Icons.help_center, "Help Center", () {}),
-                  _buildTile(Icons.question_answer, "FAQ", () {}),
+                  _buildTile(Icons.privacy_tip, "Privacy Policy", () {
+                    AppRoutes.goTo(context, AppRoutes.privacy_policy);
+                  }),
+                  _buildTile(
+                      Icons.verified_user_outlined, "Terms and Conditions", () {
+                    AppRoutes.goTo(context, AppRoutes.terms_and_conditions);
+                  }),
+                  _buildTile(Icons.help_center, "Help Center", () {
+                    AppHelper.openAdminEmail(
+                        subject: "Help Needed",
+                        body:
+                            "Hello Barberz Link Team,\n\nI need assistance with...");
+                  }),
+                  _buildTile(Icons.question_answer, "FAQ", () {
+                    AppRoutes.goTo(context, AppRoutes.faq_page);
+                  }),
                   _buildTile(Icons.logout, "Logout", () {
                     AppRoutes.goTo(context, AppRoutes.login);
                   }),

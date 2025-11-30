@@ -358,11 +358,6 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ⭐ FEATURED BARBERS HORIZONTAL
-          buildHorizontalSection(
-            title: "Featured Barbers",
-            data: Injections.instance.barbersData,
-            cardBuilder: buildBarberCard,
-          ),
 
           SizedBox(height: 20.h),
 

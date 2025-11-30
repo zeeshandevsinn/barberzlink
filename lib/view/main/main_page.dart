@@ -1,7 +1,7 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
-import 'package:barberzlink/view/jobs/job_board_advance_screen.dart';
+import 'package:barberzlink/view/main/job_board/job_board_barber_screen.dart';
 import 'package:barberzlink/view/main/home/home_screen.dart';
 import 'package:barberzlink/view/main/profile/profile_screen.dart';
 import 'package:barberzlink/view/main/search_explore/search_explore_screen.dart';

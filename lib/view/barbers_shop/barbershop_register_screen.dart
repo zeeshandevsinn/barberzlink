@@ -41,6 +41,7 @@ class _BarberShopRegistrationScreenState
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _website = TextEditingController();
   final TextEditingController _instagram = TextEditingController();
+  final TextEditingController _averageSalary = TextEditingController();
 
   // Dropdown values
   String _selectedState = "All States";
@@ -54,7 +55,9 @@ class _BarberShopRegistrationScreenState
     'Facial',
     'Massage'
   ];
+  final List<String> barberShopSales = ["Booth Rental", "Commission", "Both"];
   final Map<String, bool> _selectedServices = {};
+  String _selectedBarberShopSale = "";
   bool _selectAll = false;
 
   // Radio buttons
@@ -322,8 +325,17 @@ class _BarberShopRegistrationScreenState
                         icon: Icons.camera_alt_outlined,
                         controller: _instagram,
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 18),
+                      CustomTextField(
+                        isTitle: true,
+                        titleName: 'Salary Range',
+                        label: 'Average Salary Range',
+                        icon: Icons.attach_money,
+                        controller: _averageSalary,
+                        keyboardType: TextInputType.number,
+                      ),
 
+                      const SizedBox(height: 30),
                       // Popular Services
                       Align(
                         alignment: Alignment.centerLeft,
@@ -349,11 +361,42 @@ class _BarberShopRegistrationScreenState
                           title: Text(service, style: AppTextStyle.medium()),
                           value: _selectedServices[service],
                           activeColor: AppColors.black,
+                          checkColor: AppColors.white,
                           onChanged: (value) {
                             setState(() {
                               _selectedServices[service] = value!;
                               _selectAll = _selectedServices.values
                                   .every((selected) => selected);
+                            });
+                          },
+                        );
+                      }),
+                      const SizedBox(height: 10),
+                      Divider(color: Colors.grey.shade400),
+                      const SizedBox(height: 30),
+                      // Popular Services
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Is BarberShop:',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                      ...barberShopSales.map((service) {
+                        return CheckboxListTile(
+                          title: Text(service, style: AppTextStyle.medium()),
+                          value: _selectedBarberShopSale == service,
+                          activeColor: AppColors.black,
+                          checkColor: AppColors.white,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedBarberShopSale = service;
                             });
                           },
                         );
