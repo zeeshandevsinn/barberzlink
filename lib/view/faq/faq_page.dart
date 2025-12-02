@@ -21,7 +21,7 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
     {
       "question": "Is Barberz Link free to use?",
       "answer":
-          "Yes, basic features are free. However, some premium features may require subscriptions."
+          "Yes, basic features are free. However, some premium features do require subscriptions."
     },
     {
       "question": "Does Barberz Link verify user information?",
@@ -35,8 +35,7 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
     },
     {
       "question": "How can I contact support?",
-      "answer":
-          "You can reach us anytime at contact@barberzlink.com or call 904-319-3632."
+      "answer": "You can reach us anytime at contact@barberzlink.com."
     },
     {
       "question": "Is my personal data secure?",
@@ -61,7 +60,7 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
     {
       "question": "Does Barberz Link sell my information?",
       "answer": "No. We do not sell or trade user information."
-    },
+    }
   ];
 
   // Track Expanded Tiles

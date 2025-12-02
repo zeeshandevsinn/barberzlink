@@ -85,7 +85,8 @@ class _SchoolPaymentPlanScreenState extends State<SchoolPaymentPlanScreen> {
                   final result = await confirmPayment(
                       context, "Monthly School Subscription (\$50/month)?");
                   if (result) {
-                    AppRoutes.goToReplace(context, AppRoutes.dashboard);
+                    AppRoutes.goToReplace(context, AppRoutes.dashboard,
+                        arguments: 0);
                   }
                 },
               ),

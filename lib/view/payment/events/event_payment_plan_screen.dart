@@ -83,7 +83,8 @@ class _EventPaymentPlanScreenState extends State<EventPaymentPlanScreen> {
                   final result = await confirmPayment(
                       context, "One-time event payment of \$150?");
                   if (result) {
-                    AppRoutes.goToReplace(context, AppRoutes.dashboard);
+                    AppRoutes.goToReplace(context, AppRoutes.dashboard,
+                        arguments: 0);
                   }
                 },
               ),

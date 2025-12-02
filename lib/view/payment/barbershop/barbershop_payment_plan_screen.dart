@@ -83,7 +83,8 @@ class _BarberShopPaymentPlanScreenState
                   final result = await confirmPayment(
                       context, "Full Access (\$19.99/month)?");
                   if (result) {
-                    AppRoutes.goToReplace(context, AppRoutes.dashboard);
+                    AppRoutes.goToReplace(context, AppRoutes.dashboard,
+                        arguments: 0);
                   }
                 },
               ),

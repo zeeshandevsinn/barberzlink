@@ -28,4 +28,30 @@ class AppHelper {
       await launchUrl(fallbackUri, mode: LaunchMode.externalApplication);
     }
   }
+
+  static Future<void> openJobCompanyEmail({
+    String subject = "Job Inquiry - Barberz Link",
+    String body = "Hello,",
+    required String companyEmail,
+  }) async {
+    final Uri gmailUri = Uri(
+      scheme: 'mailto',
+      path: companyEmail,
+      query: Uri.encodeQueryComponent(
+        "subject=$subject&body=$body",
+      ),
+    );
+
+    if (await canLaunchUrl(gmailUri)) {
+      await launchUrl(gmailUri, mode: LaunchMode.externalApplication);
+    } else {
+      // Fallback (if Gmail not available)
+      final Uri fallbackUri = Uri(
+        scheme: 'mailto',
+        path: adminEmail,
+      );
+
+      await launchUrl(fallbackUri, mode: LaunchMode.externalApplication);
+    }
+  }
 }

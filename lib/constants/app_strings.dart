@@ -11,4 +11,6 @@ class AppStrings {
   static const String newProductImage = "assets/images/new_product.jpg";
   static const String appLogo = "assets/images/barberz_logo.png";
   static const String appFrontImage = "assets/images/app_front_page.png";
+  static const String stateByStateImage = "assets/images/state by state.jpg";
+  static const String businessTipsImage = "assets/images/Business tips.jpg";
 }

@@ -374,7 +374,7 @@ class _JobPostScreenState extends State<JobPostScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: ['Entry', 'Mid', 'Senior', 'Director']
+                children: ['Apprentice', 'Junior', 'Senior', 'Master']
                     .map((label) => Text(
                           label,
                           style: TextStyle(
@@ -884,13 +884,13 @@ class _JobPostScreenState extends State<JobPostScreen> {
   String _experienceLabel() {
     switch (_experienceLevel.round()) {
       case 0:
-        return 'Entry Level';
+        return 'Apprentice Level';
       case 1:
-        return 'Mid Level';
+        return 'Junior Level';
       case 2:
         return 'Senior Level';
       default:
-        return 'Director Level';
+        return 'Master Level';
     }
   }
 

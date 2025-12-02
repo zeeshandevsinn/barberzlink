@@ -5,6 +5,7 @@ import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/models/job_model.dart';
 import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
+import 'package:barberzlink/view/business_tips/business_tips_registration.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
 import 'package:barberzlink/view/main/job_board/job_board_barber_screen.dart';
@@ -22,6 +23,7 @@ import 'package:barberzlink/view/schools/school_detailed_page.dart';
 import 'package:barberzlink/view/schools/school_registration_screen.dart';
 import 'package:barberzlink/view/schools/school_search_screen.dart';
 import 'package:barberzlink/view/splash/splash_screen.dart';
+import 'package:barberzlink/view/state_by_state/state_by_state_search_screen.dart';
 import 'package:barberzlink/view/state_by_state/state_detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -76,13 +78,19 @@ class AppRoutes {
   static const String terms_and_conditions = "/terms_and_conditions";
   static const String privacy_policy = "/privacy_policy";
   static const String faq_page = "/faq";
+  static const String state_by_state_search = "/state/search";
+  static const String business_registration = "/business/registration";
+  static const String business_search = "/business/search";
+  static const String business_detail = "/business/detail";
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
     splash: (context) => const SplashScreen(),
     onboarding: (context) => const OnboardingScreen(),
     login: (context) => const LoginScreen(),
-    dashboard: (context) => const MainPage(),
+    dashboard: (context) => MainPage(
+          index: ModalRoute.of(context)!.settings.arguments as int? ?? 0,
+        ),
     registration: (context) => const RegistrationScreen(),
     event_registration: (context) => const EventRegisterScreen(),
     barberShop_registration: (context) => const BarberShopRegistrationScreen(),
@@ -180,6 +188,8 @@ class AppRoutes {
     terms_and_conditions: (context) => const TermsAndConditionPage(),
     privacy_policy: (context) => const PrivacyPolicyPage(),
     faq_page: (context) => const FAQPage(),
+    state_by_state_search: (context) => const StateByStateSearchScreen(),
+    business_registration: (context) => const BusinessTipsRegistration(),
   };
 
   // Navigate helper

@@ -5,6 +5,7 @@ import 'package:barberzlink/widgets/custom_event_card.dart';
 import 'package:barberzlink/widgets/custom_textfield.dart';
 import 'package:barberzlink/widgets/featured_product_card.dart';
 import 'package:barberzlink/widgets/state_card.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -216,39 +217,58 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
     required List<Map<String, dynamic>> data,
     required Widget Function(Map<String, dynamic>) cardBuilder,
   }) {
+    if (data.isEmpty) return const SizedBox();
+
+    // Responsive height logic
+    double sectionHeight;
+    switch (title) {
+      case "Barbers":
+      case "Featured Barbers":
+      case "Schools":
+        sectionHeight = 280.spMax;
+        break;
+      case "Events":
+        sectionHeight = 430.spMax;
+        break;
+      default:
+        sectionHeight = 350.spMax;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 15.h),
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         SizedBox(height: 10.h),
-        SizedBox(
-          height: title == "Barbers" ||
-                  title == "Featured Barbers" ||
-                  title == "Schools"
-              ? 260.h
-              : title == "Events"
-                  ? 430.h
-                  : 330.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300.w, // FIXED: Added explicit width
-                margin: EdgeInsets.only(right: 12.w),
-                child: cardBuilder(data[index]),
-              );
-            },
+        CarouselSlider.builder(
+          itemCount: data.length,
+          options: CarouselOptions(
+            height: sectionHeight,
+            enlargeCenterPage: false, // set false to avoid shrinking
+            viewportFraction: 1.0, // full width per item
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            enableInfiniteScroll: true,
           ),
+          itemBuilder: (context, index, realIndex) {
+            return SizedBox(
+              width: double.infinity,
+              child: cardBuilder(data[index]),
+            );
+          },
         ),
         SizedBox(height: 15.h),
+        Divider(color: Colors.grey[300], thickness: 1),
       ],
     );
   }
@@ -418,9 +438,12 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
             itemCount: Injections.instance.eventsData.length,
             itemBuilder: (context, index) {
               final event = Injections.instance.eventsData[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
-                child: buildEventCard(event),
+              return Container(
+                height: 430.spMax,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: buildEventCard(event),
+                ),
               );
             },
           ),

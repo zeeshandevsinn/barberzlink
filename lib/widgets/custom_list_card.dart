@@ -1,5 +1,6 @@
 import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomListCard extends StatelessWidget {
   final String imagePath;
@@ -39,7 +40,7 @@ class CustomListCard extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.asset(
               imagePath,
-              height: 200,
+              height: 180.h,
               width: double.infinity,
               fit: BoxFit.cover,
             ),

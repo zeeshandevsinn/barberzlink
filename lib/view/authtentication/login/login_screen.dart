@@ -129,7 +129,8 @@ class _LoginScreenState extends State<LoginScreen>
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               AppRoutes.goToReplace(
-                                  context, AppRoutes.dashboard);
+                                  context, AppRoutes.dashboard,
+                                  arguments: 0);
                             }
                           },
                         ),

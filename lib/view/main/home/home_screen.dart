@@ -80,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        AppRoutes.goTo(context, AppRoutes.dashboard,
+                            arguments: 1);
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 12),
@@ -177,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 140.h,
+                height: 150.spMax,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 viewportFraction: 0.82,
@@ -233,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 140.h,
+                height: 150.spMax,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 viewportFraction: 0.82,
@@ -290,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 140.h,
+                height: 150.spMax,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 viewportFraction: 0.82,
@@ -346,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 140.h,
+                height: 150.spMax,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 viewportFraction: 0.82,
@@ -403,7 +406,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 140.h,
+                height: 150.spMax,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 viewportFraction: 0.82,

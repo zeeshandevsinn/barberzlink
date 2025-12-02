@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBarberShopCard extends StatelessWidget {
   final String imagePath;
@@ -43,7 +44,7 @@ class CustomBarberShopCard extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(14)),
             child: Image.asset(
               imagePath,
-              height: 250,
+              height: 180.h,
               width: double.infinity,
               fit: BoxFit.cover,
             ),

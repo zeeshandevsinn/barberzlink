@@ -8,7 +8,8 @@ import 'package:barberzlink/view/main/search_explore/search_explore_screen.dart'
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final int index;
+  const MainPage({super.key, required this.index});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -16,6 +17,17 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (mounted) {
+      setState(() {
+        _selectedIndex = widget.index;
+      });
+    }
+  }
 
   final List<Map<String, String>> _categories = [
     {
@@ -47,6 +59,11 @@ class _MainPageState extends State<MainPage> {
       "title": "New Products",
       "image": AppStrings.newProductImage,
       "route": AppRoutes.newProductSearch
+    },
+    {
+      "title": "State By State",
+      "image": AppStrings.stateByStateImage,
+      "route": AppRoutes.state_by_state_search
     },
   ];
 

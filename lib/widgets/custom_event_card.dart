@@ -1,5 +1,6 @@
 import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomEventCard extends StatelessWidget {
   final String imagePath;
@@ -45,7 +46,7 @@ class CustomEventCard extends StatelessWidget {
             children: [
               /// 🔹 Large Rectangular Image
               Container(
-                height: 300,
+                height: 200.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
