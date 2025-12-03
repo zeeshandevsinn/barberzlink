@@ -6,6 +6,7 @@ import 'package:barberzlink/widgets/custom_textfield.dart';
 import 'package:barberzlink/widgets/featured_product_card.dart';
 import 'package:barberzlink/widgets/state_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,9 +60,14 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(title: 'Explore & Search')),
+      appBar: kIsWeb
+          ? AppBar(
+              title: const Text("Explore & Search"),
+              centerTitle: true,
+              elevation: 1)
+          : PreferredSize(
+              preferredSize: Size.fromHeight(80),
+              child: CustomAppBar(title: 'Explore & Search')),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),

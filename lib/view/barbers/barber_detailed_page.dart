@@ -1,7 +1,9 @@
 import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_buildContactRow.dart';
 import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -48,12 +50,21 @@ class _BarberDetailPageState extends State<BarberDetailPage>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(80),
-            child: CustomAppBar(
-              title: "Barber Details",
-              isBack: true,
-            )),
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text(
+                  "Barber Details",
+                  style: AppTextStyle.semiBold(),
+                ),
+                centerTitle: true,
+                elevation: 1,
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: "Barber Details",
+                  isBack: true,
+                )),
         body: FadeTransition(
           opacity: fadeAnim,
           child: SlideTransition(

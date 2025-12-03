@@ -5,7 +5,9 @@ import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/models/job_model.dart';
 import 'package:barberzlink/view/authtentication/login/login_screen.dart';
 import 'package:barberzlink/view/authtentication/register/register_screen.dart';
+import 'package:barberzlink/view/business_tips/business_tips_details.dart';
 import 'package:barberzlink/view/business_tips/business_tips_registration.dart';
+import 'package:barberzlink/view/business_tips/business_tips_search_screen.dart';
 import 'package:barberzlink/view/events/event_registration_screen.dart';
 import 'package:barberzlink/view/events/event_search_screen.dart';
 import 'package:barberzlink/view/main/job_board/job_board_barber_screen.dart';
@@ -36,6 +38,7 @@ import '../../view/barbers_shop/barbershop_search_screen.dart';
 import '../../view/events/event_detail_page.dart';
 import '../../view/faq/faq_page.dart';
 import '../../view/payment/barbershop/barbershop_payment_plan_screen.dart';
+import '../../view/payment/business_tips/business_tips_payment_screen.dart';
 import '../../view/payment/events/event_payment_plan_screen.dart';
 import '../../view/payment/payment_plans_screen.dart';
 import '../../view/payment/schools/school_payment_plan_screen.dart';
@@ -82,6 +85,7 @@ class AppRoutes {
   static const String business_registration = "/business/registration";
   static const String business_search = "/business/search";
   static const String business_detail = "/business/detail";
+  static const String business_payment = "/business/payment";
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
@@ -189,7 +193,12 @@ class AppRoutes {
     privacy_policy: (context) => const PrivacyPolicyPage(),
     faq_page: (context) => const FAQPage(),
     state_by_state_search: (context) => const StateByStateSearchScreen(),
-    business_registration: (context) => const BusinessTipsRegistration(),
+    business_registration: (context) => const BusinessTipsRegistrationScreen(),
+    business_payment: (context) => const BusinessTipsPaymentScreen(),
+    business_search: (context) => const BusinessTipsSearchScreen(),
+    business_detail: (context) => BusinessTipsDetailPage(
+          business: Injections.instance.mockBusinessTipsList.first,
+        ),
   };
 
   // Navigate helper

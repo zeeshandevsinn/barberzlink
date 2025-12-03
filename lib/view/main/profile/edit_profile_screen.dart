@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 enum _ProfileType { barber, shop, school, event }
 
 class EditProfileScreen extends StatefulWidget {
@@ -139,13 +141,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       length: 4,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'Edit Profile',
-            isBack: true,
-          ),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text(
+                  "Edit Profile",
+                  style: AppTextStyle.semiBold(),
+                ),
+                centerTitle: true,
+                elevation: 1,
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'Edit Profile',
+                  isBack: true,
+                ),
+              ),
         body: Column(
           children: [
             const SizedBox(height: 12),

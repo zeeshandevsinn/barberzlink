@@ -1,324 +1,228 @@
-// import 'dart:ui';
-// import 'package:barberzlink/constants/app_strings.dart';
-// import 'package:barberzlink/core/routes/app_routes.dart';
-// import 'package:barberzlink/core/theme/app_colors.dart';
-// import 'package:barberzlink/injections.dart';
-// import 'package:barberzlink/widgets/custom_app_bar.dart';
-// import 'package:barberzlink/widgets/custom_button.dart';
-// import 'package:barberzlink/widgets/keyword_search_bar.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui';
+import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/core/theme/app_colors.dart';
+import 'package:barberzlink/core/theme/app_theme.dart';
+import 'package:barberzlink/injections.dart';
+import 'package:barberzlink/widgets/business_tips_card.dart';
+import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:barberzlink/widgets/custom_button.dart';
+import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-// class BusinessTipsSearchScreen extends StatefulWidget {
-//   const BusinessTipsSearchScreen({super.key});
+class BusinessTipsSearchScreen extends StatefulWidget {
+  const BusinessTipsSearchScreen({super.key});
 
-//   @override
-//   State<BusinessTipsSearchScreen> createState() =>
-//       _BusinessTipsSearchScreenState();
-// }
+  @override
+  State<BusinessTipsSearchScreen> createState() =>
+      _BusinessTipsSearchScreenState();
+}
 
-// class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen> {
-//   final TextEditingController keywordController = TextEditingController();
-//   String selectedStates = 'All States';
+class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
+    with SingleTickerProviderStateMixin {
+  final TextEditingController keywordController = TextEditingController();
+  String selectedStates = 'All States';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         backgroundColor: AppColors.background,
-//         appBar: PreferredSize(
-//           preferredSize: const Size.fromHeight(80),
-//           child: CustomAppBar(
-//             title: 'Search Business Tips',
-//             isBack: true,
-//           ),
-//         ),
-//         body: SingleChildScrollView(
-//           padding: EdgeInsets.all(16.w),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               /// 🔵 BLURRED SEARCH BANNER
-//               Container(
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(12.r),
-//                   image: DecorationImage(
-//                     image: const AssetImage(AppStrings.businessTipsImage),
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//                 child: ClipRRect(
-//                   borderRadius: BorderRadius.circular(12.r),
-//                   child: Stack(
-//                     children: [
-//                       Positioned.fill(
-//                         child: BackdropFilter(
-//                           filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-//                           child:
-//                               Container(color: Colors.black26.withOpacity(0.4)),
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.symmetric(
-//                             vertical: 20, horizontal: 10),
-//                         child: Container(
-//                           width: double.infinity,
-//                           padding: EdgeInsets.all(16.w),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Text(
-//                                 "Find Trusted Business Tips",
-//                                 style: GoogleFonts.poppins(
-//                                   color: Colors.white,
-//                                   fontSize: 20.sp,
-//                                   fontWeight: FontWeight.bold,
-//                                 ),
-//                               ),
-//                               SizedBox(height: 6.h),
-//                               Row(
-//                                 children: [
-//                                   Icon(Icons.lightbulb,
-//                                       color: Colors.white, size: 20.sp),
-//                                   SizedBox(width: 6.w),
-//                                   Text(
-//                                     "Search expert guidance for your growth",
-//                                     style: GoogleFonts.poppins(
-//                                       color: Colors.white,
-//                                       fontSize: 14.sp,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                               SizedBox(height: 16.h),
+  late AnimationController _controller;
+  late Animation<double> fadeAnimation;
+  late Animation<Offset> slideAnimation;
 
-//                               /// 🔍 Keyword Search Bar
-//                               KeywordSearchBar(
-//                                 keywordController: keywordController,
-//                                 selectedState: selectedStates,
-//                                 states: Injections.instance.states,
-//                                 onStateChanged: (value) {
-//                                   setState(() => selectedStates = value!);
-//                                 },
-//                                 onSearch: () {
-//                                   print("Keyword: ${keywordController.text}");
-//                                   print("State: $selectedStates");
-//                                 },
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 650))
+      ..forward();
 
-//               SizedBox(height: 24.h),
+    fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
 
-//               /// 🟥 REGISTER BUTTON
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 20),
-//                 child: CustomButton(
-//                   buttonText: "Become a Business Tips Partner",
-//                   btnColor: Colors.red,
-//                   onTap: () {
-//                     AppRoutes.goTo(context, AppRoutes.businessTipsRegister);
-//                   },
-//                 ),
-//               ),
+    slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.08),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+  }
 
-//               SizedBox(height: 24.h),
+  @override
+  void dispose() {
+    _controller.dispose();
+    keywordController.dispose();
+    super.dispose();
+  }
 
-//               /// ⭐ FEATURED TIPS
-//               Text(
-//                 "Featured Tips",
-//                 style: GoogleFonts.poppins(
-//                   fontSize: 18.sp,
-//                   color: Colors.black87,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               SizedBox(height: 16.h),
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text("Search Business Tips"),
+                centerTitle: true,
+                elevation: 1,
+              )
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'Search Business Tips',
+                  isBack: true,
+                ),
+              ),
+        body: FadeTransition(
+          opacity: fadeAnimation,
+          child: SlideTransition(
+            position: slideAnimation,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// 🔵 GLASS SEARCH BANNER (Upgraded)
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14.r),
+                      image: DecorationImage(
+                        image: const AssetImage(AppStrings.businessTipsImage),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14.r),
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                              child: Container(
+                                color: Colors.black45.withOpacity(0.3),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Find Trusted Business Tips",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
 
-//               CarouselSlider(
-//                 items: Injections.instance.featuredTips
-//                     .map<Widget>((tip) => FeaturedTipCard(tip: tip))
-//                     .toList(),
-//                 options: CarouselOptions(
-//                   height: 180.h,
-//                   autoPlay: true,
-//                   enlargeCenterPage: true,
-//                   viewportFraction: 0.8,
-//                   enableInfiniteScroll: true,
-//                 ),
-//               ),
+                                SizedBox(height: 6.h),
 
-//               SizedBox(height: 24.h),
+                                Row(
+                                  children: [
+                                    Icon(Icons.lightbulb,
+                                        color: Colors.white70, size: 18.sp),
+                                    SizedBox(width: 6.w),
+                                    Expanded(
+                                      child: Text(
+                                        "Search expert guidance for your growth",
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.white70,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
 
-//               /// 📋 LIST OF BUSINESS TIPS
-//               Text(
-//                 "Business Tips",
-//                 style: GoogleFonts.poppins(
-//                   fontSize: 18.sp,
-//                   color: Colors.black87,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               SizedBox(height: 12.h),
+                                SizedBox(height: 20.h),
 
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 physics: const NeverScrollableScrollPhysics(),
-//                 itemCount: Injections.instance.businessTips.length,
-//                 itemBuilder: (context, index) {
-//                   final tip = Injections.instance.businessTips[index];
-//                   return Padding(
-//                     padding: const EdgeInsets.only(bottom: 12.0),
-//                     child: BusinessTipCard(
-//                       imagePath: tip['image']!,
-//                       title: tip['title']!,
-//                       category: tip['category']!,
-//                       onTap: () {
-//                         AppRoutes.goTo(context, AppRoutes.businessTipsDetails);
-//                       },
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+                                /// 🔍 Keyword Search Bar
+                                KeywordSearchBar(
+                                  keywordController: keywordController,
+                                  selectedState: selectedStates,
+                                  states: Injections.instance.states,
+                                  onStateChanged: (value) {
+                                    setState(() => selectedStates = value!);
+                                  },
+                                  onSearch: () {
+                                    print("Keyword: ${keywordController.text}");
+                                    print("State: $selectedStates");
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
 
-// /// ---------------- CUSTOM BUSINESS TIP CARD -----------------
-// class BusinessTipCard extends StatelessWidget {
-//   final String imagePath;
-//   final String title;
-//   final String category;
-//   final VoidCallback onTap;
+                  SizedBox(height: 50.h),
 
-//   const BusinessTipCard({
-//     super.key,
-//     required this.imagePath,
-//     required this.title,
-//     required this.category,
-//     required this.onTap,
-//   });
+                  Text(
+                    "Become a Business Tips Partner",
+                    style: AppTextStyle.semiBold(),
+                  ),
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(16.r),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black.withOpacity(0.08),
-//               blurRadius: 6,
-//               offset: const Offset(0, 3),
-//             ),
-//           ],
-//         ),
-//         child: Row(
-//           children: [
-//             /// Image
-//             ClipRRect(
-//               borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(16.r),
-//                 bottomLeft: Radius.circular(16.r),
-//               ),
-//               child: Image.asset(
-//                 imagePath,
-//                 width: 100.w,
-//                 height: 100.w,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
+                  /// 🟥 REGISTER BUTTON
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: CustomButton(
+                      buttonText: "Register Now",
+                      btnColor: Colors.red,
+                      onTap: () {
+                        AppRoutes.goTo(
+                            context, AppRoutes.business_registration);
+                      },
+                    ),
+                  ),
 
-//             /// Title & Category
-//             Expanded(
-//               child: Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       title,
-//                       style: GoogleFonts.poppins(
-//                         fontSize: 15.sp,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                     SizedBox(height: 6.h),
-//                     Text(
-//                       category,
-//                       style: GoogleFonts.poppins(
-//                         fontSize: 13.sp,
-//                         color: Colors.grey.shade600,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+                  SizedBox(height: 50.h),
 
-// /// ---------------- FEATURED TIP CARD -----------------
-// class FeaturedTipCard extends StatelessWidget {
-//   final Map<String, String> tip;
-//   const FeaturedTipCard({super.key, required this.tip});
+                  /// ⭐ FEATURED TIPS
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       margin: EdgeInsets.symmetric(horizontal: 4.w),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(16.r),
-//         image: DecorationImage(
-//           image: AssetImage(tip['image']!),
-//           fit: BoxFit.cover,
-//         ),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 6,
-//             offset: const Offset(0, 3),
-//           ),
-//         ],
-//       ),
-//       child: Container(
-//         padding: EdgeInsets.all(12.w),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(16.r),
-//           gradient: LinearGradient(
-//             colors: [Colors.black.withOpacity(0.4), Colors.transparent],
-//             begin: Alignment.bottomCenter,
-//             end: Alignment.topCenter,
-//           ),
-//         ),
-//         alignment: Alignment.bottomLeft,
-//         child: Text(
-//           tip['title']!,
-//           style: GoogleFonts.poppins(
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 14.sp,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+                  /// 📋 BUSINESS TIPS LIST
+                  Text(
+                    "Business Tips",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18.sp,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                  SizedBox(height: 12.h),
+
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: Injections.instance.mockBusinessTipsList.length,
+                    itemBuilder: (context, index) {
+                      final tip =
+                          Injections.instance.mockBusinessTipsList[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: BusinessTipCard(
+                          imagePath: tip.logoUrl ?? '',
+                          title: tip.businessName,
+                          category: tip.address,
+                          onTap: () {
+                            AppRoutes.goTo(context, AppRoutes.business_detail);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

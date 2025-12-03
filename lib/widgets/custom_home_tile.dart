@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:barberzlink/utils/heights_and_widths.dart';
 import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
 
 class CustomHomeTile extends StatefulWidget {
@@ -91,8 +90,7 @@ class _CustomHomeTileState extends State<CustomHomeTile>
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.grey.shade200),
                 ),
-                child: 
-                Column(
+                child: Column(
                   mainAxisSize: MainAxisSize.min, // IMPORTANT FIX
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -158,7 +156,6 @@ class _CustomHomeTileState extends State<CustomHomeTile>
                     CustomContactFlowBtn(phoneNumber: '+923097325208'),
                   ],
                 ),
-             
               ),
             ),
           );

@@ -1,3 +1,4 @@
+import 'package:barberzlink/helper/functions.dart';
 import 'package:barberzlink/models/job_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -227,7 +228,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       children: [
         // Background Gradient
         Container(
-          height: 280.h,
+          height: 280.spMax,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -242,7 +243,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
         // Content
         Container(
-          height: 300.h,
+          height: 300.spMax,
           padding: EdgeInsets.fromLTRB(20.w, 80.h, 20.w, 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,33 +314,36 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               SizedBox(height: 20.h),
 
               // Salary and Employment Type
-              Row(
-                children: [
-                  _buildInfoPill(
-                    Icons.attach_money_rounded,
-                    widget.job.salaryRange,
-                  ),
-                  SizedBox(width: 12.w),
-                  _buildInfoPill(
-                    Icons.schedule_rounded,
-                    widget.job.employmentType,
-                  ),
-                  if (widget.job.isRemoteFriendly) ...[
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildInfoPill(
+                      Icons.attach_money_rounded,
+                      widget.job.salaryRange,
+                    ),
                     SizedBox(width: 12.w),
                     _buildInfoPill(
-                      Icons.work_outline_rounded,
-                      'Remote OK',
+                      Icons.schedule_rounded,
+                      widget.job.employmentType,
                     ),
+                    if (widget.job.isRemoteFriendly) ...[
+                      SizedBox(width: 12.w),
+                      _buildInfoPill(
+                        Icons.work_outline_rounded,
+                        'Remote OK',
+                      ),
+                    ],
                   ],
-                ],
-              )
-                  .animate(delay: 100.ms)
-                  .fadeIn(duration: 600.ms)
-                  .slideY(begin: -0.2),
+                )
+                    .animate(delay: 100.ms)
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: -0.2),
+              ),
 
               const Spacer(),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               // Action Buttons
               Row(
@@ -443,6 +447,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                   .animate(delay: 200.ms)
                   .fadeIn(duration: 600.ms)
                   .slideY(begin: -0.1),
+
+              SizedBox(
+                height: 8,
+              ),
             ],
           ),
         ),
@@ -733,6 +741,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   // }
 
   void _applyToJob() {
+    AppHelper.openJobCompanyEmail(companyEmail: widget.job.companyEmail);
     // Implement apply functionality
     showModalBottomSheet(
       context: context,

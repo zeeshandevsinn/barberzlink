@@ -5,6 +5,7 @@ import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:barberzlink/widgets/custom_textfield.dart';
 import 'package:barberzlink/widgets/dotted_container.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -76,10 +77,15 @@ class _EventRegisterScreenState extends State<EventRegisterScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: CustomAppBar(title: "Event Registration", isBack: true),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("Event Registration"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(title: "Event Registration", isBack: true),
+              ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),

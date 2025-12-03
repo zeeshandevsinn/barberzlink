@@ -1,4 +1,5 @@
 import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,10 +56,15 @@ class _EventDetailScreenState extends State<EventDetailScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(title: 'Event Details', isBack: true),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("Event Details"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(title: 'Event Details', isBack: true),
+              ),
         body: FadeTransition(
           opacity: _fadeAnim,
           child: SingleChildScrollView(

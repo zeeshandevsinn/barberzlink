@@ -1,3 +1,4 @@
+import 'package:barberzlink/helper/functions.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -5,6 +6,7 @@ class JobModel {
   final String id;
   final String title;
   final String companyName;
+  final String companyEmail;
   final String companyTagline;
   final String location;
   final String logo;
@@ -33,6 +35,7 @@ class JobModel {
     required this.title,
     required this.companyName,
     required this.companyTagline,
+    required this.companyEmail,
     required this.location,
     required this.logo,
     required this.isRemoteFriendly,
@@ -78,6 +81,7 @@ class JobModel {
     String? id,
     String? title,
     String? companyName,
+    String? companyEmail,
     String? companyTagline,
     String? location,
     String? logo,
@@ -127,6 +131,7 @@ class JobModel {
       isApplied: isApplied ?? this.isApplied,
       isOwnerPosting: isOwnerPosting ?? this.isOwnerPosting,
       isEasyApply: isEasyApply ?? this.isEasyApply,
+      companyEmail: companyEmail ?? this.companyEmail,
     );
   }
 
@@ -187,6 +192,7 @@ class JobModel {
       isApplied: json['isApplied'] as bool? ?? false,
       isOwnerPosting: json['isOwnerPosting'] as bool? ?? false,
       isEasyApply: json['isEasyApply'] as bool? ?? false,
+      companyEmail: json['companyEmail'] as String,
     );
   }
 
@@ -200,6 +206,7 @@ class JobModel {
             companyName == other.companyName &&
             companyTagline == other.companyTagline &&
             location == other.location &&
+            companyEmail == other.companyEmail &&
             logo == other.logo &&
             isRemoteFriendly == other.isRemoteFriendly &&
             employmentType == other.employmentType &&
@@ -228,6 +235,7 @@ class JobModel {
       id,
       title,
       companyName,
+      companyEmail,
       companyTagline,
       location,
       logo,
@@ -255,7 +263,7 @@ class JobModel {
 
   @override
   String toString() {
-    return 'JobModel{id: $id, title: $title, company: $companyName, location: $location, applicants: $applicants, saved: $isSaved, applied: $isApplied}';
+    return 'JobModel{id: $id, title: $title, company: $companyName, companyEmail: $companyEmail, location: $location, applicants: $applicants, saved: $isSaved, applied: $isApplied}';
   }
 
   // Utility methods for common operations
@@ -293,6 +301,7 @@ class JobModel {
     String? id,
     String? title,
     String? companyName,
+    String? companyEmail,
     String? location,
     bool isRemoteFriendly = false,
     String employmentType = 'Full-time',
@@ -307,6 +316,7 @@ class JobModel {
       id: id ?? 'job_${now.millisecondsSinceEpoch}',
       title: title ?? 'Senior Barber',
       companyName: companyName ?? 'Elite Barbershop',
+      companyEmail: companyEmail ?? AppHelper.adminEmail,
       companyTagline: 'Premium grooming experience since 2015',
       location: location ?? 'New York, NY',
       logo: 'assets/logos/barbershop.png',

@@ -1,5 +1,6 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -10,13 +11,18 @@ class ProductDetailsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'Product Details',
-            isBack: true,
-          ),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("Product Details"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'Product Details',
+                  isBack: true,
+                ),
+              ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),

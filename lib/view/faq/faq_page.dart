@@ -1,3 +1,5 @@
+import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FAQPage extends StatefulWidget {
@@ -173,7 +175,14 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("FAQ"), centerTitle: true, elevation: 0),
+      appBar: kIsWeb
+          ? AppBar(title: const Text("FAQ"), centerTitle: true, elevation: 1)
+          : PreferredSize(
+              preferredSize: Size.fromHeight(80),
+              child: CustomAppBar(
+                title: "FAQ",
+                isBack: true,
+              )),
       body: FadeTransition(
         opacity: _fade,
         child: SlideTransition(

@@ -2,6 +2,7 @@ import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/state_card.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,57 +18,55 @@ class StateByStateSearchScreen extends StatefulWidget {
 }
 
 class _StateByStateSearchScreenState extends State<StateByStateSearchScreen> {
-  String selectedState = 'All States';
+  List<String> selectedState = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'State-by-State Board Requirements',
-            isBack: true,
-          ),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text("State-by-State Board Requirements"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'State-by-State Board Requirements',
+                  isBack: true,
+                ),
+              ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // ======== Top Banner Section ========
-              Stack(
-                children: [
-                  SizedBox(
-                    height: 220,
-                    width: double.infinity,
-                    child: Image.asset(
-                      AppStrings.schoolImage,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-
-                  // Title
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "State-by-State Board Requirements",
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 8,
-                              color: Colors.black.withOpacity(0.7),
-                              offset: Offset(2, 2),
-                            ),
-                          ],
-                        ),
+              SizedBox(
+                height: 220,
+                width: double.infinity,
+                child: Image.asset(
+                  AppStrings.stateByStateImage,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "State-by-State Board Requirements",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 8,
+                        color: Colors.black.withOpacity(0.7),
+                        offset: Offset(2, 2),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
 
               const SizedBox(height: 30),
@@ -89,14 +88,16 @@ class _StateByStateSearchScreenState extends State<StateByStateSearchScreen> {
               SizedBox(height: 16.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: CustomStateDropdown(
-                  selectedState: selectedState,
-                  onStateChanged: (newState) {
+                child: CustomSearchableDropdown(
+                  items: Injections.instance.states
+                      .where((state) => state != 'All States')
+                      .toList(),
+                  selectedItems: selectedState,
+                  onChanged: (newState) {
                     setState(() {
-                      selectedState = newState ?? 'All States';
+                      selectedState = newState;
                     });
                   },
-                  states: Injections.instance.states,
                 ),
               ),
 
@@ -110,7 +111,7 @@ class _StateByStateSearchScreenState extends State<StateByStateSearchScreen> {
                 itemBuilder: (context, index) {
                   final state = Injections.instance.statesData[index];
                   return Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(10.0),
                       child: StateCard(
                           state: state,
                           onTap: () {

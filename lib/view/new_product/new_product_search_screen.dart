@@ -10,6 +10,7 @@ import 'package:barberzlink/widgets/custom_list_card.dart';
 import 'package:barberzlink/widgets/featured_product_card.dart';
 import 'package:barberzlink/widgets/keyword_search_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,13 +31,18 @@ class _NewProductSearchScreenState extends State<NewProductSearchScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'Search Products',
-            isBack: true,
-          ),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("Search Products"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'Search Products',
+                  isBack: true,
+                ),
+              ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
           child: Column(

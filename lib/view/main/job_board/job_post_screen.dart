@@ -18,6 +18,8 @@ class _JobPostScreenState extends State<JobPostScreen> {
       TextEditingController(text: 'Lead Master Barber');
   final TextEditingController _companyController =
       TextEditingController(text: 'Legends Grooming Lounge');
+
+  final TextEditingController _companyEmailController = TextEditingController();
   final TextEditingController _taglineController = TextEditingController(
       text: 'Luxury grooming collective scaling nationwide.');
   final TextEditingController _locationController =
@@ -259,6 +261,12 @@ class _JobPostScreenState extends State<JobPostScreen> {
           label: 'Company / Shop',
           controller: _companyController,
           icon: Icons.business_center_outlined,
+        ),
+        SizedBox(height: 16.h),
+        _buildFormField(
+          label: 'Company Email / Recruiter Email',
+          controller: _companyEmailController,
+          icon: Icons.email,
         ),
         SizedBox(height: 16.h),
         _buildFormField(
@@ -908,6 +916,7 @@ class _JobPostScreenState extends State<JobPostScreen> {
       id: 'preview',
       title: _titleController.text,
       companyName: _companyController.text,
+      companyEmail: _companyEmailController.text,
       companyTagline: _taglineController.text,
       location: _locationController.text,
       logo: AppStrings.barbershopImage,

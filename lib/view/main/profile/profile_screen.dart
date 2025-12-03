@@ -1,6 +1,8 @@
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/helper/functions.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -80,9 +82,18 @@ class _AccountProfileScreenState extends State<AccountProfileScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: CustomAppBar(title: 'Profile')),
+      appBar: kIsWeb
+          ? AppBar(
+              title: Text(
+                "Profile",
+                style: AppTextStyle.semiBold(),
+              ),
+              centerTitle: true,
+              elevation: 1,
+            )
+          : PreferredSize(
+              preferredSize: Size.fromHeight(80),
+              child: CustomAppBar(title: 'Profile')),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

@@ -65,6 +65,11 @@ class _MainPageState extends State<MainPage> {
       "image": AppStrings.stateByStateImage,
       "route": AppRoutes.state_by_state_search
     },
+    {
+      "title": "Business Tips",
+      "image": AppStrings.businessTipsImage,
+      "route": AppRoutes.business_search
+    }
   ];
 
   @override

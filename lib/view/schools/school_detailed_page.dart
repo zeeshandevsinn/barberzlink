@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,10 +63,15 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: CustomAppBar(title: "School Details", isBack: true),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("School Details"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(title: "School Details", isBack: true),
+              ),
         body: FadeTransition(
           opacity: _fadeAnim,
           child: SingleChildScrollView(

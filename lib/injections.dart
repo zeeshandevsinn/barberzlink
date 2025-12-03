@@ -1,5 +1,7 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/routes/app_routes.dart';
+import 'package:barberzlink/helper/functions.dart';
+import 'package:barberzlink/models/business_tips_module.dart';
 import 'package:barberzlink/models/job_model.dart';
 import 'package:barberzlink/models/state_profile_model.dart';
 
@@ -118,6 +120,13 @@ class Injections {
       'route': AppRoutes.event_registration,
       'route_search': AppRoutes.event_search
     },
+    {
+      'title': 'BUSINESS TIPS & SERVICES',
+      'subtitle': 'Promote your business and connect with barbers.',
+      'image': AppStrings.businessTipsImage,
+      'route': AppRoutes.business_registration,
+      'route_search': AppRoutes.business_search
+    }
   ];
 
   final List<Map<String, String>> barbersData = [
@@ -618,6 +627,7 @@ class Injections {
     JobModel(
       id: 'job_01',
       title: 'Lead Master Barber & Mentor',
+      companyEmail: AppHelper.adminEmail,
       companyName: 'Legends Grooming Lounge',
       companyTagline: 'Luxury grooming collective scaling across the south.',
       location: 'Atlanta, GA · Hybrid',
@@ -667,6 +677,7 @@ class Injections {
     ),
     JobModel(
       id: 'job_02',
+      companyEmail: AppHelper.adminEmail,
       title: 'Studio Barber · Creator Partnerships',
       companyName: 'Blend Masters Media House',
       companyTagline: 'Content-first shop powering national brand deals.',
@@ -712,6 +723,7 @@ class Injections {
     ),
     JobModel(
       id: 'job_03',
+      companyEmail: AppHelper.adminEmail,
       title: 'Education Director · National Academy',
       companyName: 'Modern Man Studio Network',
       companyTagline:
@@ -762,6 +774,7 @@ class Injections {
     ),
     JobModel(
       id: 'job_04',
+      companyEmail: AppHelper.adminEmail,
       title: 'Shop Manager & Talent Partner',
       companyName: 'Urban Fades Collective',
       companyTagline: 'Community-first hub expanding across South Florida.',
@@ -804,6 +817,7 @@ class Injections {
     ),
     JobModel(
       id: 'job_05',
+      companyEmail: AppHelper.adminEmail,
       title: 'Mobile Grooming Specialist',
       companyName: 'Sharp Cuts Concierge',
       companyTagline: 'On-demand grooming for hotels, arenas & private clubs.',
@@ -846,6 +860,75 @@ class Injections {
       isApplied: false,
       isOwnerPosting: false,
       isEasyApply: true,
+    ),
+  ];
+
+  List<BusinessTipsModel> mockBusinessTipsList = [
+    BusinessTipsModel(
+      businessName: "SharpLine Financial Services",
+      typeOfBusiness: [
+        "Business Lending",
+        "Equipment Financing / Leasing",
+      ],
+      website: "https://sharplinefinance.com",
+      contactName: "John Carter",
+      email: "john@sharpline.com",
+      phone: "+1 555 778 9933",
+      address: "123 Market Street, Los Angeles, CA",
+      statesServed: ["California", "Nevada", "Arizona"],
+      serviceOfferedFor: "Barbershops",
+      idealClients: ["Individual Barbers", "Multi-location Shops"],
+      minimumRequirements: ["Good credit score", "Business plan submission"],
+      productsOffered: [
+        "Start-up business loans",
+        "Equipment financing (chairs, tools, etc.)",
+        "General liability insurance",
+      ],
+      mainProducts: "We offer low-interest expansion loans for barbershops.",
+      discountAvailable: true,
+      specialOffers: "10% discount on first-year insurance",
+      promoCode: "BARBER10",
+      offerDates: "Jan 2025 - Dec 2025",
+      licensed: true,
+      licenses: "California State Finance License #CA-98765",
+      supportingDocuments: [
+        AppStrings.businessTipsImage,
+        AppStrings.businessTipsImage,
+      ],
+      displayPreferences: [
+        "Featured Partner",
+        "Listed in Financial Services Directory"
+      ],
+      profileDescription:
+          "Supporting barbers with loans, insurance & financial growth solutions.",
+      logoUrl: AppStrings.businessTipsImage,
+      consentGiven: true,
+    ),
+    BusinessTipsModel(
+      businessName: "Barber Insurance Hub",
+      typeOfBusiness: ["Insurance (Liability / Property)"],
+      website: "https://barberinsurancehub.com",
+      contactName: "Emily Watson",
+      email: "support@bih.com",
+      phone: "+1 222 447 6199",
+      address: "78 Madison Avenue, New York",
+      statesServed: ["New York", "New Jersey"],
+      serviceOfferedFor: "Barbers",
+      idealClients: ["Students / New Barbers"],
+      minimumRequirements: ["Proof of business registration"],
+      productsOffered: ["General liability insurance", "Workers’ compensation"],
+      mainProducts: "Insurance plans built for new and experienced barbers.",
+      discountAvailable: false,
+      specialOffers: null,
+      promoCode: null,
+      offerDates: null,
+      licensed: true,
+      licenses: "NY Insurance License #NY-56521",
+      supportingDocuments: [],
+      displayPreferences: ["Listed in Insurance & Protection"],
+      profileDescription: "Affordable insurance for barbers nationwide.",
+      logoUrl: AppStrings.businessTipsImage,
+      consentGiven: true,
     ),
   ];
 }

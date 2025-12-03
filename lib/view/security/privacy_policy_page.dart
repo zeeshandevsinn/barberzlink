@@ -1,3 +1,5 @@
+import 'package:barberzlink/widgets/custom_app_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
@@ -45,10 +47,16 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Privacy Policy"),
-        centerTitle: true,
-      ),
+      appBar: kIsWeb
+          ? AppBar(
+              title: const Text("Privacy Policy"),
+              centerTitle: true,
+              elevation: 1,
+            )
+          : PreferredSize(
+              preferredSize: Size.fromHeight(80),
+              child: CustomAppBar(title: "Privacy Policy", isBack: true),
+            ),
       body: FadeTransition(
         opacity: _fade,
         child: SlideTransition(

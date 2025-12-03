@@ -1,53 +1,61 @@
 import 'dart:io';
-
+import 'package:barberzlink/constants/app_strings.dart';
+import 'package:barberzlink/core/theme/app_colors.dart';
+import 'package:barberzlink/injections.dart';
+import 'package:barberzlink/utils/single_check_box.dart';
+import 'package:barberzlink/widgets/custom_state_dropdown.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+// Custom Widgets
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfield.dart';
-import '../../widgets/dotted_container.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/dotted_container.dart';
 import '../../core/routes/app_routes.dart';
 
-class BusinessTipsRegistration extends StatefulWidget {
-  const BusinessTipsRegistration({super.key});
+class BusinessTipsRegistrationScreen extends StatefulWidget {
+  const BusinessTipsRegistrationScreen({super.key});
 
   @override
-  State<BusinessTipsRegistration> createState() =>
-      _BusinessTipsRegistrationState();
+  State<BusinessTipsRegistrationScreen> createState() =>
+      _BusinessTipsRegistrationScreenState();
 }
 
-class _BusinessTipsRegistrationState extends State<BusinessTipsRegistration> {
-  // --- Text Controllers ---
-  final TextEditingController _businessNameController = TextEditingController();
-  final TextEditingController _websiteController = TextEditingController();
-  final TextEditingController _contactNameController = TextEditingController();
-  final TextEditingController _contactEmailController = TextEditingController();
-  final TextEditingController _contactPhoneController = TextEditingController();
-  final TextEditingController _businessAddressController =
-      TextEditingController();
-  final TextEditingController _statesServedController = TextEditingController();
-  final TextEditingController _servicesForBarbersController =
-      TextEditingController();
-  final TextEditingController _minimumRequirementsController =
-      TextEditingController();
-  final TextEditingController _mainProductsController = TextEditingController();
-  final TextEditingController _specialOffersController =
-      TextEditingController();
-  final TextEditingController _promoCodeController = TextEditingController();
-  final TextEditingController _offerDatesController = TextEditingController();
-  final TextEditingController _licensesController = TextEditingController();
-  final TextEditingController _profileDescriptionController =
-      TextEditingController();
+class _BusinessTipsRegistrationScreenState
+    extends State<BusinessTipsRegistrationScreen> {
+  // ---------------- Controllers -------------------
+  final TextEditingController businessNameCtrl = TextEditingController();
+  final TextEditingController websiteCtrl = TextEditingController();
+  final TextEditingController contactNameCtrl = TextEditingController();
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController phoneCtrl = TextEditingController();
+  final TextEditingController addressCtrl = TextEditingController();
+  final TextEditingController mainProductsCtrl = TextEditingController();
+  final TextEditingController specialOffersCtrl = TextEditingController();
+  final TextEditingController promoCtrl = TextEditingController();
+  final TextEditingController offerDatesCtrl = TextEditingController();
+  final TextEditingController licenseCtrl = TextEditingController();
+  final TextEditingController profileDescriptionCtrl = TextEditingController();
 
-  // --- Image/File ---
-  File? _logoImage;
-  final ImagePicker _picker = ImagePicker();
-  List<File> _supportingDocuments = [];
+  List<String> selectedStateServed = [];
 
-  // --- Multi-select options ---
+  List<String> minimumRequirements = [
+    'Good credit score',
+    'Minimum annual revenue',
+    'Business plan submission',
+    'Proof of business registration',
+    'Other'
+  ];
+
+  List<String> servicesOfferedFor = ["Barbers", "Barbershops"];
+  List<String> discountOff = ["Yes", "No"];
+  String selectedServiceOfferedFor = "";
+  String selectedDiscountOff = "No";
+  // ------------------ Lists -----------------------
   List<String> typeOfBusinessOptions = [
     'Bank / Credit Union',
     'Business Lending',
@@ -60,15 +68,15 @@ class _BusinessTipsRegistrationState extends State<BusinessTipsRegistration> {
   ];
   List<String> selectedBusinessTypes = [];
 
-  List<String> idealClientOptions = [
+  List<String> idealClients = [
     'Individual Barbers',
     'Barbershops / Salon Owners',
     'Multi-location Shops',
     'Students / New Barbers'
   ];
-  List<String> selectedIdealClients = [];
+  List<String> selectedClients = [];
 
-  List<String> productOptions = [
+  List<String> productsOptions = [
     'Start-up business loans',
     'Expansion / remodel loans',
     'Equipment financing (chairs, tools, etc.)',
@@ -90,343 +98,472 @@ class _BusinessTipsRegistrationState extends State<BusinessTipsRegistration> {
     'Listed in Insurance & Protection',
     'Listed in Investment & Retirement'
   ];
-  List<String> selectedDisplayOptions = [];
+  List<String> selectedDisplay = [];
 
-  bool isLicensed = false;
+  // ------------- Uploading -------------------
+  File? logo;
+  List<File> documents = [];
+  final picker = ImagePicker();
+
+  Future<void> pickLogo() async {
+    var permission = await Permission.photos.request();
+    if (!permission.isGranted) return;
+
+    final picked = await picker.pickImage(source: ImageSource.gallery);
+    if (picked != null) setState(() => logo = File(picked.path));
+  }
+
+  Future<void> pickDocuments() async {
+    var permission = await Permission.photos.request();
+    if (!permission.isGranted) return;
+
+    final picked = await picker.pickMultiImage();
+    if (picked.isNotEmpty) {
+      setState(() {
+        documents.clear();
+        documents.addAll(picked.map((e) => File(e.path)));
+      });
+    }
+  }
+
+  bool licensed = false;
   bool consentGiven = false;
 
-  // --- Pick Logo ---
-  Future<void> _pickLogo() async {
-    var status = await Permission.photos.request();
-    if (status.isGranted) {
-      final picked = await _picker.pickImage(source: ImageSource.gallery);
-      if (picked != null) setState(() => _logoImage = File(picked.path));
-    } else {
-      openAppSettings();
-    }
-  }
-
-  // --- Pick Supporting Documents ---
-  Future<void> _pickDocuments() async {
-    var status = await Permission.photos.request();
-    if (status.isGranted) {
-      final picked = await _picker.pickMultiImage();
-      if (picked.isNotEmpty) {
-        setState(() {
-          _supportingDocuments.clear();
-          _supportingDocuments.addAll(picked.map((e) => File(e.path)));
-        });
-      }
-    } else {
-      openAppSettings();
-    }
-  }
-
-  Widget _buildLabel(String label, bool isRequired) {
+  // ---------------- UI Helpers ----------------
+  Widget buildTitle(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Text(
+        text,
+        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget buildLabel(String label, {bool required = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: label,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            if (isRequired)
+                text: label,
+                style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600)),
+            if (required)
               const TextSpan(
-                text: " *",
-                style: TextStyle(color: Colors.red, fontSize: 16),
-              ),
+                  text: " *",
+                  style: TextStyle(color: Colors.red, fontSize: 15)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildMultiSelect(
-      String title, List<String> options, List<String> selectedValues) {
+  Widget multiSelect(
+      String title, List<String> options, List<String> selectedList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildLabel(title, true),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            buildLabel(title, required: true),
+          ],
+        ),
         Wrap(
           spacing: 10,
-          children: options.map((option) {
-            final selected = selectedValues.contains(option);
+          runSpacing: 10,
+          children: options.map((item) {
+            final selected = selectedList.contains(item);
             return FilterChip(
-              label: Text(option),
+              label: Text(item),
               selected: selected,
-              onSelected: (val) {
+              onSelected: (bool value) {
                 setState(() {
-                  if (val) {
-                    selectedValues.add(option);
+                  if (value) {
+                    selectedList.add(item);
                   } else {
-                    selectedValues.remove(option);
+                    selectedList.remove(item);
                   }
                 });
               },
             );
           }).toList(),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
       ],
     );
   }
 
+  // ------------------ BUILD -------------------
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF9F9F9),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'Financial Partner Registration',
-            isBack: true,
-          ),
-        ),
+        backgroundColor: AppColors.background,
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("Financial Partner Registration"),
+                backgroundColor: Colors.white,
+                elevation: 1,
+                iconTheme: const IconThemeData(color: Colors.black),
+              )
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: "Financial Partner Registration",
+                  isBack: true,
+                ),
+              ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '💰 Barberz Link – Financial / Insurance / Investment Partner Registration',
-                style: GoogleFonts.poppins(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Image.asset(
+              AppStrings.businessTipsImage,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "💰 Barberz Link – Financial / Insurance / Investment Partner Registration",
+              style: GoogleFonts.poppins(
+                  fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: 2),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "Fill this questionnaire to register your business and connect with barbers nationwide.",
+              style: GoogleFonts.poppins(
+                  fontSize: 14, color: Colors.black54, letterSpacing: 2),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 50),
+
+            // ------------------- 1️⃣ Business Information -------------------
+            buildTitle("Business Information"),
+
+            const SizedBox(height: 20),
+            Column(
+              spacing: 20,
+              children: [
+                CustomTextField(
+                  controller: businessNameCtrl,
+                  label: "Business Name",
+                  isTitle: true,
+                  titleName: "Business Name",
+                  icon: Icons.business,
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Fill the form below to register and offer services to barbers and barbershops nationwide.',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.black54,
+                multiSelect("Type of Business", typeOfBusinessOptions,
+                    selectedBusinessTypes),
+                CustomTextField(
+                  controller: websiteCtrl,
+                  label: "Website",
+                  isTitle: true,
+                  titleName: "Website",
+                  icon: Icons.link,
                 ),
-              ),
-              const SizedBox(height: 20),
+                CustomTextField(
+                  controller: contactNameCtrl,
+                  label: "Contact Name",
+                  isTitle: true,
+                  titleName: "Contact Name",
+                  icon: Icons.person,
+                ),
+                CustomTextField(
+                  controller: emailCtrl,
+                  label: "Contact Email",
+                  isTitle: true,
+                  titleName: "Contact Email",
+                  icon: Icons.email,
+                ),
+                CustomTextField(
+                  controller: phoneCtrl,
+                  label: "Contact Phone",
+                  isTitle: true,
+                  titleName: "Contact Phone",
+                  icon: Icons.phone,
+                ),
+                CustomTextField(
+                  controller: addressCtrl,
+                  label: "Business Address",
+                  isTitle: true,
+                  titleName: "Business Address",
+                  icon: Icons.location_on,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 5,
+                  children: [
+                    Text("Select States Served",
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600)),
+                    CustomSearchableDropdown(
+                        items: Injections.instance.states
+                            .where((state) => state != 'All States')
+                            .toList(),
+                        selectedItems: selectedStateServed,
+                        isMultiSelect: true,
+                        onChanged: (newStates) {
+                          setState(() {
+                            selectedStateServed = newStates;
+                          });
+                        })
+                  ],
+                ),
+              ],
+            ),
 
-              // --- Business Information ---
-              CustomTextField(
-                controller: _businessNameController,
-                label: "Business Name",
-                isTitle: true,
-                titleName: "Business Name",
-              ),
-              _buildMultiSelect("Type of Business", typeOfBusinessOptions,
-                  selectedBusinessTypes),
-              CustomTextField(
-                controller: _websiteController,
-                label: "Website",
-                isTitle: true,
-                titleName: "Website",
-              ),
-              CustomTextField(
-                controller: _contactNameController,
-                label: "Primary Contact Name",
-                isTitle: true,
-                titleName: "Primary Contact Name",
-              ),
-              CustomTextField(
-                controller: _contactEmailController,
-                label: "Contact Email",
-                isTitle: true,
-                titleName: "Contact Email",
-              ),
-              CustomTextField(
-                controller: _contactPhoneController,
-                label: "Contact Phone",
-                isTitle: true,
-                titleName: "Contact Phone",
-              ),
-              CustomTextField(
-                controller: _businessAddressController,
-                label: "Business Address",
-                isTitle: true,
-                titleName: "Business Address",
-              ),
-              CustomTextField(
-                controller: _statesServedController,
-                label: "States You Serve",
-                isTitle: true,
-                titleName: "States You Serve",
-              ),
+            const SizedBox(height: 20),
+            Divider(),
 
-              const SizedBox(height: 20),
-              // --- Services for Barbers ---
-              CustomTextField(
-                controller: _servicesForBarbersController,
-                label: "Services for Barbers / Barbershops",
-                isTitle: true,
-                titleName: "Services for Barbers",
-                maxLines: 3,
-              ),
-              _buildMultiSelect(
-                  "Ideal Client", idealClientOptions, selectedIdealClients),
-              CustomTextField(
-                controller: _minimumRequirementsController,
-                label: "Minimum Requirements",
-                isTitle: true,
-                titleName: "Minimum Requirements",
-                maxLines: 2,
-              ),
+            const SizedBox(height: 20),
+            // ----------------- 2️⃣ Services for Barbers -----------------
+            buildTitle("Services for Barbers & Barbershops"),
 
-              const SizedBox(height: 20),
-              // --- Financial / Insurance / Investment Products ---
-              _buildMultiSelect("Types of Products Provided", productOptions,
-                  selectedProducts),
-              CustomTextField(
-                controller: _mainProductsController,
-                label: "Briefly describe your main product(s)",
-                isTitle: true,
-                titleName: "Main Products",
-                maxLines: 3,
-              ),
+            const SizedBox(height: 20),
+            Column(
+              spacing: 20,
+              children: [
+                Column(
+                  spacing: 5,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Which services do you offer specifically for?",
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600)),
+                    SingleSelectCheckbox(
+                      options: servicesOfferedFor,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedServiceOfferedFor = value ?? '';
+                        });
+                      },
+                      selected: selectedServiceOfferedFor,
+                    ),
+                  ],
+                ),
+                multiSelect("Ideal Client", idealClients, selectedClients),
+                multiSelect("Minimum Requirements", minimumRequirements, []),
+              ],
+            ),
 
-              const SizedBox(height: 20),
-              // --- Special Offers ---
-              _buildMultiSelect(
-                "Do you offer special discounts or programs?",
-                ["Yes", "No"],
-                _specialOffersController.text.isEmpty
-                    ? []
-                    : [_specialOffersController.text],
-              ),
-              CustomTextField(
-                controller: _specialOffersController,
-                label: "If Yes, describe",
-                isTitle: true,
-                titleName: "Special Offers",
-                maxLines: 2,
-              ),
-              CustomTextField(
-                controller: _promoCodeController,
-                label: "Promo Code / Offer Name",
-                isTitle: true,
-                titleName: "Promo Code",
-              ),
-              CustomTextField(
-                controller: _offerDatesController,
-                label: "Offer Start / End Dates",
-                isTitle: true,
-                titleName: "Offer Dates",
-              ),
+            const SizedBox(height: 20),
+            Divider(),
+            const SizedBox(height: 20),
 
-              const SizedBox(height: 20),
-              // --- Licensing & Credentials ---
-              Row(
-                children: [
-                  Checkbox(
-                    value: isLicensed,
-                    onChanged: (val) {
-                      setState(() => isLicensed = val!);
-                    },
-                  ),
-                  const Expanded(
-                      child: Text(
-                          "Are you properly licensed/registered for the services you provide?")),
-                ],
-              ),
-              CustomTextField(
-                controller: _licensesController,
-                label:
-                    "List any licenses, registrations, or certifications (state/number)",
-                isTitle: true,
-                titleName: "Licenses",
-                maxLines: 2,
-              ),
-              const SizedBox(height: 12),
+            // ----------------- 3️⃣ Products -----------------
+            buildTitle("3️⃣ Financial / Insurance / Investment Products"),
+
+            const SizedBox(height: 20),
+            Column(
+              spacing: 20,
+              children: [
+                multiSelect("Types of Products You Provide", productsOptions,
+                    selectedProducts),
+                CustomTextField(
+                  controller: mainProductsCtrl,
+                  label: "Describe main product(s)",
+                  isTitle: true,
+                  titleName: "Main Products",
+                  maxLines: 3,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 20),
+            Divider(),
+            const SizedBox(
+              height: 20,
+            ),
+            // ----------------- 4️⃣ Special Offers -----------------
+            buildTitle("4️⃣ Special Offers for Barberz Link Users"),
+
+            const SizedBox(height: 20),
+            Column(
+              spacing: 5,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Do you offer special discounts?",
+                  style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600),
+                ),
+                SingleSelectCheckbox(
+                  options: discountOff,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedDiscountOff = value ?? '';
+                    });
+                  },
+                  selected: selectedServiceOfferedFor,
+                ),
+              ],
+            ),
+            if (selectedDiscountOff == "Yes") ...[
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 20,
                 children: [
-                  _buildLabel("Upload Supporting Documents", false),
-                  _supportingDocuments.isNotEmpty
-                      ? Wrap(
-                          spacing: 8,
-                          children: _supportingDocuments
-                              .map((file) => Container(
-                                    height: 80,
-                                    width: 80,
-                                    child: Image.file(file, fit: BoxFit.cover),
-                                  ))
-                              .toList(),
-                        )
-                      : GestureDetector(
-                          onTap: _pickDocuments,
-                          child: DottedBorderContainer(
-                            text:
-                                "Drop files here or click to upload\nMax 5 files",
-                          ),
-                        ),
+                  CustomTextField(
+                      controller: specialOffersCtrl,
+                      label: "Describe the Special Offers",
+                      isTitle: true,
+                      titleName: "Special Offers",
+                      maxLines: 2),
+                  CustomTextField(
+                      controller: promoCtrl,
+                      label: "Promo Code / Offer Name",
+                      isTitle: true,
+                      titleName: "Promo Code"),
+                  CustomTextField(
+                      controller: offerDatesCtrl,
+                      label: "Offer Start / End Dates",
+                      isTitle: true,
+                      titleName: "Offer Dates"),
                 ],
-              ),
-
-              const SizedBox(height: 20),
-              // --- Marketing & Display ---
-              _buildMultiSelect("How would you like to appear in Barberz Link?",
-                  displayOptions, selectedDisplayOptions),
-              CustomTextField(
-                controller: _profileDescriptionController,
-                label: "Short description (max 250 chars)",
-                isTitle: true,
-                titleName: "Profile Description",
-                maxLines: 3,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildLabel("Logo Upload", false),
-                  _logoImage != null
-                      ? Container(
-                          height: 160,
-                          width: 160,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.file(_logoImage!, fit: BoxFit.cover),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: _pickLogo,
-                          child: DottedBorderContainer(
-                            text:
-                                "Drop your logo here or click to upload\nMax 1 file",
-                          ),
-                        ),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-              // --- Consent ---
-              Row(
-                children: [
-                  Checkbox(
-                      value: consentGiven,
-                      onChanged: (val) {
-                        setState(() => consentGiven = val!);
-                      }),
-                  const Expanded(
-                      child: Text(
-                          "I confirm that the information provided is accurate and I am authorized to submit this on behalf of the business.")),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-              CustomButton(
-                onTap: () {
-                  // Handle submission
-                  AppRoutes.goTo(context, AppRoutes.barber_payment);
-                },
-                buttonText: "Submit",
-              ),
-              const SizedBox(height: 30),
+              )
             ],
-          ),
+
+            const SizedBox(height: 20),
+            Divider(),
+
+            const SizedBox(height: 20),
+            // ----------------- 5️⃣ Licensing -----------------
+            buildTitle("5️⃣ Licensing & Credentials"),
+
+            const SizedBox(height: 20),
+            Column(
+              spacing: 20,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                        value: licensed,
+                        onChanged: (val) => setState(() => licensed = val!)),
+                    const Expanded(
+                        child: Text(
+                            "Are you properly licensed for your services?")),
+                  ],
+                ),
+                CustomTextField(
+                  controller: licenseCtrl,
+                  label: "List your licenses / certifications",
+                  isTitle: true,
+                  titleName: "Licenses",
+                  maxLines: 3,
+                ),
+                Column(
+                  spacing: 5,
+                  children: [
+                    buildLabel("Upload Supporting Documents"),
+                    documents.isNotEmpty
+                        ? Wrap(
+                            spacing: 8,
+                            children: documents
+                                .map((file) => Container(
+                                      height: 80,
+                                      width: 80,
+                                      child:
+                                          Image.file(file, fit: BoxFit.cover),
+                                    ))
+                                .toList(),
+                          )
+                        : GestureDetector(
+                            onTap: pickDocuments,
+                            child: DottedBorderContainer(
+                                text: "Upload Supporting Documents\n(Max 5)"),
+                          ),
+                  ],
+                )
+              ],
+            ),
+
+            const SizedBox(height: 20),
+            Divider(),
+            const SizedBox(height: 20),
+            // ----------------- 6️⃣ Marketing -----------------
+            buildTitle("6️⃣ Marketing & Display Preferences"),
+
+            const SizedBox(height: 20),
+            Column(
+              spacing: 20,
+              children: [
+                multiSelect("How would you like to appear on Barberz Link?",
+                    displayOptions, selectedDisplay),
+                CustomTextField(
+                  controller: profileDescriptionCtrl,
+                  label: "Short profile description (max 250 chars)",
+                  isTitle: true,
+                  titleName: "Profile Description",
+                  maxLines: 3,
+                ),
+                Column(
+                  spacing: 5,
+                  children: [
+                    buildLabel("Logo Upload"),
+                    logo != null
+                        ? Container(
+                            height: 160,
+                            width: 160,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(logo!, fit: BoxFit.cover),
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: pickLogo,
+                            child: DottedBorderContainer(
+                                text: "Drop your logo here or click to upload"),
+                          ),
+                  ],
+                )
+              ],
+            ),
+
+            const SizedBox(height: 20),
+            Divider(),
+            const SizedBox(
+              height: 20,
+            ),
+            // ----------------- 7️⃣ Consent -----------------
+            buildTitle("7️⃣ Consent"),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Checkbox(
+                    value: consentGiven,
+                    activeColor: AppColors.black,
+                    checkColor: AppColors.white,
+                    onChanged: (val) => setState(() => consentGiven = val!)),
+                const Expanded(
+                    child: Text(
+                        "I confirm that all information provided is accurate.")),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // -------------------- SUBMIT --------------------
+            CustomButton(
+              buttonText: "Submit",
+              onTap: () {
+                AppRoutes.goTo(context, AppRoutes.business_payment);
+              },
+            ),
+            const SizedBox(height: 40),
+          ]),
         ),
       ),
     );

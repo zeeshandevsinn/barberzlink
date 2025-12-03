@@ -3,6 +3,7 @@ import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_list_card.dart';
 import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,13 +24,18 @@ class _SchoolSearchScreenState extends State<SchoolSearchScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: CustomAppBar(
-            title: 'school Search',
-            isBack: true,
-          ),
-        ),
+        appBar: kIsWeb
+            ? AppBar(
+                title: const Text("School Search"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(80),
+                child: CustomAppBar(
+                  title: 'School Search',
+                  isBack: true,
+                ),
+              ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
