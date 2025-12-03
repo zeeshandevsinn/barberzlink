@@ -1,3 +1,4 @@
+import 'package:barberzlink/ui/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,23 +28,14 @@ class CustomContactFlowBtn extends StatelessWidget {
       children: [
         // ------------------ CALL BUTTON ------------------
         Expanded(
-          child: ElevatedButton(
+          child: PrimaryButton(
             onPressed: _callNumber,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.shade600,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: const Text(
-              "Call Me",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            backgroundColor: Colors.red.shade600,
+            borderRadius: 14,
+            title: "Call Me",
+            hMargin: 0,
+            height: 40,
+            vMargin: 0,
           ),
         ),
 
@@ -51,23 +43,14 @@ class CustomContactFlowBtn extends StatelessWidget {
 
         // ------------------ MESSAGE BUTTON ------------------
         Expanded(
-          child: ElevatedButton(
+          child: PrimaryButton(
             onPressed: _sendMessage,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.shade600,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: const Text(
-              "Message Me",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            backgroundColor: Colors.red.shade600,
+            borderRadius: 14,
+            title: "Message Me",
+            hMargin: 0,
+            height: 40,
+            vMargin: 0,
           ),
         ),
       ],

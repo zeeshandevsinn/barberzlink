@@ -1,5 +1,6 @@
-import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:barberzlink/utils/heights_and_widths.dart';
+import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
 
 class CustomHomeTile extends StatefulWidget {
   final String imageUrl;
@@ -32,8 +33,6 @@ class _CustomHomeTileState extends State<CustomHomeTile>
   late Animation<double> _elevationAnimation;
   late Animation<Color?> _shadowColorAnimation;
 
-  bool isPressed = false;
-
   @override
   void initState() {
     super.initState();
@@ -43,19 +42,19 @@ class _CustomHomeTileState extends State<CustomHomeTile>
       vsync: this,
     );
 
-    _scaleAnimation = Tween(begin: 1.0, end: 0.97).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    _scaleAnimation = Tween(begin: 1.0, end: 0.98).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
 
     _elevationAnimation = Tween(begin: 2.0, end: 6.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
 
     _shadowColorAnimation = ColorTween(
       begin: Colors.black.withOpacity(0.1),
-      end: Colors.black.withOpacity(0.3),
+      end: Colors.black.withOpacity(0.25),
     ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
   }
 
@@ -65,8 +64,8 @@ class _CustomHomeTileState extends State<CustomHomeTile>
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails _) => _controller.forward();
-  void _onTapUp(TapUpDetails _) => _controller.reverse();
+  void _onTapDown(TapDownDetails d) => _controller.forward();
+  void _onTapUp(TapUpDetails d) => _controller.reverse();
   void _onTapCancel() => _controller.reverse();
 
   @override
@@ -86,20 +85,20 @@ class _CustomHomeTileState extends State<CustomHomeTile>
               shadowColor: _shadowColorAnimation.value,
               borderRadius: BorderRadius.circular(16),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.grey.shade200),
                 ),
-                child: Column(
-                  mainAxisSize:
-                      MainAxisSize.min, // 🔥 Fix for Carousel overflow
+                child: 
+                Column(
+                  mainAxisSize: MainAxisSize.min, // IMPORTANT FIX
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ---------------- PROFILE ROW ----------------
+                    // ---------- PROFILE ROW ----------
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(40),
@@ -133,7 +132,7 @@ class _CustomHomeTileState extends State<CustomHomeTile>
                                         color: Colors.green, size: 18),
                                 ],
                               ),
-                              const SizedBox(height: 4),
+                              SizedBox(height: 4),
                               Text(
                                 widget.specialization,
                                 style: TextStyle(
@@ -149,18 +148,17 @@ class _CustomHomeTileState extends State<CustomHomeTile>
                       ],
                     ),
 
-                    const SizedBox(height: 14),
+                    SizedBox(height: 10),
 
                     Divider(color: Colors.grey.shade300, height: 1),
 
-                    const SizedBox(height: 12),
+                    SizedBox(height: 10),
 
-                    // ---------------- BUTTON SECTION ----------------
+                    // ---------- BUTTONS ----------
                     CustomContactFlowBtn(phoneNumber: '+923097325208'),
-
-                    const SizedBox(height: 4),
                   ],
                 ),
+             
               ),
             ),
           );

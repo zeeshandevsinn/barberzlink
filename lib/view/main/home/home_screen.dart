@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     options: CarouselOptions(
                       height: 120.h,
                       viewportFraction: 0.28,
-                      enlargeCenterPage: false,
+                      // enlargeCenterPage: false,
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 2),
                       autoPlayAnimationDuration: Duration(milliseconds: 900),
@@ -180,9 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
             //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 150.spMax,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -236,9 +235,8 @@ class _HomeScreenState extends State<HomeScreen> {
             //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 150.spMax,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -290,12 +288,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 5),
 
-//Barbers Carousel Slider
+            //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 150.spMax,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -349,9 +346,8 @@ class _HomeScreenState extends State<HomeScreen> {
 //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 150.spMax,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -406,9 +402,8 @@ class _HomeScreenState extends State<HomeScreen> {
 //Barbers Carousel Slider
             CarouselSlider(
               options: CarouselOptions(
-                height: 150.spMax,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),

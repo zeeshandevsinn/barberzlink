@@ -8,6 +8,8 @@ import 'package:barberzlink/core/theme/app_theme.dart';
 import 'package:barberzlink/injections.dart';
 import 'dart:io' as io;
 
+import 'package:sizer/sizer.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -58,13 +60,15 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'BarberzLink',
-          theme: AppTheme.lightTheme,
-          initialRoute: AppRoutes.splash,
-          routes: AppRoutes.routes,
-        );
+        return Sizer(builder: (context, orientation, deviceType) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'BarberzLink',
+            theme: AppTheme.lightTheme,
+            initialRoute: AppRoutes.splash,
+            routes: AppRoutes.routes,
+          );
+        });
       },
     );
   }
