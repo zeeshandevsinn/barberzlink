@@ -127,7 +127,7 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
                                     SizedBox(width: 6.w),
                                     Expanded(
                                       child: Text(
-                                        "Search expert guidance for your growth",
+                                        AppStrings.businessTipsDescription,
                                         style: GoogleFonts.poppins(
                                           color: Colors.white70,
                                           fontSize: 13.sp,

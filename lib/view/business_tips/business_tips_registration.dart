@@ -237,7 +237,7 @@ class _BusinessTipsRegistrationScreenState
             ),
             const SizedBox(height: 10),
             Text(
-              "Fill this questionnaire to register your business and connect with barbers nationwide.",
+              AppStrings.businessTipsDescription,
               style: GoogleFonts.poppins(
                   fontSize: 14, color: Colors.black54, letterSpacing: 2),
               textAlign: TextAlign.center,

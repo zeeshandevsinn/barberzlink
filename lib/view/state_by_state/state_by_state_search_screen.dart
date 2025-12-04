@@ -74,9 +74,7 @@ class _StateByStateSearchScreenState extends State<StateByStateSearchScreen> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text(
-                  """
-      Our platform allows barber schools and programs to promote their certifications and training nationwide, reaching students and professionals across every state. You can showcase your faculty expertise, curriculum, and student success stories to highlight the quality of your program. Connect directly with prospective students and industry employers, increasing visibility and engagement. Additionally, you can list job placements, workshops, and enrollment opportunities, helping students transition smoothly from training to career while meeting each state’s board requirements.
-""",
+                  AppStrings.stateByStateDescription,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,

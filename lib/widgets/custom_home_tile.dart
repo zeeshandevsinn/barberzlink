@@ -151,9 +151,10 @@ class _CustomHomeTileState extends State<CustomHomeTile>
                     Divider(color: Colors.grey.shade300, height: 1),
 
                     SizedBox(height: 10),
-
+                    Spacer(),
                     // ---------- BUTTONS ----------
                     CustomContactFlowBtn(phoneNumber: '+923097325208'),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),

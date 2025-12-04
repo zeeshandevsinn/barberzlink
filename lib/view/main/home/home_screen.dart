@@ -182,6 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlay: true,
                 // enlargeCenterPage: true,
+
+                height: 180.spMax,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -237,6 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlay: true,
                 // enlargeCenterPage: true,
+
+                height: 180.spMax,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -293,6 +297,8 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlay: true,
                 // enlargeCenterPage: true,
+
+                height: 180.spMax,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -347,6 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
             CarouselSlider(
               options: CarouselOptions(
                 autoPlay: true,
+                height: 180.spMax,
                 // enlargeCenterPage: true,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
@@ -404,6 +411,8 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlay: true,
                 // enlargeCenterPage: true,
+
+                height: 180.spMax,
                 viewportFraction: 0.82,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),

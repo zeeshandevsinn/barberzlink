@@ -113,7 +113,7 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
                   child: showFilters ? _buildTabs() : SizedBox.shrink()),
               SliverToBoxAdapter(
                   child: showFilters ? _buildFilters() : SizedBox.shrink()),
-              SliverToBoxAdapter(child: _buildFeaturedShops()),
+              SliverToBoxAdapter(child: _buildFeaturedJobs()),
               jobs.isEmpty
                   ? SliverFillRemaining(
                       hasScrollBody: false,
@@ -386,7 +386,7 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
     );
   }
 
-  Widget _buildFeaturedShops() {
+  Widget _buildFeaturedJobs() {
     // Get featured jobs (promoted jobs)
     final featuredJobs =
         _allJobs.where((job) => job.isPromoted).take(3).toList();
@@ -421,7 +421,7 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
             ),
           ),
           SizedBox(
-            height: 260.spMax,
+            height: 300.spMax,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -729,12 +729,14 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(12.r),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      job.logo,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  job.logo,
-                  style: TextStyle(fontSize: 20.sp),
-                ),
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -788,16 +790,19 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
             ],
           ),
           SizedBox(height: 16.h),
-          Row(
-            children: [
-              _buildJobChip(job.salaryRange, Icons.attach_money),
-              SizedBox(width: 8.w),
-              _buildJobChip(job.employmentType, Icons.schedule),
-              if (job.isRemoteFriendly) ...[
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                _buildJobChip(job.salaryRange, Icons.attach_money),
                 SizedBox(width: 8.w),
-                _buildJobChip('Remote', Icons.work_outline),
+                _buildJobChip(job.employmentType, Icons.schedule),
+                if (job.isRemoteFriendly) ...[
+                  SizedBox(width: 8.w),
+                  _buildJobChip('Remote', Icons.work_outline),
+                ],
               ],
-            ],
+            ),
           ),
           SizedBox(height: 12.h),
           Wrap(
@@ -832,7 +837,7 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OutlinedButton(
                 onPressed: () => _toggleApply(job),
