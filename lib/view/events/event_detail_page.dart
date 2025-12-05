@@ -198,7 +198,32 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                     ),
                   ),
                 ),
-
+                const SizedBox(height: 30),
+                // ------------------ Registration Link ------------------
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Registration Link",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "https://www.eventregistration.com/sample-event",
+                    style: TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                      color: Colors.blue.shade800,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 const SizedBox(height: 50),
 
                 Padding(

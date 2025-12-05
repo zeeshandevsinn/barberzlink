@@ -23,7 +23,7 @@ class CustomEventCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 560,
+        height: 380.spMax,
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(12),
@@ -111,6 +111,7 @@ class CustomEventCard extends StatelessWidget {
                                 color: Colors.grey[700],
                                 height: 1.3,
                               ),
+                              overflow: TextOverflow.visible,
                             ),
                           ),
                         ),

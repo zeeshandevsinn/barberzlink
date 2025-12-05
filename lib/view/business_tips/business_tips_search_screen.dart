@@ -63,14 +63,14 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
         backgroundColor: AppColors.background,
         appBar: kIsWeb
             ? AppBar(
-                title: Text("Search Business Tips"),
+                title: Text("Search Business Resources"),
                 centerTitle: true,
                 elevation: 1,
               )
             : PreferredSize(
                 preferredSize: const Size.fromHeight(80),
                 child: CustomAppBar(
-                  title: 'Search Business Tips',
+                  title: 'Search Business Resources',
                   isBack: true,
                 ),
               ),
@@ -110,7 +110,7 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Find Trusted Business Tips",
+                                  "Find Trusted Business Resources",
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 22.sp,
@@ -164,7 +164,7 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
                   SizedBox(height: 50.h),
 
                   Text(
-                    "Become a Business Tips Partner",
+                    "Become a Business Resource Partner",
                     style: AppTextStyle.semiBold(),
                   ),
 
@@ -187,7 +187,7 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
 
                   /// 📋 BUSINESS TIPS LIST
                   Text(
-                    "Business Tips",
+                    "Business Resources",
                     style: GoogleFonts.poppins(
                       fontSize: 18.sp,
                       color: Colors.black87,

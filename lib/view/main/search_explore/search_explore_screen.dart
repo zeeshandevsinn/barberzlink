@@ -231,7 +231,7 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
       case "Barbers":
       case "Featured Barbers":
       case "Schools":
-        sectionHeight = 280.spMax;
+        sectionHeight = 286.spMax;
         break;
       case "Events":
         sectionHeight = 430.spMax;
@@ -259,12 +259,13 @@ class _SearchExploreScreenState extends State<SearchExploreScreen> {
           itemCount: data.length,
           options: CarouselOptions(
             height: sectionHeight,
+
             enlargeCenterPage: false, // set false to avoid shrinking
             viewportFraction: 1.0, // full width per item
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 3),
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            enableInfiniteScroll: true,
+            // enableInfiniteScroll: true,
           ),
           itemBuilder: (context, index, realIndex) {
             return SizedBox(

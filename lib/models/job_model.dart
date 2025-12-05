@@ -10,7 +10,6 @@ class JobModel {
   final String companyTagline;
   final String location;
   final String logo;
-  final bool isRemoteFriendly;
   final String employmentType;
   final String experienceLevel;
   final String salaryRange;
@@ -38,7 +37,6 @@ class JobModel {
     required this.companyEmail,
     required this.location,
     required this.logo,
-    required this.isRemoteFriendly,
     required this.employmentType,
     required this.experienceLevel,
     required this.salaryRange,
@@ -85,7 +83,6 @@ class JobModel {
     String? companyTagline,
     String? location,
     String? logo,
-    bool? isRemoteFriendly,
     String? employmentType,
     String? experienceLevel,
     String? salaryRange,
@@ -112,7 +109,6 @@ class JobModel {
       companyTagline: companyTagline ?? this.companyTagline,
       location: location ?? this.location,
       logo: logo ?? this.logo,
-      isRemoteFriendly: isRemoteFriendly ?? this.isRemoteFriendly,
       employmentType: employmentType ?? this.employmentType,
       experienceLevel: experienceLevel ?? this.experienceLevel,
       salaryRange: salaryRange ?? this.salaryRange,
@@ -143,7 +139,6 @@ class JobModel {
       'companyTagline': companyTagline,
       'location': location,
       'logo': logo,
-      'isRemoteFriendly': isRemoteFriendly,
       'employmentType': employmentType,
       'experienceLevel': experienceLevel,
       'salaryRange': salaryRange,
@@ -173,7 +168,6 @@ class JobModel {
       companyTagline: json['companyTagline'] as String,
       location: json['location'] as String,
       logo: json['logo'] as String,
-      isRemoteFriendly: json['isRemoteFriendly'] as bool,
       employmentType: json['employmentType'] as String,
       experienceLevel: json['experienceLevel'] as String,
       salaryRange: json['salaryRange'] as String,
@@ -208,7 +202,6 @@ class JobModel {
             location == other.location &&
             companyEmail == other.companyEmail &&
             logo == other.logo &&
-            isRemoteFriendly == other.isRemoteFriendly &&
             employmentType == other.employmentType &&
             experienceLevel == other.experienceLevel &&
             salaryRange == other.salaryRange &&
@@ -239,7 +232,6 @@ class JobModel {
       companyTagline,
       location,
       logo,
-      isRemoteFriendly,
       employmentType,
       experienceLevel,
       salaryRange,
@@ -279,7 +271,6 @@ class JobModel {
   bool matchesFilters({
     Set<String>? employmentTypes,
     Set<String>? experienceLevels,
-    bool? remoteOnly,
     bool? easyApplyOnly,
   }) {
     if (employmentTypes != null && employmentTypes.isNotEmpty) {
@@ -290,7 +281,6 @@ class JobModel {
       if (!experienceLevels.contains(experienceLevel)) return false;
     }
 
-    if (remoteOnly == true && !isRemoteFriendly) return false;
     if (easyApplyOnly == true && !isEasyApply) return false;
 
     return true;
@@ -303,7 +293,6 @@ class JobModel {
     String? companyName,
     String? companyEmail,
     String? location,
-    bool isRemoteFriendly = false,
     String employmentType = 'Full-time',
     String experienceLevel = 'Mid-level',
     String salaryRange = '\$60k - \$80k',
@@ -320,7 +309,6 @@ class JobModel {
       companyTagline: 'Premium grooming experience since 2015',
       location: location ?? 'New York, NY',
       logo: 'assets/logos/barbershop.png',
-      isRemoteFriendly: isRemoteFriendly,
       employmentType: employmentType,
       experienceLevel: experienceLevel,
       salaryRange: salaryRange,
@@ -360,7 +348,6 @@ class JobModel {
       tags: [
         employmentType,
         experienceLevel,
-        if (isRemoteFriendly) 'Remote',
         'Barber',
         'Grooming',
       ],

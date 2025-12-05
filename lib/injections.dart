@@ -121,7 +121,7 @@ class Injections {
       'route_search': AppRoutes.event_search
     },
     {
-      'title': 'BUSINESS TIPS & SERVICES',
+      'title': 'BUSINESS RESOURCES',
       'subtitle': 'Promote your business and connect with barbers.',
       'image': AppStrings.businessTipsImage,
       'route': AppRoutes.business_registration,
@@ -179,6 +179,8 @@ class Injections {
       "image": AppStrings.eventImage,
       "jobDetails":
           "Licensed barbers with experience on all hair types. Appointment-only and walk-in barbers welcome.",
+      "registrationLink":
+          "https://www.barberzlink.com/events/grooming-adam-atelier"
     },
     {
       "title": "URBAN CUTS EXPO 2025",
@@ -632,7 +634,6 @@ class Injections {
       companyTagline: 'Luxury grooming collective scaling across the south.',
       location: 'Atlanta, GA · Hybrid',
       logo: AppStrings.barbershopImage,
-      isRemoteFriendly: true,
       employmentType: 'Full-time',
       experienceLevel: 'Senior',
       salaryRange: '\$82k - \$98k + tips',
@@ -683,7 +684,6 @@ class Injections {
       companyTagline: 'Content-first shop powering national brand deals.',
       location: 'Los Angeles, CA · On-site',
       logo: AppStrings.barberImage,
-      isRemoteFriendly: false,
       employmentType: 'Contract to hire',
       experienceLevel: 'Mid-Senior',
       salaryRange: '\$45/hr studio rate + residuals',
@@ -730,7 +730,6 @@ class Injections {
           'Building the next wave of elite barbers across 9 states.',
       location: 'Chicago, IL · Remote friendly',
       logo: AppStrings.schoolImage,
-      isRemoteFriendly: true,
       employmentType: 'Full-time',
       experienceLevel: 'Director',
       salaryRange: '\$105k - \$130k + bonus',
@@ -780,7 +779,6 @@ class Injections {
       companyTagline: 'Community-first hub expanding across South Florida.',
       location: 'Miami, FL · On-site',
       logo: AppStrings.barberImage,
-      isRemoteFriendly: false,
       employmentType: 'Full-time',
       experienceLevel: 'Mid-level',
       salaryRange: '\$68k base + placement bonus',
@@ -823,7 +821,6 @@ class Injections {
       companyTagline: 'On-demand grooming for hotels, arenas & private clubs.',
       location: 'New York, NY · Mobile',
       logo: AppStrings.newProductImage,
-      isRemoteFriendly: true,
       employmentType: 'Freelance Collective',
       experienceLevel: 'Mid-level',
       salaryRange: '\$120 per appointment + gratuity',

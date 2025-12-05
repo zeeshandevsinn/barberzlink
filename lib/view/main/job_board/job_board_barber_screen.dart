@@ -23,7 +23,6 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
     'Saved',
   ];
   final List<String> _filters = const [
-    'Remote',
     'Full-time',
     'Part-time',
     'Senior',
@@ -46,9 +45,7 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
 
     return base.where((job) {
       // Filter logic
-      if (_selectedFilters.contains('Remote') && !job.isRemoteFriendly) {
-        return false;
-      }
+
       if (_selectedFilters.contains('Full-time') &&
           !job.employmentType.toLowerCase().contains('full')) {
         return false;
@@ -559,9 +556,6 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
                                 job.employmentType, Icons.schedule_rounded),
                             _buildFeaturedChip(
                                 job.experienceLevel, Icons.leaderboard_rounded),
-                            if (job.isRemoteFriendly)
-                              _buildFeaturedChip(
-                                  'Remote', Icons.work_outline_rounded),
                           ],
                         ),
                         SizedBox(height: 12.h),
@@ -797,10 +791,6 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
                 _buildJobChip(job.salaryRange, Icons.attach_money),
                 SizedBox(width: 8.w),
                 _buildJobChip(job.employmentType, Icons.schedule),
-                if (job.isRemoteFriendly) ...[
-                  SizedBox(width: 8.w),
-                  _buildJobChip('Remote', Icons.work_outline),
-                ],
               ],
             ),
           ),

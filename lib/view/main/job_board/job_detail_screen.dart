@@ -327,13 +327,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                       Icons.schedule_rounded,
                       widget.job.employmentType,
                     ),
-                    if (widget.job.isRemoteFriendly) ...[
-                      SizedBox(width: 12.w),
-                      _buildInfoPill(
-                        Icons.work_outline_rounded,
-                        'Remote OK',
-                      ),
-                    ],
                   ],
                 )
                     .animate(delay: 100.ms)
@@ -489,8 +482,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       _buildDetailChip(Icons.schedule_rounded, widget.job.postedLabel),
       _buildDetailChip(
           Icons.people_alt_rounded, '${widget.job.applicants} applicants'),
-      if (widget.job.isRemoteFriendly)
-        _buildDetailChip(Icons.work_outline_rounded, 'Remote friendly'),
       _buildDetailChip(Icons.leaderboard_rounded, widget.job.experienceLevel),
       if (widget.job.isEasyApply)
         _buildDetailChip(Icons.flash_on_rounded, 'Easy apply'),

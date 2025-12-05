@@ -1,6 +1,7 @@
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_contact_flow_btn.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -70,9 +71,14 @@ class _BarberShopDetailScreenState extends State<BarberShopDetailScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(80),
-            child: CustomAppBar(title: "Barbershop Details", isBack: true)),
+        appBar: kIsWeb
+            ? AppBar(
+                title: Text("Barbershop Details"),
+                centerTitle: true,
+                elevation: 1)
+            : PreferredSize(
+                preferredSize: Size.fromHeight(80),
+                child: CustomAppBar(title: "Barbershop Details", isBack: true)),
         body: FadeTransition(
           opacity: _fadeAnim,
           child: SingleChildScrollView(

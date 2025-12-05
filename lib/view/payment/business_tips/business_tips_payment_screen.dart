@@ -25,7 +25,7 @@ class _BusinessTipsPaymentScreenState extends State<BusinessTipsPaymentScreen> {
         backgroundColor: AppColors.background,
         appBar: kIsWeb
             ? AppBar(
-                title: const Text("Business Tips Payment Plan"),
+                title: const Text("Business Resource Payment Plan"),
                 backgroundColor: Colors.white,
                 elevation: 1,
                 iconTheme: const IconThemeData(color: Colors.black),
@@ -33,7 +33,7 @@ class _BusinessTipsPaymentScreenState extends State<BusinessTipsPaymentScreen> {
             : PreferredSize(
                 preferredSize: Size.fromHeight(80),
                 child: CustomAppBar(
-                  title: "Business Tips Payment Plan",
+                  title: "Business Resource Payment Plan",
                   isBack: true,
                 ),
               ),
@@ -51,7 +51,7 @@ class _BusinessTipsPaymentScreenState extends State<BusinessTipsPaymentScreen> {
                     ),
                     SizedBox(height: 6.h),
                     Text(
-                      "Business Tips – Financial / Insurance / Investment",
+                      "Business Resources – Financial / Insurance / Investment",
                       style: AppTextStyle.medium(
                         fontSize: 16.sp,
                         color: AppColors.grey,
@@ -69,7 +69,7 @@ class _BusinessTipsPaymentScreenState extends State<BusinessTipsPaymentScreen> {
                 title: "Full Access",
                 subtitle: "\$29.99/month",
                 description:
-                    "Get insider business tips to grow, protect, and scale your barbershop.",
+                    "Get insider Business Resources to grow, protect, and scale your barbershop.",
                 features: [
                   "Financial guidance for barbers",
                   "Access to insurance partners",
@@ -92,7 +92,7 @@ class _BusinessTipsPaymentScreenState extends State<BusinessTipsPaymentScreen> {
                 onTap: () async {
                   final result = await confirmPayment(
                     context,
-                    "Confirm Business Tips Subscription (\$29.99/month)?",
+                    "Confirm Business Resources Subscription (\$29.99/month)?",
                   );
 
                   if (result) {

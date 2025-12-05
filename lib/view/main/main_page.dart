@@ -61,12 +61,12 @@ class _MainPageState extends State<MainPage> {
       "route": AppRoutes.newProductSearch
     },
     {
-      "title": "State By State",
+      "title": "State Board Req",
       "image": AppStrings.stateByStateImage,
       "route": AppRoutes.state_by_state_search
     },
     {
-      "title": "Business Tips",
+      "title": "Business Resources",
       "image": AppStrings.businessTipsImage,
       "route": AppRoutes.business_search
     }

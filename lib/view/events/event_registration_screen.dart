@@ -21,6 +21,9 @@ class _EventRegisterScreenState extends State<EventRegisterScreen> {
 
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _hostNameController = TextEditingController();
+  final TextEditingController _registrationLinkController =
+      TextEditingController();
+
   DateTime? _startDate;
   DateTime? _endDate;
   TimeOfDay? _startTime;
@@ -103,6 +106,12 @@ class _EventRegisterScreenState extends State<EventRegisterScreen> {
                     label: 'Host Name',
                     icon: Icons.person_outline,
                     controller: _hostNameController,
+                  ),
+                  const SizedBox(height: 18),
+                  CustomTextField(
+                    label: 'Registration Link',
+                    icon: Icons.link,
+                    controller: _registrationLinkController,
                   ),
                   const SizedBox(height: 18),
 

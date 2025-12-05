@@ -1,9 +1,12 @@
 import 'package:barberzlink/constants/app_strings.dart';
 import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/models/job_model.dart';
+import 'package:barberzlink/widgets/chip_section.dart';
 import 'package:barberzlink/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../widgets/composer_field.dart';
 
 class JobPostScreen extends StatefulWidget {
   const JobPostScreen({super.key});
@@ -44,7 +47,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
     'Freelance collective',
   ];
   String _selectedEmploymentType = 'Full-time';
-  bool _isRemoteFriendly = true;
   double _experienceLevel = 2; // 0-entry, 1-mid, 2-senior, 3-director
 
   final List<String> _responsibilities = [
@@ -320,12 +322,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
           }).toList(),
         ),
         SizedBox(height: 16.h),
-        _buildToggleOption(
-          title: 'Remote Friendly',
-          subtitle: 'Show on maps + allow remote candidates',
-          value: _isRemoteFriendly,
-          onChanged: (value) => setState(() => _isRemoteFriendly = value),
-        ),
       ],
     );
   }
@@ -436,7 +432,7 @@ class _JobPostScreenState extends State<JobPostScreen> {
         SizedBox(height: 24.h),
 
         // Must Haves
-        _buildChipSection(
+        ChipSection(
           title: 'Must Haves',
           subtitle: 'Essential qualifications',
           items: _mustHaveSkills,
@@ -445,11 +441,14 @@ class _JobPostScreenState extends State<JobPostScreen> {
           onAdd: () => _handleAddItem(_mustHaveSkills, _mustHaveController),
           color: const Color(0xFFFFE6E6),
           textColor: Colors.red.shade700,
+          onDeleteItem: (item) {
+            setState(() => _mustHaveSkills.remove(item));
+          },
         ),
         SizedBox(height: 24.h),
 
         // Nice to Haves
-        _buildChipSection(
+        ChipSection(
           title: 'Nice to Haves',
           subtitle: 'Bonus qualifications',
           items: _niceToHaves,
@@ -458,6 +457,9 @@ class _JobPostScreenState extends State<JobPostScreen> {
           onAdd: () => _handleAddItem(_niceToHaves, _niceToHaveController),
           color: const Color(0xFFE6F3FF),
           textColor: Colors.blue.shade700,
+          onDeleteItem: (item) {
+            setState(() => _niceToHaves.remove(item));
+          },
         ),
         SizedBox(height: 24.h),
 
@@ -604,54 +606,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
     );
   }
 
-  Widget _buildToggleOption({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.grey.shade200),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey.shade800,
-                  ),
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Switch(
-            value: value,
-            onChanged: onChanged,
-            activeColor: const Color(0xFF1A1A1A),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildListSection({
     required String title,
     required List<String> items,
@@ -675,64 +629,7 @@ class _JobPostScreenState extends State<JobPostScreen> {
               setState(() => items.remove(item));
             })),
         SizedBox(height: 12.h),
-        _buildComposer(
-          controller: controller,
-          hint: hint,
-          onAdd: onAdd,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildChipSection({
-    required String title,
-    required String subtitle,
-    required List<String> items,
-    required TextEditingController controller,
-    required String hint,
-    required VoidCallback onAdd,
-    required Color color,
-    required Color textColor,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey.shade800,
-          ),
-        ),
-        SizedBox(height: 4.h),
-        Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: Colors.grey.shade600,
-          ),
-        ),
-        SizedBox(height: 12.h),
-        if (items.isNotEmpty) ...[
-          Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
-            children: items
-                .map((item) => Chip(
-                      label: Text(item, style: TextStyle(color: textColor)),
-                      backgroundColor: color,
-                      onDeleted: () {
-                        setState(() => items.remove(item));
-                      },
-                      deleteIcon:
-                          Icon(Icons.close, size: 16.sp, color: textColor),
-                    ))
-                .toList(),
-          ),
-          SizedBox(height: 12.h),
-        ],
-        _buildComposer(
+        ComposerField(
           controller: controller,
           hint: hint,
           onAdd: onAdd,
@@ -775,50 +672,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildComposer({
-    required TextEditingController controller,
-    required String hint,
-    required VoidCallback onAdd,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: Colors.grey.shade300),
-            ),
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
-                  fontSize: 13.sp,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 8.w),
-        Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF1A1A1A),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          child: IconButton(
-            onPressed: onAdd,
-            icon: Icon(Icons.add, color: Colors.white, size: 20.sp),
-          ),
-        ),
-      ],
     );
   }
 
@@ -920,7 +773,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
       companyTagline: _taglineController.text,
       location: _locationController.text,
       logo: AppStrings.barbershopImage,
-      isRemoteFriendly: _isRemoteFriendly,
       employmentType: _selectedEmploymentType,
       experienceLevel: _experienceLabel(),
       salaryRange: _salaryController.text,
@@ -939,7 +791,6 @@ class _JobPostScreenState extends State<JobPostScreen> {
       tags: [
         _selectedEmploymentType,
         _experienceLabel(),
-        if (_isRemoteFriendly) 'Remote friendly',
         ..._selectedPerks.take(2),
       ],
       isPromoted: true,
