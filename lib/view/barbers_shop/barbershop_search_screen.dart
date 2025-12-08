@@ -6,7 +6,7 @@ import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_barbershop_card.dart';
-import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:barberzlink/widgets/search_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +21,8 @@ class BarbershopSearchScreen extends StatefulWidget {
 
 class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
   final TextEditingController keywordController = TextEditingController();
+  final TextEditingController cityAndZipController = TextEditingController();
+
   String selectedState = 'All States';
 
   @override
@@ -103,20 +105,20 @@ class _BarbershopSearchScreenState extends State<BarbershopSearchScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16.h),
-                              KeywordSearchBar(
-                                keywordController: keywordController,
-                                selectedState: selectedState,
-                                states: Injections.instance.states,
-                                onStateChanged: (value) {
-                                  setState(() => selectedState = value!);
-                                },
-                                onSearch: () {
-                                  print("Keyword: ${keywordController.text}");
-
-                                  print("State: $selectedState");
-                                },
-                              ),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      16.w, 20.h, 16.w, 16.h),
+                                  child: CustomSearchBar(
+                                      keywordController: keywordController,
+                                      cityController: cityAndZipController,
+                                      selectedState: selectedState,
+                                      states: Injections.instance.states,
+                                      onStateChanged: (e) {
+                                        setState(() {
+                                          selectedState = e ?? '';
+                                        });
+                                      },
+                                      onSearch: () {}))
                             ],
                           ),
                         ),

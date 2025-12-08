@@ -85,17 +85,39 @@ class _StateByStateSearchScreenState extends State<StateByStateSearchScreen> {
               ),
               SizedBox(height: 16.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: CustomSearchableDropdown(
-                  items: Injections.instance.states
-                      .where((state) => state != 'All States')
-                      .toList(),
-                  selectedItems: selectedState,
-                  onChanged: (newState) {
-                    setState(() {
-                      selectedState = newState;
-                    });
-                  },
+                padding: EdgeInsets.all(15),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade700,
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Column(
+                      spacing: 10,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Seach by State",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
+                        CustomSearchableDropdown(
+                          borderColor: Colors.grey,
+                          items: Injections.instance.states
+                              .where((state) => state != 'All States')
+                              .toList(),
+                          selectedItems: selectedState,
+                          onChanged: (newState) {
+                            setState(() {
+                              selectedState = newState;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
 

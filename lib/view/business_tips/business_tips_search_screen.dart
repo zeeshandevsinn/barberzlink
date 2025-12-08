@@ -7,7 +7,7 @@ import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/business_tips_card.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
-import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:barberzlink/widgets/search_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +24,7 @@ class BusinessTipsSearchScreen extends StatefulWidget {
 class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
     with SingleTickerProviderStateMixin {
   final TextEditingController keywordController = TextEditingController();
+  final TextEditingController cityAndZipController = TextEditingController();
   String selectedStates = 'All States';
 
   late AnimationController _controller;
@@ -138,21 +139,21 @@ class _BusinessTipsSearchScreenState extends State<BusinessTipsSearchScreen>
                                   ],
                                 ),
 
-                                SizedBox(height: 20.h),
-
                                 /// 🔍 Keyword Search Bar
-                                KeywordSearchBar(
-                                  keywordController: keywordController,
-                                  selectedState: selectedStates,
-                                  states: Injections.instance.states,
-                                  onStateChanged: (value) {
-                                    setState(() => selectedStates = value!);
-                                  },
-                                  onSearch: () {
-                                    print("Keyword: ${keywordController.text}");
-                                    print("State: $selectedStates");
-                                  },
-                                ),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        16.w, 20.h, 16.w, 16.h),
+                                    child: CustomSearchBar(
+                                        keywordController: keywordController,
+                                        cityController: cityAndZipController,
+                                        selectedState: selectedStates,
+                                        states: Injections.instance.states,
+                                        onStateChanged: (e) {
+                                          setState(() {
+                                            selectedStates = e ?? '';
+                                          });
+                                        },
+                                        onSearch: () {}))
                               ],
                             ),
                           )

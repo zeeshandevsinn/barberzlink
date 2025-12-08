@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomSearchBar extends StatelessWidget {
   final TextEditingController keywordController;
   final TextEditingController cityController;
-  final TextEditingController zipController;
   final String selectedState;
   final List<String> states;
   final Function(String?) onStateChanged;
@@ -15,7 +14,6 @@ class CustomSearchBar extends StatelessWidget {
     super.key,
     required this.keywordController,
     required this.cityController,
-    required this.zipController,
     required this.selectedState,
     required this.states,
     required this.onStateChanged,

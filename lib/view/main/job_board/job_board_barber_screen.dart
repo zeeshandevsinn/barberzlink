@@ -16,7 +16,6 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _keywordController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _zipCodeController = TextEditingController();
   final List<String> _tabs = const [
     'All Jobs',
     'Nearby',
@@ -275,7 +274,6 @@ class _JobBoardBarberScreenState extends State<JobBoardBarberScreen> {
         child: CustomSearchBar(
             keywordController: _keywordController,
             cityController: _cityController,
-            zipController: _zipCodeController,
             selectedState: selectedStates,
             states: Injections.instance.states,
             onStateChanged: (e) {

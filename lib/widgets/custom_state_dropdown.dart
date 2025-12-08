@@ -9,6 +9,7 @@ class CustomSearchableDropdown extends StatefulWidget {
   final ValueChanged<List<String>> onChanged;
   final bool isMultiSelect;
   final String hint;
+  final Color borderColor;
 
   const CustomSearchableDropdown({
     Key? key,
@@ -17,6 +18,7 @@ class CustomSearchableDropdown extends StatefulWidget {
     required this.onChanged,
     this.isMultiSelect = false,
     this.hint = "Select State",
+    this.borderColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -218,7 +220,7 @@ class _CustomSearchableDropdownState extends State<CustomSearchableDropdown> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: Colors.black),
+            border: Border.all(color: widget.borderColor),
           ),
           child: Row(
             children: [

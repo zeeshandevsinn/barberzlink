@@ -3,10 +3,11 @@ import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_event_card.dart';
-import 'package:barberzlink/widgets/keyword_search_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../widgets/search_bar.dart';
 
 class EventSearchScreen extends StatefulWidget {
   const EventSearchScreen({super.key});
@@ -17,6 +18,7 @@ class EventSearchScreen extends StatefulWidget {
 
 class _EventSearchScreenState extends State<EventSearchScreen> {
   final TextEditingController keywordController = TextEditingController();
+  final TextEditingController cityAndZipController = TextEditingController();
   String selectedState = 'All States';
   @override
   Widget build(BuildContext context) {
@@ -96,21 +98,18 @@ class _EventSearchScreenState extends State<EventSearchScreen> {
               ),
               SizedBox(height: 16.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: KeywordSearchBar(
-                  keywordController: keywordController,
-                  selectedState: selectedState,
-                  states: Injections.instance.states,
-                  onStateChanged: (value) {
-                    setState(() => selectedState = value!);
-                  },
-                  onSearch: () {
-                    print("Keyword: ${keywordController.text}");
-
-                    print("State: $selectedState");
-                  },
-                ),
-              ),
+                  padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 16.h),
+                  child: CustomSearchBar(
+                      keywordController: keywordController,
+                      cityController: cityAndZipController,
+                      selectedState: selectedState,
+                      states: Injections.instance.states,
+                      onStateChanged: (e) {
+                        setState(() {
+                          selectedState = e ?? '';
+                        });
+                      },
+                      onSearch: () {})),
 
               const SizedBox(height: 20),
 

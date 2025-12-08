@@ -8,7 +8,7 @@ import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_button.dart';
 import 'package:barberzlink/widgets/custom_list_card.dart';
 import 'package:barberzlink/widgets/featured_product_card.dart';
-import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:barberzlink/widgets/search_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +24,7 @@ class NewProductSearchScreen extends StatefulWidget {
 
 class _NewProductSearchScreenState extends State<NewProductSearchScreen> {
   final TextEditingController keywordController = TextEditingController();
+  final TextEditingController cityAndZipController = TextEditingController();
   String selectedStates = 'All States';
 
   @override
@@ -101,21 +102,20 @@ class _NewProductSearchScreenState extends State<NewProductSearchScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16.h),
-
-                              /// 🔎 Keyword Search Bar
-                              KeywordSearchBar(
-                                keywordController: keywordController,
-                                selectedState: selectedStates,
-                                states: Injections.instance.states,
-                                onStateChanged: (value) {
-                                  setState(() => selectedStates = value!);
-                                },
-                                onSearch: () {
-                                  print("Keyword: ${keywordController.text}");
-                                  print("Category: $selectedStates");
-                                },
-                              ),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      16.w, 20.h, 16.w, 16.h),
+                                  child: CustomSearchBar(
+                                      keywordController: keywordController,
+                                      cityController: cityAndZipController,
+                                      selectedState: selectedStates,
+                                      states: Injections.instance.states,
+                                      onStateChanged: (e) {
+                                        setState(() {
+                                          selectedStates = e ?? '';
+                                        });
+                                      },
+                                      onSearch: () {}))
                             ],
                           ),
                         ),

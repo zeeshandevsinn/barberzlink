@@ -6,7 +6,7 @@ import 'package:barberzlink/core/theme/app_colors.dart';
 import 'package:barberzlink/injections.dart';
 import 'package:barberzlink/widgets/custom_app_bar.dart';
 import 'package:barberzlink/widgets/custom_list_card.dart';
-import 'package:barberzlink/widgets/keyword_search_bar.dart';
+import 'package:barberzlink/widgets/search_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +21,7 @@ class BarbersSearchScreen extends StatefulWidget {
 
 class _BarbersSearchScreenState extends State<BarbersSearchScreen> {
   final TextEditingController keywordController = TextEditingController();
+  final TextEditingController cityAndZipController = TextEditingController();
   String selectedState = 'All States';
 
   @override
@@ -103,23 +104,24 @@ class _BarbersSearchScreenState extends State<BarbersSearchScreen> {
                                       color: Colors.white,
                                       fontSize: 14.sp,
                                     ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16.h),
-                              KeywordSearchBar(
-                                keywordController: keywordController,
-                                selectedState: selectedState,
-                                states: Injections.instance.states,
-                                onStateChanged: (value) {
-                                  setState(() => selectedState = value!);
-                                },
-                                onSearch: () {
-                                  print("Keyword: ${keywordController.text}");
-
-                                  print("State: $selectedState");
-                                },
-                              ),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      16.w, 20.h, 16.w, 16.h),
+                                  child: CustomSearchBar(
+                                      keywordController: keywordController,
+                                      cityController: cityAndZipController,
+                                      selectedState: selectedState,
+                                      states: Injections.instance.states,
+                                      onStateChanged: (e) {
+                                        setState(() {
+                                          selectedState = e ?? '';
+                                        });
+                                      },
+                                      onSearch: () {}))
                             ],
                           ),
                         ),

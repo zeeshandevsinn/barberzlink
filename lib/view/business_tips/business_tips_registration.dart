@@ -361,7 +361,7 @@ class _BusinessTipsRegistrationScreenState
             const SizedBox(height: 20),
 
             // ----------------- 3️⃣ Products -----------------
-            buildTitle("3️⃣ Financial / Insurance / Investment Products"),
+            buildTitle("Financial / Insurance / Investment Products"),
 
             const SizedBox(height: 20),
             Column(
@@ -385,7 +385,7 @@ class _BusinessTipsRegistrationScreenState
               height: 20,
             ),
             // ----------------- 4️⃣ Special Offers -----------------
-            buildTitle("4️⃣ Special Offers for Barberz Link Users"),
+            buildTitle("Special Offers for Barberz Link Users"),
 
             const SizedBox(height: 20),
             Column(
@@ -439,7 +439,7 @@ class _BusinessTipsRegistrationScreenState
 
             const SizedBox(height: 20),
             // ----------------- 5️⃣ Licensing -----------------
-            buildTitle("5️⃣ Licensing & Credentials"),
+            buildTitle("Licensing & Credentials"),
 
             const SizedBox(height: 20),
             Column(
@@ -492,7 +492,7 @@ class _BusinessTipsRegistrationScreenState
             Divider(),
             const SizedBox(height: 20),
             // ----------------- 6️⃣ Marketing -----------------
-            buildTitle("6️⃣ Marketing & Display Preferences"),
+            buildTitle("Marketing & Display Preferences"),
 
             const SizedBox(height: 20),
             Column(
@@ -536,7 +536,7 @@ class _BusinessTipsRegistrationScreenState
               height: 20,
             ),
             // ----------------- 7️⃣ Consent -----------------
-            buildTitle("7️⃣ Consent"),
+            buildTitle("Consent"),
             SizedBox(
               height: 20,
             ),
