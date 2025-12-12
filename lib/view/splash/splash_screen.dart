@@ -4,6 +4,8 @@ import 'package:barberzlink/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../constants/app_strings.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -42,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: ScaleTransition(
           scale: _scaleAnim,
           child: Image.asset(
-            'assets/images/barberz_logo.png',
+            AppStrings.appLogo,
             width: 200.w,
             height: 200.h,
           ),

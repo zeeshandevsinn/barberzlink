@@ -115,7 +115,10 @@ class _LoginScreenState extends State<LoginScreen>
                             ),
                             const Spacer(),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                AppRoutes.goTo(
+                                    context, AppRoutes.forgot_password);
+                              },
                               child: Text(
                                 'Forgot Password?',
                                 style: TextStyle(color: Colors.black),

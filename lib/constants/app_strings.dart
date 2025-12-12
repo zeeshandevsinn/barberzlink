@@ -9,11 +9,13 @@ class AppStrings {
   static const String barberImage = "assets/images/barbers.jpg";
   static const String barbershopImage = "assets/images/barber_shop.jpg";
   static const String newProductImage = "assets/images/new_product.jpg";
-  static const String appLogo = "assets/images/barberz_logo.png";
+  static const String appLogo = "assets/images/app_logo.png";
   static const String appFrontImage = "assets/images/app_front_page.png";
   static const String stateByStateImage = "assets/images/state by state.jpg";
   static const String businessTipsImage = "assets/images/Business tips.jpg";
-
+  //animations
+  static const String forgotAnimation =
+      "assets/animations/Forgot password.json";
   static const String stateByStateDescription =
       "The State-by-State Board Requirements features provide Students, Licensed barbers and shop owners with accurate, up-to-date licensing and regulatory information for all 50 states. Its purpose is to ensure every professional can easily understand the legal standards for working, relocating, hiring, or maintaining compliance—saving time, preventing violations, and supporting a higher level of professionalism across the industry.  It also provides licensed transfer information as well as testing information for all 50 States.";
   static const String businessTipsDescription =

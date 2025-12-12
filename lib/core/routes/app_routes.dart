@@ -29,6 +29,8 @@ import 'package:barberzlink/view/state_by_state/state_by_state_search_screen.dar
 import 'package:barberzlink/view/state_by_state/state_detail_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../view/authtentication/forgot_password/forgot_password_screen.dart';
+import '../../view/authtentication/security/otp_verification_screen.dart';
 import '../../view/barbers/barber_detailed_page.dart';
 import '../../view/barbers/barbers_registration_screen.dart';
 import '../../view/barbers/barbers_search_screen.dart';
@@ -86,6 +88,8 @@ class AppRoutes {
   static const String business_search = "/business/search";
   static const String business_detail = "/business/detail";
   static const String business_payment = "/business/payment";
+  static const String forgot_password = "/forgot_password";
+  static const String security_otp_verification = "/security/otp_verification";
 
   // Route map
   static Map<String, WidgetBuilder> routes = {
@@ -110,6 +114,7 @@ class AppRoutes {
       final userType = args is String ? args : null;
       return PaymentPlansScreen(userType: userType);
     },
+    forgot_password: (context) => ForgotPasswordScreen(),
     barber_payment: (context) => const BarberPaymentPlanScreen(),
     event_payment: (context) => const EventPaymentPlanScreen(),
     school_payment: (context) => const SchoolPaymentPlanScreen(),
@@ -126,6 +131,7 @@ class AppRoutes {
         job: job ?? Injections.instance.jobsFeed.first,
       );
     },
+    security_otp_verification: (context) => const OTPVerifyScreen(),
     barber_detail: (context) => const BarberDetailPage(),
     barberShop_detail: (context) => const BarberShopDetailScreen(
           shopName: "Red Blade Barbershop",
